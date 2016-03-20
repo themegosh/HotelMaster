@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package hotelmaster;
 
 /**
@@ -27,6 +23,8 @@ public abstract class Account {
     public void changePassword(String oldPass, String newPass){
      
         //Testing Git Hub Here
+     //hi
+        
         //toast
     }
 
