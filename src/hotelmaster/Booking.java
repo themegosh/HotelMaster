@@ -18,4 +18,6 @@ public class Booking {
     Room room;
     User account;
     int id;
+    
+    //test
 }
