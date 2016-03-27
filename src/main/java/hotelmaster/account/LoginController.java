@@ -3,25 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelmaster.home;
+package hotelmaster.account;
 
+import javax.inject.Inject;
+
+import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- *
- * @author mathe_000
- */
 @Controller
-@RequestMapping({"/"})
-public class HomeController {
+public class LoginController {
     
-    @RequestMapping(value={"", "home"})
-    public String home(){
-        return "home";
+    @RequestMapping(value="/login", method = RequestMethod.GET)
+    public String showLoginPage() {
+        return "login";
     }
-    
     
 }

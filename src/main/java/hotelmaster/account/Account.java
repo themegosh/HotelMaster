@@ -1,5 +1,5 @@
 
-package hotelmaster;
+package hotelmaster.account;
 
 /**
  *

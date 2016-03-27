@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelmaster;
+package hotelmaster.account;
+
+import hotelmaster.Report;
+import hotelmaster.account.Account;
 
 /**
  *
@@ -33,5 +36,4 @@ public class Admin extends Account {
     public Report viewReport(){
         return null;
     }
-    
 }

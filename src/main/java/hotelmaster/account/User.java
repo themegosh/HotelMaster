@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelmaster;
+package hotelmaster.account;
 
+import hotelmaster.account.Account;
 import java.util.Date;
 
 /**
