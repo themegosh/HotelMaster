@@ -11,5 +11,25 @@
     -->
     <facebook:config app-id="${facebook.app.id}" app-secret="${facebook.app.secret}"/>
     
+    <!--
+        Datasource connection settings in Spring
+    -->
     
+    <bean id="springDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" >
+        <property name="url" value="jdbc:mysql://dmdev.ca:3306/themegos_hotel_master" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="username" value="themegos_hotel_m" />
+        <property name="password" value="A2b8rbd6%rT9" />
+        <property name="removeAbandoned" value="true"/>
+        <property name="initialSize" value="20" />
+        <property name="maxActive" value="30" />
+    </bean>
+
+     <!--
+        Dao class configuration in spring
+    -->
+     <bean id="HotelDatabaseBean" class="hotelmaster.rooms.Room">
+        <property name="dataSource" ref="springDataSource"/>
+    </bean>
+
 </beans>
