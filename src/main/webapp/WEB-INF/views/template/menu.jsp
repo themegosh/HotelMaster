@@ -8,5 +8,9 @@
     <li><spring:url value="/login" var="loginUrl" htmlEscape="true" />
         <a href="${loginUrl}">Login</a>
     </li>
+    
+    <li><spring:url value="/contact" var="contactUrl" htmlEscape="true" />
+        <a href="${contactUrl}">Contact Us</a>
+    </li>
 
 </ul>

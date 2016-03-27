@@ -11,5 +11,9 @@
     <definition name="login" extends="DefaultTemplate">
         <put-attribute name="body"	value="/WEB-INF/views/login.jsp" />
     </definition>
-
+    
+    <definition name="contact" extends="DefaultTemplate">
+        <put-attribute name="body"	value="/WEB-INF/views/contact.jsp" />
+    </definition>
+    
 </tiles-definitions>
