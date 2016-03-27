@@ -11,7 +11,8 @@
 hs_err_pid*
 
 #Maven
-target/
+target/*
+/target/*
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -22,10 +23,10 @@ buildNumber.properties
 .mvn/timing.properties
 
 #Netbeans
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
+nbproject/private/*
+build/*
+nbbuild/*
+dist/*
+nbdist/*
 nbactions.xml
-.nb-gradle/
+.nb-gradle/*
