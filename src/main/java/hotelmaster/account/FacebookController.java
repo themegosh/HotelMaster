@@ -49,6 +49,7 @@ public class FacebookController {
                     .apiKey(API_KEY)
                     .apiSecret(API_SECRET)
                     .callback(CALLBACK_URL)
+                    .scope("email")
                     .build(FacebookApi.instance());
             
             request.setAttribute(ATTR_OAUTH_REQUEST_TOKEN, EMPTY_TOKEN, SCOPE_SESSION);
@@ -64,13 +65,13 @@ public class FacebookController {
 
         // getting request token
         
-        
         OAuth20Service service = new ServiceBuilder()
                     .apiKey(API_KEY)
                     .apiSecret(API_SECRET)
                     .callback(CALLBACK_URL)
+                    .scope("email")
                     .build(FacebookApi.instance());
-        
+                
         //OAuthRequest requestToken = (OAuthRequest) request.getAttribute(ATTR_OAUTH_REQUEST_TOKEN, SCOPE_SESSION);
 
         // getting access token
@@ -82,6 +83,8 @@ public class FacebookController {
         // getting user profile
         OAuthRequest oauthRequest = new OAuthRequest(Verb.GET, "https://graph.facebook.com/me", service);
         service.signRequest(accessToken, oauthRequest);
+        //add the request parameters for various other facebook info:
+        oauthRequest.addQuerystringParameter("fields", "id, first_name, last_name, email, gender");
         Response oauthResponse = oauthRequest.send();
         
         //this is where facebook will throw back a JSON object to form the user object, and update the DB.
