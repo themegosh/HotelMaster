@@ -55,7 +55,7 @@
             <div class="row social-button-row">
                 <div class="col-lg-4">
                     <!-- Add Facebook sign in button -->
-                    <a href="${pageContext.request.contextPath}/auth/facebook"><button class="btn btn-facebook"><i class="icon-facebook"></i> | Sign in with Facebook</button></a>
+                    <a href="${pageContext.request.contextPath}/login-facebook"><button class="btn btn-facebook"><i class="icon-facebook"></i> | Sign in with Facebook</button></a>
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@
         <title>Connected to Facebook</title>
     </head>
     <body>
-        <h3>Connected to Facebook</h3>
+        <h2>Successfully connected to Facebook!</h2>
         <h3>Hello, <span th:text="${facebookProfile.name}">Some User</span>!</h3>
             <p>
                 You are now connected to your Facebook account.

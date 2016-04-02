@@ -7,11 +7,6 @@
     <context:component-scan base-package="hotelmaster" />
 
     <!--
-        Configures FB and Twitter support.
-    -->
-    <facebook:config app-id="${facebook.app.id}" app-secret="${facebook.app.secret}"/>
-    
-    <!--
         Datasource connection settings in Spring
     -->
     

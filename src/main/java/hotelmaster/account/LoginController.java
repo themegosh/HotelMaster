@@ -7,7 +7,6 @@ package hotelmaster.account;
 
 import javax.inject.Inject;
 
-import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +18,14 @@ public class LoginController {
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public String showLoginPage() {
         return "login";
+    }
+    
+    @RequestMapping(value="/loginSuccess", method = RequestMethod.GET)
+    public ModelAndView showLoginSuccess() {
+        
+        
+        
+        return new ModelAndView("loginSuccess");
     }
     
 }
