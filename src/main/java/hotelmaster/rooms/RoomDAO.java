@@ -9,15 +9,30 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Component;
 
 //Author - Danny Ardona
 
+@Component
 public class RoomDAO implements RoomDAOInterface {
 
-    private JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate = new JdbcTemplate();
+    
+    public DriverManagerDataSource getDataSource(){
         
+        DriverManagerDataSource datasource = new DriverManagerDataSource();
+        datasource.setDriverClassName("com.mysql.jdbc.Driver");
+        datasource.setUrl("jdbc:mysql://dmdev.ca:3306/themegos_hotel_master");
+        datasource.setUsername("themegos_hotel_m");
+        datasource.setPassword("A2b8rbd6%rT9");
+        
+        return datasource;
+    }
+    
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
+        jdbcTemplate.setDataSource(getDataSource());
     }
     
     /**
@@ -27,6 +42,8 @@ public class RoomDAO implements RoomDAOInterface {
      */
     @Override
     public int insertRoom(Room room) {
+        jdbcTemplate.setDataSource(getDataSource());
+        
         String insertQuery = "INSERT INTO room VALUES (room_name, floor, price_per_night, max_guests) VALUES (?, ?, ?, ?)";
         Object[] params = new Object[]{room.getRoomName(), room.getFloor(), room.getPricePerNight(), room.getMaxGuests()};
         int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.DECIMAL, Types.INTEGER};
@@ -41,6 +58,8 @@ public class RoomDAO implements RoomDAOInterface {
     
     @Override
     public void deleteRoom(String roomName) {
+        jdbcTemplate.setDataSource(getDataSource());
+        
         String deleteQuery = "DELETE FROM room WHERE room_name = ?";    
         int count = jdbcTemplate.update(deleteQuery, roomName, Types.VARCHAR);
         if (count > 0)
@@ -58,6 +77,8 @@ public class RoomDAO implements RoomDAOInterface {
     
     @Override
     public int updateRoom(Room room, String newRoomName) {
+        jdbcTemplate.setDataSource(getDataSource());
+        
         String updateQuery = "UPDATE room SET room_name = ?, floor = ?, price_per_night = ?, max_guests = ? WHERE room_name = ?";
         Object[] params = new Object[]{newRoomName, room.getFloor(), room.getPricePerNight(), room.getMaxGuests(), room.getRoomName()};
         int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.DECIMAL, Types.INTEGER, Types.VARCHAR};
@@ -72,7 +93,10 @@ public class RoomDAO implements RoomDAOInterface {
     
     @Override
     public List<Room> list() {
+        jdbcTemplate.setDataSource(getDataSource());
+        
         String query = "SELECT * FROM room";
+        
         List<Room> roomList = jdbcTemplate.query(query, new RowMapper<Room>() {
             
             @Override
@@ -100,6 +124,8 @@ public class RoomDAO implements RoomDAOInterface {
     
     @Override
     public Room get(String roomName) {
+        jdbcTemplate.setDataSource(getDataSource());
+        
         String query = "SELECT * FROM room WHERE room_name = '" + roomName + "'";
         
         return jdbcTemplate.query(query, new ResultSetExtractor<Room>() {

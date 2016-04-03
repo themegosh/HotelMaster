@@ -20,7 +20,7 @@ public class RoomController {
     @Autowired
     private RoomDAO roomDAO;
     
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/room")
     public ModelAndView listRoom(ModelAndView model) throws IOException {
         List<Room> roomList = roomDAO.list();
         model.addObject("roomList", roomList);

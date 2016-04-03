@@ -5,9 +5,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="hotelmaster" />
-
+    <mvc:annotation-driven />
+    
     <!--
-        Configures FB and Twitter support.
+        Configures FB and Twitter support.    <mvc:annotation-driven />
+
     -->
     <facebook:config app-id="${facebook.app.id}" app-secret="${facebook.app.secret}"/>
     
@@ -24,7 +26,7 @@
         <property name="dataSource" ref="dataSource"/>   
     </bean>
     
-    <bean id="roomDao" class="hotelmaster.rooms.Room">
+    <bean id="roomDao" class="hotelmaster.Room">
         <property name="jdbcTemplate" ref="jdbcTemplate" /> 
     </bean>
     

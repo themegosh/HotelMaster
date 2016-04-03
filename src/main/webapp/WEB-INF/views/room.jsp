@@ -17,6 +17,10 @@
     <body>
         <h1>Room Manager</h1>
         
+        <c:forEach var="room" items="${roomList}" varStatus="status">
+            ${room.roomName}
+        </c:forEach>    
+        
         <form method="POST" role="form">
             <label for="room_name">Room name: </label>
             <input id="room_name" type="text" name="roomName" /> <br />
