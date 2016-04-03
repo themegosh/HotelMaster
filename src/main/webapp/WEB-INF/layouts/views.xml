@@ -12,4 +12,8 @@
         <put-attribute name="body"	value="/WEB-INF/views/login.jsp" />
     </definition>
 
+    <definition name="room" extends="DefaultTemplate">
+        <put-attribute name="body"      value="/WEB-INF/views/room.jsp" />
+    </definition>
+
 </tiles-definitions>

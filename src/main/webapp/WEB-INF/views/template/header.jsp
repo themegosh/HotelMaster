@@ -2,5 +2,6 @@
 <header>
     <p>This is the header...</p>
 
-    <p>Trying to retireve value: <c:out value="${loginObj}" /> </p>
+    <p>Trying to retrieve value: <c:out value="${loginObj}" /> </p>
+    
 </header>
