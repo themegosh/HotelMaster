@@ -20,6 +20,8 @@ import static org.springframework.web.context.request.RequestAttributes.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import org.json.*;
+
 
 /**
  *
@@ -91,6 +93,14 @@ public class FacebookController {
         System.out.println("***************************************************");
         System.out.println(oauthResponse.getBody());
         System.out.println("***************************************************");
+        
+        JSONObject jobj = new JSONObject(oauthResponse.getBody());
+        
+        //well assume that if we have an id, the user logged on successfully
+        if (!jobj.isNull("id")) {
+            Account account = AccountFactory.buildFromFacebook(jobj);
+        }
+        
 
         return new ModelAndView("redirect:loginSuccess");
     }

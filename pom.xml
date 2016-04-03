@@ -57,6 +57,14 @@
             <artifactId>scribejava-apis</artifactId>
             <version>2.5.2</version>
         </dependency>
+        
+        <!-- JSON parser -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160212</version>
+        </dependency>
+
 
     </dependencies>
     

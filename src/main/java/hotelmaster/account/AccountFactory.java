@@ -5,11 +5,25 @@
  */
 package hotelmaster.account;
 
+import org.json.JSONObject;
+
 /**
  *
  * @author mathe_000
  */
 public class AccountFactory {
+    
+        
+    public static Account buildFromFacebook(JSONObject jobj) {
+        
+        IAccountsDao dao = new AccountsDao();
+        Account account = dao.selectAccount(jobj.getString("id"));
+        
+        
+        
+        
+        return null;
+    }
     
     public static void registerUser(){
         

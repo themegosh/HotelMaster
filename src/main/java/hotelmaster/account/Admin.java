@@ -14,12 +14,8 @@ import hotelmaster.account.Account;
  */
 public class Admin extends Account {
     
-    public Admin(String email, String password){
-        super(email, password);
-    }
-    
-    public Admin(String uid){
-        super(uid);
+    public Admin(int id, String firstName, String lastName, String email, String password){
+        super(id, firstName, lastName, email, password);
     }
     
     public void addRoom(){
