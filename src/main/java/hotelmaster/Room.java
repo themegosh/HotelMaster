@@ -7,11 +7,10 @@ package hotelmaster;
 
 import java.util.HashMap;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
-/**
- *
- * @author mathe_000
- */
+//Author - Danny Ardona
+
 public class Room {
     
     //Variables for the Room table in the database
@@ -41,6 +40,10 @@ public class Room {
     //Getters and setters
     public int getRoomID() {
         return roomID;
+    }
+    
+    public void setRoomID(int roomID){
+        this.roomID = roomID;
     }
 
     public String getRoomName() {
@@ -74,6 +77,5 @@ public class Room {
     public void setMaxGuests(int maxGuests) {
         this.maxGuests = maxGuests;
     }
-    
     
 }
