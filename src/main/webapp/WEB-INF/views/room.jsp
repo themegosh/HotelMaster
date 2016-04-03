@@ -28,7 +28,7 @@
             <input id="room_price" type="number" name="price"/> <br />
             
             <label for="room_max_guests">Max number of guests: </label>
-            <input id="room_max_guests" type="number" name="maxGuests"/> <br />
+            <input id="room_max_guests" type="number" name="maxGuests" min="1" max="8"/> <br />
             
             <button type="submit" name="add">Add</button> &nbsp;
             <button type="submit" name="delete">Delete</button> &nbsp; 
