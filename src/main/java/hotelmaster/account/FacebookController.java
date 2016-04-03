@@ -10,6 +10,7 @@ import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.*;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.github.scribejava.core.oauth.OAuthService;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -29,18 +30,16 @@ import org.json.*;
  */
 @Controller
 public class FacebookController {
+        
+    private final String ATTR_OAUTH_ACCESS_TOKEN = "ATTR_OAUTH_ACCESS_TOKEN";
+    private final String ATTR_OAUTH_REQUEST_TOKEN = "ATTR_OAUTH_REQUEST_TOKEN";
     
-    @Autowired
-    AccountsDao accountsDao;
+    private final String API_KEY = "1529483847357548";
+    private final String API_SECRET = "e3cf5bcc041b001fac159ff8a7518108";
+    private final String CALLBACK_URL = "http://localhost:8084/facebook-callback"; //this url may change depending on tomcat config (mainly port)
     
-    String ATTR_OAUTH_ACCESS_TOKEN = "ATTR_OAUTH_ACCESS_TOKEN";
-    String ATTR_OAUTH_REQUEST_TOKEN = "ATTR_OAUTH_REQUEST_TOKEN";
+    private List<String> messages;
     
-    String API_KEY = "1529483847357548";
-    String API_SECRET = "e3cf5bcc041b001fac159ff8a7518108";
-    String CALLBACK_URL = "http://localhost:8084/facebook-callback"; //this url may change depending on tomcat config (mainly port)
-    
-
     private static final Token EMPTY_TOKEN = null;
 
     @RequestMapping(value={"/login-facebook"}, method = RequestMethod.GET)
@@ -68,8 +67,7 @@ public class FacebookController {
     @RequestMapping(value={"/facebook-callback"}, method = RequestMethod.GET)
     public ModelAndView callback(@RequestParam(value="code", required=false) String oauthVerifier, WebRequest request) {
 
-        // getting request token
-        
+        // build the oath service 
         OAuth20Service service = new ServiceBuilder()
                     .apiKey(API_KEY)
                     .apiSecret(API_SECRET)
@@ -91,23 +89,31 @@ public class FacebookController {
         //add the request parameters for various other facebook info:
         oauthRequest.addQuerystringParameter("fields", "id, first_name, last_name, email, gender");
         Response oauthResponse = oauthRequest.send();
-        
-        //this is where facebook will throw back a JSON object to form the user object, and update the DB.
+
+        //this is where facebook will throw back a JSON object to from the user object, and update the DB.
         System.out.println("***************************************************");
         System.out.println(oauthResponse.getBody());
         System.out.println("***************************************************");
-        
+
         JSONObject jobj = new JSONObject(oauthResponse.getBody());
-        
-        //well assume that if we have an id, the user logged on successfully
+
+        //we'll assume that if we have an id, the user logged on successfully
         if (!jobj.isNull("id")) {
+
+            try {
+                //this will start the DB login flow
+                Account account = new AccountFactory().processLogin(jobj); 
+
+                //here we need to set up sessions
             
-            Account account = accountsDao.selectAccount(jobj.getString("id"));
-            
-            //Account account = AccountFactory.buildFromFacebook(jobj);
+            } catch (Exception e){ //todo handle exceptions such as linking
+                
+            }
+
+
+
         }
         
-
-        return new ModelAndView("redirect:loginSuccess");
+        return new ModelAndView("redirect:loginSuccess", "", "");
     }
 }

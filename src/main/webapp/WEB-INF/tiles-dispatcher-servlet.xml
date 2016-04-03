@@ -32,6 +32,8 @@
     -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>
+    
+    <bean id="applicationContextProvder" class="hotelmaster.util.ApplicationContextProvider"/>
 
     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <property name="definitions">
@@ -42,7 +44,9 @@
         </property>
     </bean>
     
-    <bean id="accountsDao" class="hotelmaster.account.AccountsDaoImpl" />
+    <bean id="AccountsDao" class="hotelmaster.account.AccountsDaoImpl" />
+    <bean id="accountFactory" class="hotelmaster.account.AccountFactory" />
+    
     
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
         <property name="url" value="jdbc:mysql://dmdev.ca:3306/themegos_hotel_master" />
@@ -50,9 +54,5 @@
         <property name="username" value="themegos_hotel_m" />
         <property name="password" value="A2b8rbd6%rT9" />
     </bean>
-    
-    
-
-
-
+   
 </beans>

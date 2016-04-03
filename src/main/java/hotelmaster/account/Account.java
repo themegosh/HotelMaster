@@ -12,6 +12,7 @@ public class Account {
     String lastName;
     String password;
     String facebookId;
+    String gender;
     
     //TODO deal with Hashing the password, and class access to that info
     
@@ -83,7 +84,18 @@ public class Account {
     public void setFacebookId(String facebookId) {
         this.facebookId = facebookId;
     }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
     
-    
+    @Override
+    public String toString(){
+        return "[Account] id: " + id + " firstName: " + firstName + " lastName " + lastName + " email " + email + " gender " + gender;
+    }
     
 }

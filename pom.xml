@@ -64,6 +64,12 @@
             <artifactId>json</artifactId>
             <version>20160212</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>1.9.4.RELEASE</version>
+        </dependency>
+    
 
 
     </dependencies>

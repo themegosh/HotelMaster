@@ -5,13 +5,19 @@
  */
 package hotelmaster.account;
 
+import org.json.JSONObject;
+import org.springframework.stereotype.Repository;
+
 /**
  *
  * @author Doug
  */
+@Repository
 public interface AccountsDao {
     int insertAccount(Account account);
     void deleteAccount(int id);
-    Account selectAccount(String facebookId);
-    int updateAccount(Account account);
+    Account selectAccountByEmail(String email);
+    Account selectAccountByFBId(String fbId);
+    int updateAccountByFacebook(JSONObject fb);
+    int updateAccountByEmail(Account account);
 }
