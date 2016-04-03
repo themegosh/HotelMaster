@@ -30,6 +30,9 @@ import org.json.*;
 @Controller
 public class FacebookController {
     
+    @Autowired
+    AccountsDao accountsDao;
+    
     String ATTR_OAUTH_ACCESS_TOKEN = "ATTR_OAUTH_ACCESS_TOKEN";
     String ATTR_OAUTH_REQUEST_TOKEN = "ATTR_OAUTH_REQUEST_TOKEN";
     
@@ -98,7 +101,10 @@ public class FacebookController {
         
         //well assume that if we have an id, the user logged on successfully
         if (!jobj.isNull("id")) {
-            Account account = AccountFactory.buildFromFacebook(jobj);
+            
+            Account account = accountsDao.selectAccount(jobj.getString("id"));
+            
+            //Account account = AccountFactory.buildFromFacebook(jobj);
         }
         
 

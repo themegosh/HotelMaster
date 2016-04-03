@@ -16,8 +16,8 @@ public class AccountFactory {
         
     public static Account buildFromFacebook(JSONObject jobj) {
         
-        IAccountsDao dao = new AccountsDao();
-        Account account = dao.selectAccount(jobj.getString("id"));
+        //IAccountsDao dao = new AccountsDao();
+        //Account account = dao.selectAccount(jobj.getString("id"));
         
         
         
