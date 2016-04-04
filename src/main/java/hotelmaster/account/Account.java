@@ -20,11 +20,9 @@ public class Account {
     //TODO deal with Hashing the password, and class access to that info
     
     public Account(){
-        System.out.println("Account default constructor called!");
     }
     
     public Account(int id, String firstName, String lastName, String email, String password){
-        System.out.println("Account paramaterized constructor called!");
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -41,7 +39,6 @@ public class Account {
     }
 
     public void setId(int id) {
-        System.out.println("setId called!");
         this.id = id;
     }
     
