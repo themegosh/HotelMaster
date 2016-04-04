@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelmaster.account;
+package hotelmaster.account.facebook;
 
 import com.github.scribejava.apis.FacebookApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.*;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.github.scribejava.core.oauth.OAuthService;
+import hotelmaster.account.Account;
+import hotelmaster.account.AccountFactory;
 import hotelmaster.util.ApplicationContextProvider;
 import java.util.List;
 
@@ -107,19 +109,15 @@ public class FacebookController {
 
         //we'll assume that if we have an id, the user logged on successfully
         if (!jobj.isNull("id")) {
-
             try {
                 //this will start the DB login flow
-                new AccountFactory().processLogin(jobj);
+                new AccountFactory().loginFacebook(jobj);
                                                 
                 System.out.println("facebookController: /facebook-callback accountSession:" + accountSession.toString());
             
             } catch (Exception e){ //todo handle exceptions such as linking
                 e.printStackTrace();
             }
-
-            
-
         }
         modelAndView.setViewName("redirect:home");
         return modelAndView;

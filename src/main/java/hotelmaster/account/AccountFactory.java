@@ -22,7 +22,7 @@ public class AccountFactory {
     @Autowired
     Account accountSession;
   
-    public void processLogin(JSONObject fb) throws Exception {
+    public void loginFacebook(JSONObject fb) throws Exception {
         
         ApplicationContext appContext = new ApplicationContextProvider().getApplicationContext();
         AccountsDao accountsDao = (AccountsDao) appContext.getBean("AccountsDao");
@@ -35,7 +35,17 @@ public class AccountFactory {
             accountsDao.updateAccountByFacebook(fb);
         } else {
             //we have a new user
-            buildAccountFromFB(fb);
+            if (!fb.isNull("id"))
+                accountSession.setFacebookId(fb.getString("id"));
+            if (!fb.isNull("first_name"))
+                accountSession.setFirstName(fb.getString("first_name"));
+            if (!fb.isNull("last_name"))
+                accountSession.setLastName(fb.getString("last_name"));
+            if (!fb.isNull("email"))
+                accountSession.setEmail(fb.getString("email"));
+            if (!fb.isNull("gender"))
+                accountSession.setGender(fb.getString("gender"));
+        
             accountsDao.insertNewAccount();
         }
     }
@@ -52,19 +62,4 @@ public class AccountFactory {
     public void registerAdmin(){
         
     }
-    
-    public void buildAccountFromFB(JSONObject fb){
-        
-        if (!fb.isNull("id"))
-            accountSession.setFacebookId(fb.getString("id"));
-        if (!fb.isNull("first_name"))
-            accountSession.setFirstName(fb.getString("first_name"));
-        if (!fb.isNull("last_name"))
-            accountSession.setLastName(fb.getString("last_name"));
-        if (!fb.isNull("email"))
-            accountSession.setEmail(fb.getString("email"));
-        if (!fb.isNull("gender"))
-            accountSession.setGender(fb.getString("gender"));
-    }
-    
 }

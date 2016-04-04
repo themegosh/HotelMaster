@@ -37,6 +37,9 @@
                             <li><spring:url value="/login" var="loginUrl" htmlEscape="true" />
                                 <a href="${loginUrl}">Login</a>
                             </li>
+                            <li><spring:url value="/register" var="registerUrl" htmlEscape="true" />
+                                <a href="${registerUrl}">Register</a>
+                            </li>
                         </c:otherwise>
                     </c:choose>
                     
