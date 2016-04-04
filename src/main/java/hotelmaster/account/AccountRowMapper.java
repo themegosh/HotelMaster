@@ -5,9 +5,11 @@
  */
 package hotelmaster.account;
 
+import hotelmaster.util.ApplicationContextProvider;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
@@ -20,6 +22,9 @@ public class AccountRowMapper implements RowMapper{
     Account accountSession;
     
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+        ApplicationContext appContext = new ApplicationContextProvider().getApplicationContext();
+        accountSession = (Account) appContext.getBean("account");
+        
         accountSession.setId(rs.getInt("account_id"));
         accountSession.setFirstName(rs.getString("first_name"));
         accountSession.setLastName(rs.getString("last_name"));
