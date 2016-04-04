@@ -10,6 +10,7 @@ import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.*;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.github.scribejava.core.oauth.OAuthService;
+import hotelmaster.util.ApplicationContextProvider;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.*;
@@ -22,6 +23,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import org.json.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 /**
@@ -30,7 +33,10 @@ import org.json.*;
  */
 @Controller
 public class FacebookController {
-        
+    
+    @Autowired
+    Account accountSession;
+    
     private final String ATTR_OAUTH_ACCESS_TOKEN = "ATTR_OAUTH_ACCESS_TOKEN";
     private final String ATTR_OAUTH_REQUEST_TOKEN = "ATTR_OAUTH_REQUEST_TOKEN";
     
@@ -66,6 +72,8 @@ public class FacebookController {
 
     @RequestMapping(value={"/facebook-callback"}, method = RequestMethod.GET)
     public ModelAndView callback(@RequestParam(value="code", required=false) String oauthVerifier, WebRequest request) {
+        
+        ModelAndView modelAndView = new ModelAndView();
 
         // build the oath service 
         OAuth20Service service = new ServiceBuilder()
@@ -90,7 +98,7 @@ public class FacebookController {
         oauthRequest.addQuerystringParameter("fields", "id, first_name, last_name, email, gender");
         Response oauthResponse = oauthRequest.send();
 
-        //this is where facebook will throw back a JSON object to from the user object, and update the DB.
+        //this is where facebook will throw back a JSON object to form the user object, and update the DB.
         System.out.println("***************************************************");
         System.out.println(oauthResponse.getBody());
         System.out.println("***************************************************");
@@ -102,18 +110,18 @@ public class FacebookController {
 
             try {
                 //this will start the DB login flow
-                Account account = new AccountFactory().processLogin(jobj); 
-
-                //here we need to set up sessions
+                new AccountFactory().processLogin(jobj);
+                                                
+                System.out.println("facebookController: /facebook-callback accountSession:" + accountSession.toString());
             
             } catch (Exception e){ //todo handle exceptions such as linking
-                
+                e.printStackTrace();
             }
 
-
+            
 
         }
-        
-        return new ModelAndView("redirect:loginSuccess", "", "");
+        modelAndView.setViewName("redirect:loginSuccess");
+        return modelAndView;
     }
 }

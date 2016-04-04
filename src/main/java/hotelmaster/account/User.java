@@ -5,15 +5,14 @@
  */
 package hotelmaster.account;
 
-import hotelmaster.account.Account;
 import java.util.Date;
 
 /**
  *
  * @author mathe_000
  */
-public class User extends Account {
-    private String gender;
+public class User {
+    
     private Date birthdate;
     private String photo;
     private String phone;
@@ -21,18 +20,18 @@ public class User extends Account {
     private String city;
     private String postalCode;
     private String country;
-    
-    public User(int id, String firstName, String lastName, String email, String password){
-        super(id, firstName, lastName, email, password);
+
+    public User(Date birthdate, String photo, String phone, String address, String city, String postalCode, String country) {
+        this.birthdate = birthdate;
+        this.photo = photo;
+        this.phone = phone;
+        this.address = address;
+        this.city = city;
+        this.postalCode = postalCode;
+        this.country = country;
     }
 
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
+    public User() {
     }
 
     public Date getBirthdate() {

@@ -35,12 +35,13 @@ public class AccountsDaoImpl implements AccountsDao {
     @Qualifier("dataSource")
     private DataSource dataSource;
     
-    private Logger logger = LoggerFactory.getLogger(AccountsDaoImpl.class);
+    @Autowired
+    Account accountSession;
        
     @Override
-    public int insertAccount(Account account) {
+    public int insertNewAccount() {
         String inserQuery = "INSERT INTO account (first_name, last_name, email, password, facebook_id, gender) VALUES (?, ?, ?, ?, ?, ?) ";
-        Object[] params = new Object[] { account.getFirstName(), account.getLastName(), account.getEmail(), account.getPassword(), account.getFacebookId(), account.getGender() };
+        Object[] params = new Object[] { accountSession.getFirstName(), accountSession.getLastName(), accountSession.getEmail(), accountSession.getPassword(), accountSession.getFacebookId(), accountSession.getGender() };
         int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };
         
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
@@ -73,44 +74,25 @@ public class AccountsDaoImpl implements AccountsDao {
     public void deleteAccount(int id){
         
     }
-    
+        
     @Override
-    public Account selectAccountByEmail(String email){
-        Account account = null;
-        String selectQuery = "SELECT * FROM account WHERE email = ? ";
-        Object[] params = new Object[] { email };
+    public boolean selectAccountByFBId(String fbId) {
+        boolean foundAccount = false;
         
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
-        
-        try {
-            account = (Account) jdbcTemplate.queryForObject(selectQuery, params, new AccountRowMapper());
-        }
-        catch (Exception e) {
-            logger.debug(e.toString());
-            System.out.println(e.toString());
-            return account;
-        }
-        return account; 
-    }
-    
-    @Override
-    public Account selectAccountByFBId(String fbId) {
-        
-        Account account = null;
         String selectQuery = "SELECT * FROM account WHERE facebook_id = ? ";
         Object[] params = new Object[] { fbId };
         
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
         
         try {
-            account = (Account) jdbcTemplate.queryForObject(selectQuery, params, new AccountRowMapper());
+            accountSession = (Account) jdbcTemplate.queryForObject(selectQuery, params, new AccountRowMapper());
+            foundAccount = true;
         }
         catch (Exception e) {
-            logger.debug(e.toString());
+            //e.printStackTrace();
             System.out.println(e.toString());
-            return account;
         }
-        return account; 
+        return foundAccount; 
     }
     
 }

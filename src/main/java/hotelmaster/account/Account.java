@@ -1,36 +1,35 @@
 
 package hotelmaster.account;
 
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author mathe_000
  */
+@Component
 public class Account {
-    int id;
-    String email;  
-    String firstName;
-    String lastName;
-    String password;
-    String facebookId;
-    String gender;
+    private int id;
+    private String email;  
+    private String firstName;
+    private String lastName;
+    private String password;
+    private String facebookId;
+    private String gender;
     
     //TODO deal with Hashing the password, and class access to that info
     
     public Account(){
-        
+        System.out.println("Account default constructor called!");
     }
     
     public Account(int id, String firstName, String lastName, String email, String password){
+        System.out.println("Account paramaterized constructor called!");
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-    }
-    
-    public Account(int id, String firstName, String lastName, String email, String password, String facebookId){
-        this(id, firstName, lastName, email, password);
-        this.facebookId = facebookId;
     }
     
     public void changePassword(String oldPass, String newPass){
@@ -42,6 +41,7 @@ public class Account {
     }
 
     public void setId(int id) {
+        System.out.println("setId called!");
         this.id = id;
     }
     

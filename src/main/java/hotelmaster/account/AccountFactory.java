@@ -18,54 +18,53 @@ import org.springframework.stereotype.Service;
  * @author mathe_000
  */
 public class AccountFactory {
+    
+    @Autowired
+    Account accountSession;
   
-    public static Account processLogin(JSONObject fb) throws Exception {
+    public void processLogin(JSONObject fb) throws Exception {
         
         ApplicationContext appContext = new ApplicationContextProvider().getApplicationContext();
         AccountsDao accountsDao = (AccountsDao) appContext.getBean("AccountsDao");
-        
+        accountSession = (Account) appContext.getBean("account");
+                
         //try to find the account by the facebook id
-        Account account = accountsDao.selectAccountByFBId(fb.getString("id"));
-        
-        //we have a new user
-        if (account == null) { 
-            account = AccountFactory.buildAccountFromFB(fb);
-            accountsDao.insertAccount(account);
-        } else { //a returning user
+        if (accountsDao.selectAccountByFBId(fb.getString("id"))){
+            //we found it
             //update their facebook details
             accountsDao.updateAccountByFacebook(fb);
+        } else {
+            //we have a new user
+            buildAccountFromFB(fb);
+            accountsDao.insertNewAccount();
         }
-        return account;
     }
     
     
-    public static void registerUser(){
+    public void registerUser(){
         
     }
     
-    public static void changeUserAccess(){
+    public void changeUserAccess(){
         
     }
     
-    public static void registerAdmin(){
+    public void registerAdmin(){
         
     }
     
-    public static Account buildAccountFromFB(JSONObject fb){
-        Account account = new Account();
+    public void buildAccountFromFB(JSONObject fb){
         
         if (!fb.isNull("id"))
-            account.setFacebookId(fb.getString("id"));
+            accountSession.setFacebookId(fb.getString("id"));
         if (!fb.isNull("first_name"))
-            account.setFirstName(fb.getString("first_name"));
+            accountSession.setFirstName(fb.getString("first_name"));
         if (!fb.isNull("last_name"))
-            account.setLastName(fb.getString("last_name"));
+            accountSession.setLastName(fb.getString("last_name"));
         if (!fb.isNull("email"))
-            account.setEmail(fb.getString("email"));
+            accountSession.setEmail(fb.getString("email"));
         if (!fb.isNull("gender"))
-            account.setGender(fb.getString("gender"));
-        
-        return account;
+            accountSession.setGender(fb.getString("gender"));
     }
     
 }
