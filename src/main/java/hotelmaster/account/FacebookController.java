@@ -121,7 +121,7 @@ public class FacebookController {
             
 
         }
-        modelAndView.setViewName("redirect:loginSuccess");
+        modelAndView.setViewName("redirect:home");
         return modelAndView;
     }
 }

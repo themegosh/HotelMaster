@@ -19,19 +19,11 @@ public class LoginController {
     Account accountSession;
     
     @RequestMapping(value="/login", method = RequestMethod.GET)
-    public String showLoginPage() {
-        return "login";
-    }
-    
-    @RequestMapping(value="/loginSuccess", method = RequestMethod.GET)
-    public ModelAndView showLoginSuccess() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("loginSuccess");
-        modelAndView.addObject("userName", accountSession.getFirstName() + accountSession.getLastName());       
-        System.out.println("LoginController: /loginSuccess account:" + accountSession.toString());
+    public ModelAndView showLoginPage() {
+        ModelAndView modelAndView = new ModelAndView("login"); //viewing the login.jsp
+        modelAndView.addObject("accountSession", accountSession); //inject the session
         
-        return new ModelAndView("loginSuccess", "userName", accountSession.getFirstName() + " " + accountSession.getLastName());
-        //return modelAndView;
+        return modelAndView;
     }
-    
+        
 }

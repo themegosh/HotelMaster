@@ -21,6 +21,7 @@ public class AccountRowMapper implements RowMapper{
     @Autowired
     Account accountSession;
     
+    @Override
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
         ApplicationContext appContext = new ApplicationContextProvider().getApplicationContext();
         accountSession = (Account) appContext.getBean("account");
