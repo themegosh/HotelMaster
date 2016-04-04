@@ -27,10 +27,43 @@
                 <ul class="nav navbar-nav navbar-right">
                     <c:choose>
                         <c:when test="${accountSession.getId() > '0'}">
-                            <li>
-                                <a href="#">
-                                    Welcome back, <span><c:out value="${accountSession.getFirstName()}" /></span>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle nav-login-dropdown" data-toggle="dropdown">
+                                    <img class="img-circle" src="<c:out value="${accountSession.getProfilePicUrl()}"/>?width=40&height=40" />
+                                    <strong><c:out value="${accountSession.getFirstName()}" /></strong>
                                 </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <div class="navbar-login">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <p class="text-center">
+                                                        <img class="img-circle" src="<c:out value="${accountSession.getProfilePicUrl()}"/>?width=87&height=87" />
+                                                    </p>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <p class="text-left"><strong><c:out value="${accountSession.getFirstName()}" /> <c:out value="${accountSession.getLastName()}" /></strong></p>
+                                                    <p class="text-left small"><c:out value="${accountSession.getEmail()}" /></p>
+                                                    <p class="text-left">
+                                                        <a href="#" class="btn btn-primary btn-block btn-sm">Account Settings</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="navbar-login navbar-login-session">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <p><spring:url value="/logout" var="logoutUrl" htmlEscape="true" />
+                                                        <a href="${logoutUrl}" class="btn btn-danger btn-block">Log Out</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </li>
                         </c:when>    
                         <c:otherwise>

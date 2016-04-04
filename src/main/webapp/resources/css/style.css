@@ -1,7 +1,32 @@
 
 /* Navbar things */
 body {
-  padding-top: 70px;
+  padding-top: 50px;
+}
+
+.nav-login-dropdown {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+.nav-login-dropdown img {
+    height:40px;
+    width:40px;
+    margin-right: 5px;
+}
+.navbar-login {
+    min-width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+.navbar-login img {
+    height:87px;
+    width:87px;
+}
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
 }
 
 

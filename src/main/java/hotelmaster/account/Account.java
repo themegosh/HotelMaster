@@ -1,6 +1,7 @@
 
 package hotelmaster.account;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -88,6 +89,15 @@ public class Account {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+    
+    public String getProfilePicUrl(){
+        String url = "";
+        if (!facebookId.isEmpty())
+            url = "https://graph.facebook.com/" + facebookId + "/picture";
+        else
+            url = "/resources/img/user_placeholder.png";
+        return url;
     }
     
     @Override
