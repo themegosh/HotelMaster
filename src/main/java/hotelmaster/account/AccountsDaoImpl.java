@@ -6,6 +6,7 @@
 package hotelmaster.account;
 
 import hotelmaster.rooms.Room;
+import hotelmaster.util.ApplicationContextProvider;
 import java.sql.Types;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -35,11 +37,13 @@ public class AccountsDaoImpl implements AccountsDao {
     @Qualifier("dataSource")
     private DataSource dataSource;
     
-    @Autowired
-    Account accountSession;
        
     @Override
     public int insertNewAccount() {
+        
+        ApplicationContext appContext = new ApplicationContextProvider().getApplicationContext();
+        Account accountSession = (Account) appContext.getBean("account");
+        
         String inserQuery = "INSERT INTO account (first_name, last_name, email, password, facebook_id, gender) VALUES (?, ?, ?, ?, ?, ?) ";
         Object[] params = new Object[] { accountSession.getFirstName(), accountSession.getLastName(), accountSession.getEmail(), accountSession.getPassword(), accountSession.getFacebookId(), accountSession.getGender() };
         int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };
@@ -85,6 +89,10 @@ public class AccountsDaoImpl implements AccountsDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
         
         try {
+            
+            ApplicationContext appContext = new ApplicationContextProvider().getApplicationContext();
+            Account accountSession = (Account) appContext.getBean("account");
+            
             accountSession = (Account) jdbcTemplate.queryForObject(selectQuery, params, new AccountRowMapper());
             foundAccount = true;
         }
