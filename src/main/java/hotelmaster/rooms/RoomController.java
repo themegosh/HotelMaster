@@ -28,7 +28,7 @@ public class RoomController {
         return model;
     }
     
-    @RequestMapping(value = "/addRoom", method = RequestMethod.POST)
+    @RequestMapping(value = "/room", method = RequestMethod.POST)
     public ModelAndView addRoom(@ModelAttribute Room room){
         roomDAO.insertRoom(room);
         return new ModelAndView("redirect:/");
