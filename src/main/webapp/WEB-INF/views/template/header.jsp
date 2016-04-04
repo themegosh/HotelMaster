@@ -45,10 +45,3 @@
         </div>
     </nav>
 </header>
-
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<ul style="list-style:none;line-height:28px;">
-
-    
-
-</ul>
