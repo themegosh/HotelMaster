@@ -5,22 +5,60 @@
  */
 package hotelmaster.account;
 
+import hotelmaster.util.ApplicationContextProvider;
+import javax.annotation.Resource;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author mathe_000
  */
 public class AccountFactory {
+      
+    public Account loginFacebook(JSONObject fb) throws Exception {
+        
+        ApplicationContext appContext = new ApplicationContextProvider().getApplicationContext();
+        AccountsDao accountsDao = (AccountsDao) appContext.getBean("AccountsDao");
+        Account account = new Account();
+                
+        //try to find the account by the facebook id
+        account = accountsDao.getAccountByFBId(fb.getString("id"));
+        if (account.getId() > 0){
+            //we found it
+            //update their facebook details
+            accountsDao.updateAccountByFacebook(fb);
+        } else {
+            //we have a new user
+            if (!fb.isNull("id"))
+                account.setFacebookId(fb.getString("id"));
+            if (!fb.isNull("first_name"))
+                account.setFirstName(fb.getString("first_name"));
+            if (!fb.isNull("last_name"))
+                account.setLastName(fb.getString("last_name"));
+            if (!fb.isNull("email"))
+                account.setEmail(fb.getString("email"));
+            if (!fb.isNull("gender"))
+                account.setGender(fb.getString("gender"));
+        
+            account.setId(accountsDao.insertNewAccount(account)); //inserting returns the freshly generated ID
+        }
+        return account;
+    }
     
-    public static void registerUser(){
+    
+    public void registerUser(){
         
     }
     
-    public static void changeUserAccess(){
+    public void changeUserAccess(){
         
     }
     
-    public static void registerAdmin(){
+    public void registerAdmin(){
         
     }
-    
 }

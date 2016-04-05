@@ -1,10 +1,86 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 26-Mar-2016, 10:56:14 PM
-    Author     : mathe_000
-*/
 
+/* Navbar things */
+body {
+  padding-top: 50px;
+}
+
+.nav-login-dropdown {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+.nav-login-dropdown img {
+    height:40px;
+    width:40px;
+    margin-right: 5px;
+}
+.navbar-login {
+    min-width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+.navbar-login img {
+    height:87px;
+    width:87px;
+}
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+
+/* Login/Register Page */
+.loginRegister .loginRegisterContainer{
+    float: none;
+    margin: 0 auto;
+}
+.loginRegister .title {
+    text-align: center;
+    line-height: 300%;
+}
+.loginRegister .btnFacebook {
+    background: #3b5998;
+    color: #eee;
+}
+.loginRegister .btnFacebook span {
+    padding-left:10px;
+}
+.loginRegister .btnFacebook:hover {
+    color: white;
+    opacity:0.9; 
+}
+.loginRegister .loginRegisterOr {
+    position: relative;
+    font-size: 1.5em;
+    color: #aaa;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+.loginRegister .hrOr {
+    background-color: #cdcdcd;
+    height: 1px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+.loginRegister .spanOr {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -0.6em;
+    margin-left: -1.5em;
+    background-color: white;
+    width: 3em;
+    text-align: center;
+}
+.loginRegister .loginRegisterForm .input-group.i {
+    width: 2em;
+}
+
+/* Misc form properties */
+.formError {
+    padding: 6px 12px;
+    color: #a94442;
+}
