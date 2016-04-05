@@ -7,6 +7,7 @@ package hotelmaster.account.register;
 
 import hotelmaster.account.Account;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,12 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class RegisterController {
-    @Autowired
-    Account accountSession;
     
     @RequestMapping(value="/register", method = RequestMethod.GET)
-    public ModelAndView showRegistrationPage() {
+    public ModelAndView showRegistrationPage(HttpServletRequest htrequest) {
         ModelAndView modelAndView = new ModelAndView("register"); //viewing the login.jsp
+        
+        Account accountSession = (Account)htrequest.getSession().getAttribute("account");
         modelAndView.addObject("accountSession", accountSession); //inject the session
         UserForm uf = new UserForm();
         modelAndView.addObject("userForm", uf);
@@ -34,8 +35,9 @@ public class RegisterController {
     }
     
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public ModelAndView processRegistration(@ModelAttribute("userForm") UserForm uf, Map<String, Object> model) {
+    public ModelAndView processRegistration(@ModelAttribute("userForm") UserForm uf, Map<String, Object> model, HttpServletRequest htrequest) {
         ModelAndView modelAndView = new ModelAndView("register"); //viewing the login.jsp
+        Account accountSession = (Account)htrequest.getSession().getAttribute("account");
         modelAndView.addObject("accountSession", accountSession); //inject the session
         
         //try to register

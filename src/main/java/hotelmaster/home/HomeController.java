@@ -6,6 +6,7 @@
 package hotelmaster.home;
 
 import hotelmaster.account.Account;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,13 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping({"/"})
 public class HomeController {
-    
-    @Autowired
-    Account accountSession;
-    
+        
     @RequestMapping(value={"", "home"})
-    public ModelAndView home(){
+    public ModelAndView home(HttpServletRequest htrequest){
         ModelAndView modelAndView = new ModelAndView("home"); //viewing the home.jsp
+        
+        Account accountSession = (Account)htrequest.getSession().getAttribute("account");
         modelAndView.addObject("accountSession", accountSession); //inject the session
         
         //do stuff for the home page

@@ -23,8 +23,7 @@ public class AccountRowMapper implements RowMapper{
     
     @Override
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-        ApplicationContext appContext = new ApplicationContextProvider().getApplicationContext();
-        accountSession = (Account) appContext.getBean("account");
+        Account accountSession = new Account();
         
         accountSession.setId(rs.getInt("account_id"));
         accountSession.setFirstName(rs.getString("first_name"));

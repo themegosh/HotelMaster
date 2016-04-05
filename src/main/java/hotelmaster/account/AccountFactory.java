@@ -18,36 +18,35 @@ import org.springframework.stereotype.Service;
  * @author mathe_000
  */
 public class AccountFactory {
-    
-    @Autowired
-    Account accountSession;
-  
-    public void loginFacebook(JSONObject fb) throws Exception {
+      
+    public Account loginFacebook(JSONObject fb) throws Exception {
         
         ApplicationContext appContext = new ApplicationContextProvider().getApplicationContext();
         AccountsDao accountsDao = (AccountsDao) appContext.getBean("AccountsDao");
-        accountSession = (Account) appContext.getBean("account");
+        Account account = new Account();
                 
         //try to find the account by the facebook id
-        if (accountsDao.selectAccountByFBId(fb.getString("id"))){
+        account = accountsDao.getAccountByFBId(fb.getString("id"));
+        if (account.getId() > 0){
             //we found it
             //update their facebook details
             accountsDao.updateAccountByFacebook(fb);
         } else {
             //we have a new user
             if (!fb.isNull("id"))
-                accountSession.setFacebookId(fb.getString("id"));
+                account.setFacebookId(fb.getString("id"));
             if (!fb.isNull("first_name"))
-                accountSession.setFirstName(fb.getString("first_name"));
+                account.setFirstName(fb.getString("first_name"));
             if (!fb.isNull("last_name"))
-                accountSession.setLastName(fb.getString("last_name"));
+                account.setLastName(fb.getString("last_name"));
             if (!fb.isNull("email"))
-                accountSession.setEmail(fb.getString("email"));
+                account.setEmail(fb.getString("email"));
             if (!fb.isNull("gender"))
-                accountSession.setGender(fb.getString("gender"));
+                account.setGender(fb.getString("gender"));
         
-            accountsDao.insertNewAccount();
+            accountsDao.insertNewAccount(account);
         }
+        return account;
     }
     
     

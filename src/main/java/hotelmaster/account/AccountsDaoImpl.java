@@ -39,13 +39,10 @@ public class AccountsDaoImpl implements AccountsDao {
     
        
     @Override
-    public int insertNewAccount() {
-        
-        ApplicationContext appContext = new ApplicationContextProvider().getApplicationContext();
-        Account accountSession = (Account) appContext.getBean("account");
+    public int insertNewAccount(Account account) {
         
         String inserQuery = "INSERT INTO account (first_name, last_name, email, password, facebook_id, gender) VALUES (?, ?, ?, ?, ?, ?) ";
-        Object[] params = new Object[] { accountSession.getFirstName(), accountSession.getLastName(), accountSession.getEmail(), accountSession.getPassword(), accountSession.getFacebookId(), accountSession.getGender() };
+        Object[] params = new Object[] { account.getFirstName(), account.getLastName(), account.getEmail(), account.getPassword(), account.getFacebookId(), account.getGender() };
         int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };
         
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
@@ -80,8 +77,8 @@ public class AccountsDaoImpl implements AccountsDao {
     }
         
     @Override
-    public boolean selectAccountByFBId(String fbId) {
-        boolean foundAccount = false;
+    public Account getAccountByFBId(String fbId) {
+        Account account = new Account();
         
         String selectQuery = "SELECT * FROM account WHERE facebook_id = ? ";
         Object[] params = new Object[] { fbId };
@@ -89,18 +86,14 @@ public class AccountsDaoImpl implements AccountsDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
         
         try {
-            
-            ApplicationContext appContext = new ApplicationContextProvider().getApplicationContext();
-            Account accountSession = (Account) appContext.getBean("account");
-            
-            accountSession = (Account) jdbcTemplate.queryForObject(selectQuery, params, new AccountRowMapper());
-            foundAccount = true;
+                        
+            account = (Account) jdbcTemplate.queryForObject(selectQuery, params, new AccountRowMapper());
         }
         catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.toString());
         }
-        return foundAccount; 
+        return account; 
     }
     
 }

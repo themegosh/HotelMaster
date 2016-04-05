@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelmaster.account.login;
+package hotelmaster.account.logout;
 
+import hotelmaster.account.login.*;
 import hotelmaster.account.Account;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +20,16 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Doug
  */
 @Controller
-public class LoginController {
+public class LogoutController {
     
     
-    @RequestMapping(value="/login", method = RequestMethod.GET)
-    public ModelAndView showLoginPage(HttpServletRequest htrequest) {
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public ModelAndView showLogout(HttpServletRequest htrequest) {
         
-        Account accountSession = (Account)htrequest.getSession().getAttribute("account");
+        //remove the session
+        htrequest.getSession().removeAttribute("account");
         
-        ModelAndView modelAndView = new ModelAndView("login"); //viewing the login.jsp
-        modelAndView.addObject("accountSession", accountSession); //inject the session
+        ModelAndView modelAndView = new ModelAndView("redirect:home"); //viewing the login.jsp
         
         return modelAndView;
     }

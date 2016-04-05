@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
  *
  * @author mathe_000
  */
-@Component
 public class Account {
     private int id;
     private String email;  

@@ -14,6 +14,7 @@ import hotelmaster.account.Account;
 import hotelmaster.account.AccountFactory;
 import hotelmaster.util.ApplicationContextProvider;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -35,10 +36,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  */
 @Controller
 public class FacebookController {
-    
-    @Autowired
-    Account accountSession;
-    
+        
     private final String ATTR_OAUTH_ACCESS_TOKEN = "ATTR_OAUTH_ACCESS_TOKEN";
     private final String ATTR_OAUTH_REQUEST_TOKEN = "ATTR_OAUTH_REQUEST_TOKEN";
     
@@ -71,7 +69,7 @@ public class FacebookController {
     }
 
     @RequestMapping(value={"/facebook-callback"}, method = RequestMethod.GET)
-    public ModelAndView callback(@RequestParam(value="code", required=false) String oauthVerifier, WebRequest request) {
+    public ModelAndView callback(@RequestParam(value="code", required=false) String oauthVerifier, WebRequest request, HttpServletRequest htrequest) {
         
         ModelAndView modelAndView = new ModelAndView();
 
@@ -109,7 +107,9 @@ public class FacebookController {
         if (!jobj.isNull("id")) {
             try {
                 //this will start the DB login flow
-                new AccountFactory().loginFacebook(jobj);
+                Account accountSession = new AccountFactory().loginFacebook(jobj);
+                
+                htrequest.getSession().setAttribute("account", accountSession);
                                                 
                 System.out.println("facebookController: /facebook-callback accountSession:" + accountSession.toString());
             
