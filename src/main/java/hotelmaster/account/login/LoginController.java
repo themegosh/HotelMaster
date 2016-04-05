@@ -24,11 +24,11 @@ public class LoginController {
     
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public ModelAndView showLoginPage(HttpServletRequest htrequest) {
-        
-        Account accountSession = (Account)htrequest.getSession().getAttribute("account");
-        
+        Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
+        if (accountSession != null) {
+            return new ModelAndView("redirect:home");
+        }
         ModelAndView modelAndView = new ModelAndView("login"); //viewing the login.jsp
-        modelAndView.addObject("accountSession", accountSession); //inject the session
         
         return modelAndView;
     }

@@ -25,10 +25,9 @@ public class HomeController {
     public ModelAndView home(HttpServletRequest htrequest){
         ModelAndView modelAndView = new ModelAndView("home"); //viewing the home.jsp
         
-        Account accountSession = (Account)htrequest.getSession().getAttribute("account");
+        Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
         if (accountSession != null) {
             System.out.println("HomeController: /home accountSession:" + accountSession.toString());
-            modelAndView.addObject("accountSession", accountSession); //inject the session
         }
         
         //do stuff for the home page

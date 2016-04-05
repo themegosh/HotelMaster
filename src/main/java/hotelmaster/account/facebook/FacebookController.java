@@ -47,7 +47,11 @@ public class FacebookController {
     private static final Token EMPTY_TOKEN = null;
 
     @RequestMapping(value={"/login-facebook"}, method = RequestMethod.GET)
-    public String login(WebRequest request) {
+    public ModelAndView login(WebRequest request, HttpServletRequest htrequest) {
+        Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
+        if (accountSession != null) {
+            return new ModelAndView("redirect:home");
+        }
 
         // getting request and access token from session
         OAuth2AccessToken  accessToken = (OAuth2AccessToken) null;//request.getAttribute(ATTR_OAUTH_ACCESS_TOKEN, SCOPE_SESSION);
@@ -63,13 +67,17 @@ public class FacebookController {
             request.setAttribute(ATTR_OAUTH_REQUEST_TOKEN, EMPTY_TOKEN, SCOPE_SESSION);
 
             // redirect to facebook auth page
-            return "redirect:" + service.getAuthorizationUrl();
+            return new ModelAndView("redirect:" + service.getAuthorizationUrl());
         }
-        return "redirect:loginSuccess";
+        return new ModelAndView("redirect:loginSuccess");
     }
 
     @RequestMapping(value={"/facebook-callback"}, method = RequestMethod.GET)
     public ModelAndView callback(@RequestParam(value="code", required=false) String oauthVerifier, WebRequest request, HttpServletRequest htrequest) {
+        Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
+        if (accountSession != null) {
+            return new ModelAndView("redirect:home");
+        }
         
         ModelAndView modelAndView = new ModelAndView();
 
@@ -107,9 +115,9 @@ public class FacebookController {
         if (!jobj.isNull("id")) {
             try {
                 //this will start the DB login flow
-                Account accountSession = new AccountFactory().loginFacebook(jobj);
+                accountSession = new AccountFactory().loginFacebook(jobj);
                 
-                htrequest.getSession().setAttribute("account", accountSession);
+                htrequest.getSession().setAttribute("accountSession", accountSession);
                                                 
                 System.out.println("facebookController: /facebook-callback accountSession:" + accountSession.toString());
             
