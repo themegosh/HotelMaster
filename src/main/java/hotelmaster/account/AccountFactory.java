@@ -44,7 +44,7 @@ public class AccountFactory {
             if (!fb.isNull("gender"))
                 account.setGender(fb.getString("gender"));
         
-            accountsDao.insertNewAccount(account);
+            account.setId(accountsDao.insertNewAccount(account)); //inserting returns the freshly generated ID
         }
         return account;
     }

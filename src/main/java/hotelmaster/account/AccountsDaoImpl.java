@@ -5,23 +5,20 @@
  */
 package hotelmaster.account;
 
-import hotelmaster.rooms.Room;
-import hotelmaster.util.ApplicationContextProvider;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Types;
-import java.util.List;
-import java.util.Map;
 import javax.sql.DataSource;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Component;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -39,14 +36,31 @@ public class AccountsDaoImpl implements AccountsDao {
     
        
     @Override
-    public int insertNewAccount(Account account) {
+    public int insertNewAccount(Account _account) {
         
-        String inserQuery = "INSERT INTO account (first_name, last_name, email, password, facebook_id, gender) VALUES (?, ?, ?, ?, ?, ?) ";
-        Object[] params = new Object[] { account.getFirstName(), account.getLastName(), account.getEmail(), account.getPassword(), account.getFacebookId(), account.getGender() };
-        int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };
+        final Account account = _account;
         
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
-        return jdbcTemplate.update(inserQuery, params, types);
+        
+        final String inserQuery = "INSERT INTO account (first_name, last_name, email, password, facebook_id, gender) VALUES (?, ?, ?, ?, ?, ?) ";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+            new PreparedStatementCreator() {
+                @Override
+                public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                    PreparedStatement ps = connection.prepareStatement(inserQuery, new String[] {"account_id"});
+                    ps.setString(1, account.getFirstName());
+                    ps.setString(2, account.getLastName());
+                    ps.setString(3, account.getEmail());
+                    ps.setString(4, account.getPassword());
+                    ps.setString(5, account.getFacebookId());
+                    ps.setString(6, account.getGender());
+                    return ps;
+                }
+            },
+            keyHolder);
+                
+        return keyHolder.getKey().intValue();
     }
     
     @Override
@@ -88,6 +102,10 @@ public class AccountsDaoImpl implements AccountsDao {
         try {
                         
             account = (Account) jdbcTemplate.queryForObject(selectQuery, params, new AccountRowMapper());
+        }
+        catch (EmptyResultDataAccessException e){
+            //e.printStackTrace();
+            System.out.println("getAccountByFBId: couldnt find an account with matching FB id");
         }
         catch (Exception e) {
             e.printStackTrace();
