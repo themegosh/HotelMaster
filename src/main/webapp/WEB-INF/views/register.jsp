@@ -24,39 +24,32 @@
                 <form:form modelAttribute="userForm" method="POST" enctype="utf8">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                        <form:input path="firstName" placeholder="First Name" value="" class="form-control" />
-                        <form:errors path="firstName" element="div"/>
+                        <form:input path="firstName" placeholder="First Name" value="" class="form-control" />                    
                     </div>
+                    <form:errors class="formError" path="firstName" element="strong"/>    
                     <span class="help-block"></span>
                     
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
                         <form:input path="lastName" placeholder="Last Name" value="" class="form-control" />
-                        <form:errors path="lastName" element="div"/>
                     </div>
+                    <form:errors class="formError" path="lastName" element="strong"/>
                     <span class="help-block"></span>
                     
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-at"></i></span>
                         <form:input path="email" placeholder="Email" value="" class="form-control" />
-                        <form:errors path="email" element="div"/>
                     </div>
+                    <form:errors class="formError" path="email" element="strong"/>
                     <span class="help-block"></span>
                     
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
                         <form:input path="password" placeholder="Password" type="password" value="" class="form-control" />
-                        <form:errors path="password" element="div"/>
                     </div>
+                    <form:errors class="formError" path="password" element="strong"/>
                     <span class="help-block"></span>
                     
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
-                        <form:input path="confirmPassword" placeholder="Confirm Password" type="confirmPassword" value="" class="form-control" />
-                        <form:errors path="confirmPassword" element="div"/>
-                    </div>
-                    <span class="help-block"></span>
-
                     <div class="row">
                         <div class="col-xs-6">
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>

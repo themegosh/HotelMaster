@@ -78,3 +78,9 @@ body {
 .loginRegister .loginRegisterForm .input-group.i {
     width: 2em;
 }
+
+/* Misc form properties */
+.formError {
+    padding: 6px 12px;
+    color: #a94442;
+}

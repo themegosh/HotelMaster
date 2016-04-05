@@ -28,9 +28,6 @@ public class UserForm {
     @NotNull
     @Size(min=1, max = 75)
     private String password;
-    @NotNull
-    @Size(min=1, max = 75)
-    private String confirmPassword;
 
     public UserForm() {
     }
@@ -66,14 +63,4 @@ public class UserForm {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-    
-    
 }
