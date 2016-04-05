@@ -44,10 +44,8 @@ public class FacebookController {
     
     private final String API_KEY = "1529483847357548";
     private final String API_SECRET = "e3cf5bcc041b001fac159ff8a7518108";
-    private final String CALLBACK_URL = "http://localhost:8084/facebook-callback"; //this url may change depending on tomcat config (mainly port)
-    
-    private List<String> messages;
-    
+    private final String CALLBACK_URL = "http://localhost:8080/facebook-callback"; //this url may change depending on tomcat config (mainly port)
+        
     private static final Token EMPTY_TOKEN = null;
 
     @RequestMapping(value={"/login-facebook"}, method = RequestMethod.GET)
