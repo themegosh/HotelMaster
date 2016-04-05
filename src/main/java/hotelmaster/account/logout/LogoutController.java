@@ -5,11 +5,7 @@
  */
 package hotelmaster.account.logout;
 
-import hotelmaster.account.login.*;
-import hotelmaster.account.Account;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +23,7 @@ public class LogoutController {
     public ModelAndView showLogout(HttpServletRequest htrequest) {
         
         //remove the session
-        htrequest.getSession().removeAttribute("account");
+        htrequest.getSession().removeAttribute("accountSession");
         
         ModelAndView modelAndView = new ModelAndView("redirect:home"); //viewing the login.jsp
         

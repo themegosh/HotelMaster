@@ -6,12 +6,8 @@
 package hotelmaster.account;
 
 import hotelmaster.util.ApplicationContextProvider;
-import javax.annotation.Resource;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 /**
  *
