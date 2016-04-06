@@ -23,6 +23,8 @@ public class RoomController {
     @RequestMapping(value = "/room")
     public ModelAndView listRoom(ModelAndView model) throws IOException {
         List<Room> roomList = roomDAO.list();
+        Room room = new Room();
+        model.addObject("room", room);
         model.addObject("roomList", roomList);
         model.setViewName("room");
         return model;
