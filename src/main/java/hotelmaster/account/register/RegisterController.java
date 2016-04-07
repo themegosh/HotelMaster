@@ -38,14 +38,12 @@ public class RegisterController {
     }
     
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public ModelAndView processRegistration(@ModelAttribute("userForm") @Valid Account accountForm,  BindingResult result, HttpServletRequest htrequest, Errors errors) {
+    public ModelAndView processRegistration(@ModelAttribute("accountForm") @Valid Account accountForm,  BindingResult result, HttpServletRequest htrequest, Errors errors) {
         ModelAndView modelAndView = new ModelAndView("register"); //viewing the login.jsp
         Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
         if (accountSession != null) { //already logged in, redirect
             return new ModelAndView("redirect:home");
         }
-        
-        //
         
         if (!result.hasErrors()){
             System.out.println("Registration submitted: No Errors.");
