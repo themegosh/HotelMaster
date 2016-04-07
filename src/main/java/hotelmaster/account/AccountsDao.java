@@ -19,4 +19,5 @@ public interface AccountsDao {
     Account getAccountByFBId(String fbId);
     int updateAccountByFacebook(JSONObject fb);
     int updateAccountByEmail(Account account);
+    Account getAccountByEmailPass(String email, String pass) throws Exception;
 }

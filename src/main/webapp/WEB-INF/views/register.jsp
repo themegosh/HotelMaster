@@ -21,7 +21,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12">	
-                <form:form modelAttribute="userForm" method="POST" enctype="utf8">
+                <form:form modelAttribute="accountForm" method="POST" enctype="utf8">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
                         <form:input path="firstName" placeholder="First Name" value="" class="form-control" />                    

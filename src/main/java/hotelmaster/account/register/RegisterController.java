@@ -6,6 +6,7 @@
 package hotelmaster.account.register;
 
 import hotelmaster.account.Account;
+import hotelmaster.account.AccountFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -30,39 +31,48 @@ public class RegisterController {
         if (accountSession != null) {
             return new ModelAndView("redirect:home");
         }
-        UserForm uf = new UserForm();
-        modelAndView.addObject("userForm", uf);
+        Account accountForm = new Account();
+        modelAndView.addObject("accountForm", accountForm);
         
         return modelAndView;
     }
     
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public ModelAndView processRegistration(@ModelAttribute("userForm") @Valid UserForm uf,  BindingResult result, HttpServletRequest htrequest, Errors errors) {
+    public ModelAndView processRegistration(@ModelAttribute("userForm") @Valid Account accountForm,  BindingResult result, HttpServletRequest htrequest, Errors errors) {
         ModelAndView modelAndView = new ModelAndView("register"); //viewing the login.jsp
         Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
-        if (accountSession != null) {
+        if (accountSession != null) { //already logged in, redirect
             return new ModelAndView("redirect:home");
         }
         
-        //result.rejectValue("email", "Somethings wrong...");
-        //result.rejectValue("email", "a", "Woah there");
-        //result.reject("email", "lolwut");
+        //
         
         if (!result.hasErrors()){
             System.out.println("Registration submitted: No Errors.");
             //create the account
-            //result.reject("No errors: Youve been rejected anways!");
+            try {
+                //try to register the new user
+                accountSession = new AccountFactory().registerUser(accountForm);
+                
+                //if we've gotten here, we assume theyve registered successfully
+                htrequest.getSession().setAttribute("accountSession", accountSession);
+                //send a message to the message service
+                return new ModelAndView("redirect:home");
+                
+            } catch (Exception e){
+                result.rejectValue("error", "", e.getMessage());
+            }
         } else {
             System.out.println("Registration submitted: Errors.");
             //result.reject("Errors: Youve been rejected!");
-            modelAndView.addObject("userForm", uf);
+            modelAndView.addObject("accountForm", accountForm);
             modelAndView.setViewName("register");
         }
         //try to register
-        System.out.println("FirstName " + uf.getFirstName());
-        System.out.println("LastName " + uf.getLastName());
-        System.out.println("Email " + uf.getEmail());
-        System.out.println("Password " + uf.getPassword());
+        System.out.println("FirstName " + accountForm.getFirstName());
+        System.out.println("LastName " + accountForm.getLastName());
+        System.out.println("Email " + accountForm.getEmail());
+        System.out.println("Password " + accountForm.getPassword());
         
         return modelAndView;
     }

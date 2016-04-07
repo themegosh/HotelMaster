@@ -1,21 +1,30 @@
 
 package hotelmaster.account;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Email;
 
 /**
  *
  * @author mathe_000
  */
 public class Account {
-    private int id;
-    private String email;  
+    protected int id;
+    @NotNull
+    @Size(min=1, max = 75)
     private String firstName;
+    @NotNull
+    @Size(min=1, max = 75)
     private String lastName;
+    @NotNull
+    @Email
+    private String email;
+    @NotNull
+    @Size(min=1, max = 75)
     private String password;
-    private String facebookId;
-    private String gender;
+    protected String facebookId;
+    protected String gender;
     
     //TODO deal with Hashing the password, and class access to that info
     
@@ -92,7 +101,7 @@ public class Account {
     
     public String getProfilePicUrl(){
         String url = "";
-        if (!facebookId.isEmpty())
+        if (facebookId != null)
             url = "https://graph.facebook.com/" + facebookId + "/picture";
         else
             url = "/resources/img/user_placeholder.png";

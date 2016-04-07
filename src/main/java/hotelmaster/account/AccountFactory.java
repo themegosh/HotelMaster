@@ -5,6 +5,7 @@
  */
 package hotelmaster.account;
 
+import hotelmaster.account.login.Login;
 import hotelmaster.util.ApplicationContextProvider;
 import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
@@ -19,10 +20,9 @@ public class AccountFactory {
         
         ApplicationContext appContext = new ApplicationContextProvider().getApplicationContext();
         AccountsDao accountsDao = (AccountsDao) appContext.getBean("AccountsDao");
-        Account account = new Account();
                 
         //try to find the account by the facebook id
-        account = accountsDao.getAccountByFBId(fb.getString("id"));
+        Account account = accountsDao.getAccountByFBId(fb.getString("id"));
         if (account.getId() > 0){
             //we found it
             //update their facebook details
@@ -45,9 +45,25 @@ public class AccountFactory {
         return account;
     }
     
-    
-    public void registerUser(){
+    public Account loginEmail(Login loginForm) throws Exception {
         
+        ApplicationContext appContext = new ApplicationContextProvider().getApplicationContext();
+        AccountsDao accountsDao = (AccountsDao) appContext.getBean("AccountsDao");
+        
+        Account account = accountsDao.getAccountByEmailPass(loginForm.getEmail(), loginForm.getPassword());
+        
+        return account;
+    }
+    
+    public Account registerUser(Account account) throws Exception {
+        
+        ApplicationContext appContext = new ApplicationContextProvider().getApplicationContext();
+        AccountsDao accountsDao = (AccountsDao) appContext.getBean("AccountsDao");
+        
+        //validation will be done for us by the @Valid spring tool
+        account.setId(accountsDao.insertNewAccount(account)); //inserting returns the freshly generated ID
+        
+        return account;
     }
     
     public void changeUserAccess(){

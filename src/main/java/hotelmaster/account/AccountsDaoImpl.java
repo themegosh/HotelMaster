@@ -5,11 +5,13 @@
  */
 package hotelmaster.account;
 
+import hotelmaster.account.exceptions.AccountNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
 import javax.sql.DataSource;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,7 +40,11 @@ public class AccountsDaoImpl implements AccountsDao {
     @Override
     public int insertNewAccount(Account _account) {
         
-        final Account account = _account;
+        //hash the password if they have one
+        if (_account.getPassword() != null)
+            _account.setPassword(DigestUtils.sha1Hex(_account.getEmail() + ":" + _account.getPassword()));
+        
+        final Account account = _account; //this is needed for prepared statements
         
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
         
@@ -106,6 +112,32 @@ public class AccountsDaoImpl implements AccountsDao {
         catch (EmptyResultDataAccessException e){
             //e.printStackTrace();
             System.out.println("getAccountByFBId: couldnt find an account with matching FB id");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }
+        return account; 
+    }
+    
+    @Override
+    public Account getAccountByEmailPass(String email, String pass) throws Exception{
+        Account account = new Account();
+        
+        //hash the pass
+        String passHash = DigestUtils.sha1Hex(email + ":" + pass);
+        
+        String selectQuery = "SELECT * FROM account WHERE email = ? AND password = ?";
+        Object[] params = new Object[] { email, passHash };
+        
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
+        
+        try {
+                        
+            account = (Account) jdbcTemplate.queryForObject(selectQuery, params, new AccountRowMapper());
+        }
+        catch (EmptyResultDataAccessException e){
+            throw new AccountNotFoundException("Could not find an account with matching email & password.");
         }
         catch (Exception e) {
             e.printStackTrace();
