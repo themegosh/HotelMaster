@@ -11,9 +11,55 @@ package hotelmaster;
  */
 public class Photo {
     
-    int id;
-    String path;
+    //variables associated with the room_images table
+    Long imageID;
+    Long roomID;
+    byte[] image;
     String title;
-    int roomId;
+    
+    
+    //constructors
+    public Photo() { }
+    
+    public Photo(Long imageID, Long roomID, byte[] image, String title) {
+        this.imageID = imageID;
+        this.roomID = roomID;
+        this.image = image;
+        this.title = title;
+    }
+    
+    //Getters and setters
+    public Long getImageID() {
+        return imageID;
+    }
+    
+    public void setImageID(Long imageID){
+        this.imageID = imageID;
+    }
+    
+    public Long getRoomID() {
+        return roomID;
+    }
+    
+    public void setRoomID(Long RoomID){
+        this.roomID = roomID;
+    }
+    
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
     
 }
