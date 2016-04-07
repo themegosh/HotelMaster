@@ -5,31 +5,16 @@
  */
 package hotelmaster.account;
 
-import hotelmaster.Report;
-import hotelmaster.account.Account;
-
 /**
  *
  * @author mathe_000
  */
-public class Admin extends Account {
-    
+public class Admin extends User {
     public Admin(int id, String firstName, String lastName, String email, String password){
         super(id, firstName, lastName, email, password);
     }
     
-    public void addRoom(){
-    }
-    
-    public void deleteRoom(){
-        
-    }
-    
-    public void editRoom(){
-        
-    }
-    
-    public Report viewReport(){
-        return null;
+    public Admin(){
+        super();
     }
 }

@@ -9,26 +9,25 @@ import org.hibernate.validator.constraints.Email;
  *
  * @author mathe_000
  */
-public class Account {
+public abstract class Account {
     protected int id;
     @NotNull
     @Size(min=1, max = 75)
-    private String firstName;
+    protected String firstName;
     @NotNull
     @Size(min=1, max = 75)
-    private String lastName;
+    protected String lastName;
     @NotNull
     @Email
-    private String email;
+    protected String email;
     @NotNull
     @Size(min=1, max = 75)
-    private String password;
+    protected String password;
     protected String facebookId;
     protected String gender;
     
-    //TODO deal with Hashing the password, and class access to that info
-    
     public Account(){
+        
     }
     
     public Account(int id, String firstName, String lastName, String email, String password){
@@ -39,78 +38,37 @@ public class Account {
         this.password = password;
     }
     
-    public void changePassword(String oldPass, String newPass){
-        ///todo
-    }
+    public abstract int getId();
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    public abstract void setId(int id);
     
-    public String getEmail() {
-        return email;
-    }
+    public abstract String getEmail();
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public abstract void setEmail(String email);
 
-    public String getFirstName() {
-        return firstName;
-    }
+    public abstract String getFirstName();
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    public abstract void setFirstName(String firstName);
 
-    public String getLastName() {
-        return lastName;
-    }
+    public abstract String getLastName();
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    public abstract void setLastName(String lastName);
 
-    public String getPassword() {
-        return password;
-    }
+    public abstract String getPassword();
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public abstract void setPassword(String password);
 
-    public String getFacebookId() {
-        return facebookId;
-    }
+    public abstract String getFacebookId();
 
-    public void setFacebookId(String facebookId) {
-        this.facebookId = facebookId;
-    }
+    public abstract void setFacebookId(String facebookId);
 
-    public String getGender() {
-        return gender;
-    }
+    public abstract String getGender();
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
+    public abstract void setGender(String gender);
     
-    public String getProfilePicUrl(){
-        String url = "";
-        if (facebookId != null)
-            url = "https://graph.facebook.com/" + facebookId + "/picture";
-        else
-            url = "/resources/img/user_placeholder.png";
-        return url;
-    }
+    public abstract String getProfilePicUrl();
     
     @Override
-    public String toString(){
-        return "[Account] id: " + id + " firstName: " + firstName + " lastName " + lastName + " email " + email + " gender " + gender;
-    }
+    public abstract String toString();
     
 }

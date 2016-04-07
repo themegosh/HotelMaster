@@ -5,92 +5,107 @@
  */
 package hotelmaster.account;
 
-import java.util.Date;
-
 /**
  *
  * @author mathe_000
  */
-public class User {
+public class User extends Account {
     
-    private Date birthdate;
-    private String photo;
-    private String phone;
-    private String address;
-    private String city;
-    private String postalCode;
-    private String country;
-
-    public User(Date birthdate, String photo, String phone, String address, String city, String postalCode, String country) {
-        this.birthdate = birthdate;
-        this.photo = photo;
-        this.phone = phone;
-        this.address = address;
-        this.city = city;
-        this.postalCode = postalCode;
-        this.country = country;
-    }
-
-    public User() {
-    }
-
-    public Date getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
+    //TODO deal with Hashing the password, and class access to that info
+    
+    public User(){
     }
     
+    public User(int id, String firstName, String lastName, String email, String password){
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
     
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
     
+    @Override
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String getFirstName() {
+        return firstName;
+    }
+
+    @Override
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @Override
+    public String getLastName() {
+        return lastName;
+    }
+
+    @Override
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    @Override
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
+    }
+
+    @Override
+    public String getGender() {
+        return gender;
+    }
+
+    @Override
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
     
+    @Override
+    public String getProfilePicUrl(){
+        String url;
+        if (facebookId != null)
+            url = "https://graph.facebook.com/" + facebookId + "/picture";
+        else
+            url = "/resources/img/user_placeholder.png";
+        return url;
+    }
+    
+    @Override
+    public String toString(){
+        return "[Account] id: " + id + " firstName: " + firstName + " lastName " + lastName + " email " + email + " gender " + gender;
+    }
 }

@@ -15,22 +15,24 @@ import org.springframework.jdbc.core.RowMapper;
  * @author Doug
  */
 public class AccountRowMapper implements RowMapper{
-    
-    @Autowired
-    Account accountSession;
-    
+        
     @Override
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Account accountSession = new Account();
+        Account account;
         
-        accountSession.setId(rs.getInt("account_id"));
-        accountSession.setFirstName(rs.getString("first_name"));
-        accountSession.setLastName(rs.getString("last_name"));
-        accountSession.setEmail(rs.getString("email"));
-        accountSession.setPassword(rs.getString("password"));
-        accountSession.setFacebookId(rs.getString("facebook_id"));
-        accountSession.setGender(rs.getString("gender"));
+        if (rs.getInt("account_level") == 0)
+            account = new User();
+        else
+            account = new Admin();
         
-        return accountSession;
+        account.setId(rs.getInt("account_id"));
+        account.setFirstName(rs.getString("first_name"));
+        account.setLastName(rs.getString("last_name"));
+        account.setEmail(rs.getString("email"));
+        account.setPassword(rs.getString("password"));
+        account.setFacebookId(rs.getString("facebook_id"));
+        account.setGender(rs.getString("gender"));
+        
+        return account;
     }
 }

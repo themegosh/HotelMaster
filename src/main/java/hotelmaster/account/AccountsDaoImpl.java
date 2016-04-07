@@ -98,7 +98,6 @@ public class AccountsDaoImpl implements AccountsDao {
         
     @Override
     public Account getAccountByFBId(String fbId) {
-        Account account = new Account();
         
         String selectQuery = "SELECT * FROM account WHERE facebook_id = ? ";
         Object[] params = new Object[] { fbId };
@@ -106,8 +105,7 @@ public class AccountsDaoImpl implements AccountsDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
         
         try {
-                        
-            account = (Account) jdbcTemplate.queryForObject(selectQuery, params, new AccountRowMapper());
+            return (Account) jdbcTemplate.queryForObject(selectQuery, params, new AccountRowMapper());
         }
         catch (EmptyResultDataAccessException e){
             //e.printStackTrace();
@@ -117,12 +115,11 @@ public class AccountsDaoImpl implements AccountsDao {
             e.printStackTrace();
             System.out.println(e.toString());
         }
-        return account; 
+        return null; 
     }
     
     @Override
     public Account getAccountByEmailPass(String email, String pass) throws Exception{
-        Account account = new Account();
         
         //hash the pass
         String passHash = DigestUtils.sha1Hex(email + ":" + pass);
@@ -134,7 +131,7 @@ public class AccountsDaoImpl implements AccountsDao {
         
         try {
                         
-            account = (Account) jdbcTemplate.queryForObject(selectQuery, params, new AccountRowMapper());
+            return (Account) jdbcTemplate.queryForObject(selectQuery, params, new AccountRowMapper());
         }
         catch (EmptyResultDataAccessException e){
             throw new AccountNotFoundException("Could not find an account with matching email & password.");
@@ -143,7 +140,7 @@ public class AccountsDaoImpl implements AccountsDao {
             e.printStackTrace();
             System.out.println(e.toString());
         }
-        return account; 
+        return null; 
     }
     
 }

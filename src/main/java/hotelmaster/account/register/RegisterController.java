@@ -7,6 +7,7 @@ package hotelmaster.account.register;
 
 import hotelmaster.account.Account;
 import hotelmaster.account.AccountFactory;
+import hotelmaster.account.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class RegisterController {
         if (accountSession != null) {
             return new ModelAndView("redirect:home");
         }
-        Account accountForm = new Account();
+        Account accountForm = new User();
         modelAndView.addObject("accountForm", accountForm);
         
         return modelAndView;
