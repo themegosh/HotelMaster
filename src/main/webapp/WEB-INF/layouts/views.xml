@@ -4,6 +4,7 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
+    <!-- Default Template -->
     <definition name="home" extends="DefaultTemplate">
         <put-attribute name="body"	value="/WEB-INF/views/home.jsp" />
     </definition>
@@ -18,6 +19,12 @@
     </definition>
     <definition name="register" extends="DefaultTemplate">
         <put-attribute name="body"	value="/WEB-INF/views/register.jsp" />
+    </definition>
+    
+    
+    <!-- Admin Template -->
+    <definition name="admin.home" extends="AdminTemplate">
+        <put-attribute name="body"	value="/WEB-INF/views/admin/home.jsp" />
     </definition>
     
 </tiles-definitions>

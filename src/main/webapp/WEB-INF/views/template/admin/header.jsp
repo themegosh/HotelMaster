@@ -2,9 +2,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <header>
-     <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
@@ -44,13 +43,10 @@
                                                 <div class="col-lg-8">
                                                     <p class="text-left"><strong><c:out value="${accountSession.getFirstName()}" /> <c:out value="${accountSession.getLastName()}" /></strong></p>
                                                     <p class="text-left small"><c:out value="${accountSession.getEmail()}" /></p>
-                                                    <c:if test="${accountSession.getClass().getName() == 'hotelmaster.account.Admin'}">
-                                                        <p class="text-left">
-                                                            <spring:url value="/admin" var="adminUrl" htmlEscape="true" />
-                                                            <a href="${adminUrl}" class="btn btn-primary btn-block btn-sm">Admin Panel</a>
-                                                        </p>
-                                                    </c:if>
-                                                    
+                                                    <p class="text-left">
+                                                        <spring:url value="/admin" var="adminUrl" htmlEscape="true" />
+                                                        <a href="${adminUrl}" class="btn btn-primary btn-block btn-sm">Admin Panel</a>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -83,6 +79,6 @@
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
+        </div>
     </nav>
 </header>
-                    

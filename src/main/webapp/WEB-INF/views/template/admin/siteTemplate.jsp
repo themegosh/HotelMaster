@@ -13,18 +13,24 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-        <script src="resources/js/script.js"></script>
-        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
         
+        <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
         <link rel="stylesheet" href="resources/css/style.css" type="text/css" />
     </head>
     <body>
         <!-- Header -->
         <tiles:insertAttribute name="header" />
-        <!-- Body Page -->
-        <div >
-            <tiles:insertAttribute name="body" />
+        
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Menu Page -->
+                <tiles:insertAttribute name="menu" />
+                
+                <!-- Body Page -->
+                <tiles:insertAttribute name="body" />
+        
+            </div>
         </div>
         <!-- Footer Page -->
         <tiles:insertAttribute name="footer" />
