@@ -35,10 +35,7 @@ public class HomeController {
         }
         
         //do stuff for the home page
-        Photo photo = new Photo();
-        List<Photo> photoList = photoDAO.list();
-        
-        modelAndView.addObject("photo", photo);
+        List<Photo> photoList = photoDAO.getAllPhotos();
         modelAndView.addObject("photoList", photoList);
         
         return modelAndView;

@@ -15,20 +15,30 @@
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <c:forEach var="photo" items="${photoList}" varStatus="status">
+                <c:choose>
+                    <c:when test="${status.count == 1}">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li data-target="#myCarousel" data-slide-to="${status.count}"></li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
         </ol>
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
-            <div class="item active">
-                <img src="resources/img/user_placeholder.png" alt="placeholder">
-            </div>
             <c:forEach var="photo" items="${photoList}" varStatus="status">
-                <div class="item">
-                    <img src="resources/img/user_placeholder.png" alt="placeholder">
+                <c:choose>
+                    <c:when test="${status.count == 1}">
+                        <div class="item active">
+                    </c:when>
+                    <c:otherwise>
+                        <div class="item">
+                    </c:otherwise>
+                </c:choose>
+                    <img src="/getPhoto?ID=${photo.imageID}" alt="placeholder">
                 </div>
             </c:forEach>
         </div>

@@ -13,5 +13,6 @@ import java.util.List;
  * @author Trevor
  */
 public interface PhotoDAOInterface {
-    List<Photo> list();
+    List<Photo> getAllPhotos();
+    Photo getPhotoByID(int id);
 }
