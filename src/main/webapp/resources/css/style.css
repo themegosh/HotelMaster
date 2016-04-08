@@ -80,6 +80,10 @@ body {
 }
 
 /* Misc form properties */
+#map{
+    width:100%;
+    height:350px;
+}
 
 .contactForm .input-group{
     padding-bottom: 10px;

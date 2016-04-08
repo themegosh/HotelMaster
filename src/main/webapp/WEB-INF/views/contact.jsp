@@ -3,10 +3,45 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<div class="sections_group">
-    <div class="section cont-map-section" style="border: 1px dashed black;" id="where" data-id="#where">
-        <h1>Map</h1>
-    </div>
+<div class="sections_group">    
+    
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiBIa2T1ar2Cv5m3CHVhyvC6NT2U-gJiw&callback=initMap" async defer></script>
+    <script>
+      var map;
+      function initMap() {
+          var contentString = 'This is where we are';
+
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+          
+          
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 18,
+          center: {lat: 43.725905, lng: -79.606670}
+        });
+
+        marker = new google.maps.Marker({
+          map: map,
+          draggable: false,
+          animation: google.maps.Animation.DROP,
+          position: {lat: 43.725905, lng: -79.606670}
+        });
+        marker.addListener('click', toggleBounce);
+      }
+
+      function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+      }
+    </script>
+    <div id="map"></div>
+    
+    
     <div class="container contactForm">
     <div class="col-md-4 col-md-offset-4 col-sm-12 ">
         <div class="col-xs-12">	
