@@ -1,8 +1,8 @@
-<%-- 
-    Document   : contactSuccess
-    Created on : 2-Apr-2016, 9:49:18 PM
-    Author     : GEORGE
---%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <div class="sections_group">
     <div class="section cont-map-section" style="border: 1px dashed black;" id="where" data-id="#where">
         <h1>Map</h1>
@@ -19,19 +19,19 @@
                 </tr>
                 <tr>
                     <td>Name:</td>
-                    <td>${contactForm.name}</td>
+                    <td><c:out value="${contactForm.getName()}" /></td>
                 </tr>
                 <tr>
                     <td>Email:</td>
-                    <td>${contactForm.email}</td>
+                    <td>${contactForm.getEmail()}</td>
                 </tr>
                 <tr>
                     <td>Subject</td>
-                    <td>${contactForm.subject}</td>
+                    <td>${contactForm.getSubject()}</td>
                 </tr>
                 <tr>
                     <td>Message:</td>
-                    <td>${contactForm.message}</td>
+                    <td>${contactForm.getMessage()}</td>
                 </tr>
 
             </table>

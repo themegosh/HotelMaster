@@ -5,25 +5,41 @@
  */
 package hotelmaster.contact;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Email;
+
 /**
  *
  * @author GEORGE
  */
-public class Contact {
+public class ContactForm {
     
+    @NotNull
+    @Size(min=1, max = 75)
     private String name;
+    
+    @NotNull
+    @Email
+    @Size(min=1, max = 75)
     private String email;
+    
+    @NotNull
+    @Size(min=1, max = 75)
     private String subject;
+    
+    @NotNull
+    @Size(min=1, max = 75)
     private String message;
     
-    public Contact(){}
+    public ContactForm(){}
     
-    public Contact(String name, String email){
+    public ContactForm(String name, String email){
         this.name = name;
         this.email = email;
     }
     
-    public Contact(String name, String email, String subject, String message){
+    public ContactForm(String name, String email, String subject, String message){
         this.name = name;
         this.email = email;
         this.subject = subject;

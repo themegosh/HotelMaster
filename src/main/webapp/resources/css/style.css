@@ -80,6 +80,15 @@ body {
 }
 
 /* Misc form properties */
+
+.contactForm .input-group{
+    padding-bottom: 10px;
+}
+
+.inputErrorCls{
+    border: 1px solid red !important;
+    background-color: #ffe6e6 !important;
+}
 .formError {
     padding: 6px 12px;
     color: #a94442;

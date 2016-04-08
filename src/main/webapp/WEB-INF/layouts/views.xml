@@ -17,6 +17,9 @@
     <definition name="contact" extends="DefaultTemplate">
         <put-attribute name="body"	value="/WEB-INF/views/contact.jsp" />
     </definition>
+    <definition name="contactResult" extends="DefaultTemplate">
+        <put-attribute name="body"	value="/WEB-INF/views/contactResult.jsp" />
+    </definition>
     <definition name="register" extends="DefaultTemplate">
         <put-attribute name="body"	value="/WEB-INF/views/register.jsp" />
     </definition>
