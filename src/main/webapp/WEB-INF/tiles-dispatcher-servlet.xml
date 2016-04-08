@@ -58,6 +58,8 @@
     </bean>
     
     <bean id="myBeansValidator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+    
+    <bean id="account" class="hotelmaster.account.Account" abstract="true" />
    
     <!--Contact Form Email Notification Handler-->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

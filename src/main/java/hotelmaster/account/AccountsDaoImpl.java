@@ -38,7 +38,7 @@ public class AccountsDaoImpl implements AccountsDao {
     
        
     @Override
-    public int insertNewAccount(Account _account) {
+    public Account insertNewAccount(Account _account) {
         
         //hash the password if they have one
         if (_account.getPassword() != null)
@@ -66,7 +66,8 @@ public class AccountsDaoImpl implements AccountsDao {
             },
             keyHolder);
                 
-        return keyHolder.getKey().intValue();
+        _account.setId(keyHolder.getKey().intValue());
+        return _account;
     }
     
     @Override

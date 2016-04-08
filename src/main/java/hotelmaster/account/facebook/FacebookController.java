@@ -9,14 +9,11 @@ import com.github.scribejava.apis.FacebookApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.*;
 import com.github.scribejava.core.oauth.OAuth20Service;
-import com.github.scribejava.core.oauth.OAuthService;
 import hotelmaster.account.Account;
-import hotelmaster.account.AccountFactory;
-import hotelmaster.util.ApplicationContextProvider;
+import hotelmaster.account.AccountsDao;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,8 +23,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import org.json.*;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 /**
@@ -36,6 +32,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  */
 @Controller
 public class FacebookController {
+    
+    @Autowired
+    private AccountsDao accountsDao;
         
     private final String ATTR_OAUTH_ACCESS_TOKEN = "ATTR_OAUTH_ACCESS_TOKEN";
     private final String ATTR_OAUTH_REQUEST_TOKEN = "ATTR_OAUTH_REQUEST_TOKEN";
@@ -105,17 +104,37 @@ public class FacebookController {
         Response oauthResponse = oauthRequest.send();
 
         //this is where facebook will throw back a JSON object to form the user object, and update the DB.
-        System.out.println("***************************************************");
-        System.out.println(oauthResponse.getBody());
-        System.out.println("***************************************************");
+        System.out.println("oauthResponse: "+oauthResponse.getBody());
 
-        JSONObject jobj = new JSONObject(oauthResponse.getBody());
+        JSONObject fb = new JSONObject(oauthResponse.getBody());
 
         //we'll assume that if we have an id, the user logged on successfully
-        if (!jobj.isNull("id")) {
+        if (!fb.isNull("id")) {
             try {
                 //this will start the DB login flow
-                accountSession = new AccountFactory().loginFacebook(jobj);
+                //accountSession = new AccountFactory().loginFacebook(jobj);
+                
+                //try to find the account by the facebook id
+                accountSession = accountsDao.getAccountByFBId(fb.getString("id"));
+                if (accountSession.getId() > 0){
+                    //we found it
+                    //update their facebook details
+                    accountsDao.updateAccountByFacebook(fb);
+                } else {
+                    //we have a new user
+                    if (!fb.isNull("id"))
+                        accountSession.setFacebookId(fb.getString("id"));
+                    if (!fb.isNull("first_name"))
+                        accountSession.setFirstName(fb.getString("first_name"));
+                    if (!fb.isNull("last_name"))
+                        accountSession.setLastName(fb.getString("last_name"));
+                    if (!fb.isNull("email"))
+                        accountSession.setEmail(fb.getString("email"));
+                    if (!fb.isNull("gender"))
+                        accountSession.setGender(fb.getString("gender"));
+
+                    accountSession = accountsDao.insertNewAccount(accountSession); //inserting returns the freshly generated ID
+                }
                 
                 htrequest.getSession().setAttribute("accountSession", accountSession);
                                                 

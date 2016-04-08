@@ -6,9 +6,10 @@
 package hotelmaster.account.login;
 
 import hotelmaster.account.Account;
-import hotelmaster.account.AccountFactory;
+import hotelmaster.account.AccountsDao;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -25,13 +26,18 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
     
+    @Autowired
+    private AccountsDao accountsDao;
     
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public ModelAndView showLoginPage(HttpServletRequest htrequest) {
         Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
-        if (accountSession != null) {
+        
+        //dont let them log in again!
+        if (accountSession != null)
             return new ModelAndView("redirect:home");
-        }
+        
+        
         ModelAndView modelAndView = new ModelAndView("login"); //viewing the login.jsp
         Login loginForm = new Login();
         modelAndView.addObject("loginForm", loginForm);
@@ -52,7 +58,7 @@ public class LoginController {
             //create the account
             try {
                 //try to login the user
-                accountSession = new AccountFactory().loginEmail(loginForm);
+                accountSession = accountsDao.getAccountByEmailPass(loginForm.getEmail(), loginForm.getPassword());
                 
                 //if we've gotten here, we assume theyve registered successfully
                 htrequest.getSession().setAttribute("accountSession", accountSession);

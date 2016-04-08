@@ -8,7 +8,6 @@ package hotelmaster.account.logout;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -18,14 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LogoutController {
     
-    
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    @RequestMapping(value="/logout")
     public ModelAndView showLogout(HttpServletRequest htrequest) {
         
         //remove the session
         htrequest.getSession().removeAttribute("accountSession");
         
-        ModelAndView modelAndView = new ModelAndView("redirect:home"); //viewing the login.jsp
+        //send them home
+        ModelAndView modelAndView = new ModelAndView("redirect:home");
         
         return modelAndView;
     }

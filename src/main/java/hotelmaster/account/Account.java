@@ -4,6 +4,7 @@ package hotelmaster.account;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.stereotype.Component;
 
 /**
  *
@@ -26,9 +27,7 @@ public abstract class Account {
     protected String facebookId;
     protected String gender;
     
-    public Account(){
-        
-    }
+    public Account() { }
     
     public Account(int id, String firstName, String lastName, String email, String password){
         this.id = id;

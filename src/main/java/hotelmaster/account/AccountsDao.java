@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AccountsDao {
-    int insertNewAccount(Account account);
+    Account insertNewAccount(Account account);
     void deleteAccount(int id);
     Account getAccountByFBId(String fbId);
     int updateAccountByFacebook(JSONObject fb);
