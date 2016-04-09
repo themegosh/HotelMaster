@@ -19,6 +19,7 @@ public class Room {
     private String floor;
     private double pricePerNight;
     private int maxGuests;
+    private String roomViewURL;
     
     List<Photo> photos;
     HashMap<String, Boolean> features;
@@ -35,6 +36,8 @@ public class Room {
         this.floor = floor;
         this.pricePerNight = pricePerNight;
         this.maxGuests = maxGuests;
+        
+        setRoomViewURL(roomName);
     }
     
     //Getters and setters
@@ -52,6 +55,7 @@ public class Room {
 
     public void setRoomName(String roomName) {
         this.roomName = roomName;
+        setRoomViewURL(roomName);
     }
 
     public String getFloor() {
@@ -76,6 +80,16 @@ public class Room {
 
     public void setMaxGuests(int maxGuests) {
         this.maxGuests = maxGuests;
+    }
+        
+    public String getRoomViewURL(){
+        
+        return roomViewURL;
+    }
+     
+    public final void setRoomViewURL(String roomName){
+        roomViewURL = roomName.trim().replaceAll("[^a-zA-Z0-9\\-\\s\\.]", "");
+        roomViewURL = roomViewURL.replaceAll("[\\-| |\\.]+", "-");
     }
     
 }

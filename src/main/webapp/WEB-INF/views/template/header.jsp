@@ -20,6 +20,9 @@
                     <li class="active">
                         <a href="${homeUrl}">Home</a>
                     </li>
+                    <li><spring:url value="/rooms" var="roomsDir" htmlEscape="true" />
+                        <a href="${roomsDir}">Rooms</a>
+                    </li>
                     <li><spring:url value="/contact" var="contactUrl" htmlEscape="true" />
                         <a href="${contactUrl}">Contact Us</a>
                     </li>

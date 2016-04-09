@@ -29,11 +29,17 @@ body {
     padding-top: 0px;
 }
 
+/* Alert boxes */
 .alert {
     margin-bottom: 0px;
 }
 .alert:last-child {
     margin-bottom: 20px;
+
+/* Page Header and Title */
+
+.page-header h1{
+    text-align: center;
 }
 
 
@@ -85,6 +91,26 @@ body {
 .loginRegister .loginRegisterForm .input-group.i {
     width: 2em;
 }
+
+/* Rooms Directory Page */
+
+.roomBlock h3{
+    text-align: center;
+}
+
+.roomPreview{
+    padding-bottom: 10px;
+}
+
+.roomPreview img{
+    width: 100%;
+}
+
+.priceLabel{
+    font-size: 2rem;
+}
+
+
 
 /* Misc form properties */
 #map{

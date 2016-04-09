@@ -14,6 +14,12 @@
     <definition name="room" extends="DefaultTemplate">
         <put-attribute name="body"      value="/WEB-INF/views/room.jsp" />
     </definition>
+    <definition name="rooms" extends="DefaultTemplate">
+        <put-attribute name="body"	value="/WEB-INF/views/roomDir.jsp" />
+    </definition>
+    <definition name="roomView" extends="DefaultTemplate">
+        <put-attribute name="body"	value="/WEB-INF/views/roomView.jsp" />
+    </definition>
     <definition name="contact" extends="DefaultTemplate">
         <put-attribute name="body"	value="/WEB-INF/views/contact.jsp" />
     </definition>

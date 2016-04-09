@@ -43,6 +43,11 @@ public class HomeController {
         //add notification handling to this page
         modelAndView.addObject("notificationService", notificationService);
         
+        notificationService.add("Test", "NORMAL", NotificationType.NORMAL);
+        notificationService.add("Test", "ERROR", NotificationType.ERROR);
+        notificationService.add("Test", "SUCCESS", NotificationType.SUCCESS);
+        notificationService.add("Test", "WARNING", NotificationType.WARNING);
+        
         //do stuff for the home page
         List<Photo> photoList = photoDAO.getAllPhotos();
         modelAndView.addObject("photoList", photoList);
