@@ -11,6 +11,8 @@ import com.github.scribejava.core.model.*;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import hotelmaster.account.Account;
 import hotelmaster.account.AccountsDao;
+import hotelmaster.notification.NotificationService;
+import hotelmaster.notification.NotificationType;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,6 +37,9 @@ public class FacebookController {
     
     @Autowired
     private AccountsDao accountsDao;
+    
+    @Autowired
+    private NotificationService notificationService;
         
     private final String ATTR_OAUTH_ACCESS_TOKEN = "ATTR_OAUTH_ACCESS_TOKEN";
     private final String ATTR_OAUTH_REQUEST_TOKEN = "ATTR_OAUTH_REQUEST_TOKEN";
@@ -49,7 +54,8 @@ public class FacebookController {
     public ModelAndView login(WebRequest request, HttpServletRequest htrequest) {
         Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
         if (accountSession != null) {
-            return new ModelAndView("redirect:home");
+            notificationService.add("Error!", "You are already logged in!", NotificationType.ERROR);
+            return new ModelAndView("redirect:home", "notificationService", notificationService);
         }
 
         // getting request and access token from session
@@ -75,10 +81,14 @@ public class FacebookController {
     public ModelAndView callback(@RequestParam(value="code", required=false) String oauthVerifier, WebRequest request, HttpServletRequest htrequest) {
         Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
         if (accountSession != null) {
-            return new ModelAndView("redirect:home");
+            notificationService.add("Error!", "You are already logged in!", NotificationType.ERROR);
+            return new ModelAndView("redirect:home", "notificationService", notificationService);
         }
         
         ModelAndView modelAndView = new ModelAndView();
+        
+        //add notification handling to this page
+        modelAndView.addObject("notificationService", notificationService);
 
         // build the oath service 
         OAuth20Service service = new ServiceBuilder()
@@ -144,6 +154,7 @@ public class FacebookController {
                 e.printStackTrace();
             }
         }
+        notificationService.add("Success!", "You have successfully logged in with Facebook.", NotificationType.SUCCESS);
         modelAndView.setViewName("redirect:home");
         return modelAndView;
     }

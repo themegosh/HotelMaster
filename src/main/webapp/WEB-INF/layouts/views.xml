@@ -24,6 +24,10 @@
         <put-attribute name="body"	value="/WEB-INF/views/register.jsp" />
     </definition>
     
+    <definition name="notifications" extends="DefaultTemplate">
+        <put-attribute name="body"	value="/WEB-INF/views/register.jsp" />
+    </definition>
+    
     
     <!-- Admin Template -->
     <definition name="admin.home" extends="AdminTemplate">

@@ -8,6 +8,8 @@ package hotelmaster.account.register;
 import hotelmaster.account.Account;
 import hotelmaster.account.AccountsDao;
 import hotelmaster.account.User;
+import hotelmaster.notification.NotificationService;
+import hotelmaster.notification.NotificationType;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +31,24 @@ public class RegisterController {
     @Autowired
     private AccountsDao accountsDao;
     
+    @Autowired
+    private NotificationService notificationService;
+    
     @RequestMapping(value="/register", method = RequestMethod.GET)
     public ModelAndView showRegistrationPage(HttpServletRequest htrequest) {
         
         //get an active session
         Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
         //dont let them register again!
-        if (accountSession != null)
-            return new ModelAndView("redirect:home");
+        if (accountSession != null) {
+            notificationService.add("Error!", "You are already logged in!", NotificationType.ERROR);
+            return new ModelAndView("redirect:home", "notificationService", notificationService);
+        }
         
         ModelAndView modelAndView = new ModelAndView("register"); //viewing the login.jsp
+        
+        //add notification handling to this page
+        modelAndView.addObject("notificationService", notificationService);
         
         User accountForm = new User();
         modelAndView.addObject("accountForm", accountForm);
@@ -52,14 +62,15 @@ public class RegisterController {
         //get an active session
         Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
         //dont let them register again!
-        if (accountSession != null)
-            return new ModelAndView("redirect:home");
+        if (accountSession != null) {
+            notificationService.add("Error!", "You are already logged in!", NotificationType.ERROR);
+            return new ModelAndView("redirect:home", "notificationService", notificationService);
+        }
         
         ModelAndView modelAndView = new ModelAndView("register"); //viewing the login.jsp
-        System.out.println("Session class:"+htrequest.getSession().getClass().toString());
-        if (accountSession != null) { //already logged in, redirect
-            return new ModelAndView("redirect:home");
-        }
+        
+        //add notification handling to this page
+        modelAndView.addObject("notificationService", notificationService);
         
         if (!result.hasErrors()){
             System.out.println("Registration submitted: No Errors.");
@@ -70,6 +81,10 @@ public class RegisterController {
                 
                 //if we've gotten here, we assume theyve registered successfully
                 htrequest.getSession().setAttribute("accountSession", accountSession);
+                
+                //notify them of the successful registration and login
+                notificationService.add("Success!", "You have successfully registered and are now logged in.", NotificationType.SUCCESS);
+                
                 //send a message to the message service
                 return new ModelAndView("redirect:home");
                 

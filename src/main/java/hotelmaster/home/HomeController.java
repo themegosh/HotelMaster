@@ -8,6 +8,10 @@ package hotelmaster.home;
 import hotelmaster.Photo;
 import hotelmaster.account.Account;
 import hotelmaster.gallery.PhotoDAO;
+import hotelmaster.notification.Notification;
+import hotelmaster.notification.NotificationService;
+import hotelmaster.notification.NotificationType;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,9 @@ public class HomeController {
     
     @Autowired
     private PhotoDAO photoDAO;
+    
+    @Autowired
+    private NotificationService notificationService;
         
     @RequestMapping(value={"/", "/home"})
     public ModelAndView home(HttpServletRequest htrequest){
@@ -33,6 +40,8 @@ public class HomeController {
         if (accountSession != null) {
             System.out.println("HomeController: /home accountSession:" + accountSession.toString());
         }
+        //add notification handling to this page
+        modelAndView.addObject("notificationService", notificationService);
         
         //do stuff for the home page
         List<Photo> photoList = photoDAO.getAllPhotos();

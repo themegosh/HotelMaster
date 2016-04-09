@@ -29,6 +29,13 @@ body {
     padding-top: 0px;
 }
 
+.alert {
+    margin-bottom: 0px;
+}
+.alert:last-child {
+    margin-bottom: 20px;
+}
+
 
 /* Login/Register Page */
 .loginRegister .loginRegisterContainer{
