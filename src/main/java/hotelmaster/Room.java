@@ -22,8 +22,9 @@ public class Room {
     private int maxGuests;
     private String roomViewURL;
     
+    HashMap<String, Boolean> features;
+    
     List<Photo> photos;
-    ArrayList<String> features;
     List<Review> reviews;
 
     //Empty constructor
@@ -87,7 +88,15 @@ public class Room {
         
         return roomViewURL;
     }
-     
+
+    public HashMap<String, Boolean> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(HashMap<String, Boolean> features) {
+        this.features = features;
+    }
+    
     public final void setRoomViewURL(String roomName){
         roomViewURL = roomName.trim().replaceAll("[^a-zA-Z0-9\\-\\s\\.]", "");
         roomViewURL = roomViewURL.replaceAll("[\\-| |\\.]+", "-");

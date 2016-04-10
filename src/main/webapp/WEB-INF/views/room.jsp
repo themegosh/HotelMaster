@@ -54,6 +54,7 @@
                         <td><form:input path="floor" placeholder=""/></td>
                         <td><form:input path="pricePerNight" placeholder=""/></td>
                         <td><form:input path="maxGuests" placeholder=""/></td>
+                        <td><form:checkboxes items="${features}" path="features" /></td>
                         <td><button type="submit" class="btn btn-default" name="action" value="add">Add</button></td>
                     </form:form>
                 </tr>
@@ -65,6 +66,7 @@
                             <td><input class="borderlessInput" type="text" name="floor" value="${room.floor}"/></td>
                             <td>$<input class="borderlessInput" type="number" name="pricePerNight" step="0.01" value="${room.pricePerNight}" min="0" max="99.99"/></td>
                             <td><input class="borderlessInput" type="number" name="maxGuests" value="${room.maxGuests}" min="1" max="9"/></td>
+                            <td></td>
                             <td>
                                 <button type="submit" class="btn btn-default" name="action" value="edit">Edit</button> &nbsp;
                                 <button type="submit" class="btn btn-default" name="action" value="delete">Delete</button> 

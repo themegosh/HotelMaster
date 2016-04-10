@@ -15,8 +15,8 @@
     </head>
     <body>
         <h1>It works</h1>
-        <!--<form:form modelAttribute="roomFeatures" method="POST" encoding="utf8">
-            <form:checkboxes items="${features}" path="features"/>
-        </form:form>-->
+            <form:form modelAttribute="roomForm" encoding="utf8">
+                <form:checkboxes items="${features}" path="features" />
+            </form:form>
     </body>
 </html>

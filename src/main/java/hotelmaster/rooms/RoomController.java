@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-//Author - Danny Ardona
+/**
+ *
+ * @author Danny
+ */
+
 @Controller
 public class RoomController {
 
@@ -24,11 +28,11 @@ public class RoomController {
     public ModelAndView listRoom(ModelAndView model) throws IOException {
         List<Room> roomList = roomDAO.list();
         RoomForm rf = new RoomForm();
-        //Room room = new Room();
+        List<String> features = roomDAO.listFeatures();
         
         model.addObject("roomList", roomList);
         model.addObject("roomForm", new RoomForm());
-        //model.addObject("room", room);
+        model.addObject("features", features);
         model.setViewName("room");
                
         return model;
@@ -56,11 +60,9 @@ public class RoomController {
             
         List<Room> roomList = roomDAO.list();
         RoomForm rf = new RoomForm();
-        //Room room = new Room();
         
         model.addObject("roomList", roomList);
         model.addObject("roomForm", new RoomForm());
-        //model.addObject("room", room);
         model.setViewName("room");
         
         return model;

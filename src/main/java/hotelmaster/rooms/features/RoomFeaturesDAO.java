@@ -40,7 +40,7 @@ public class RoomFeaturesDAO implements RoomFeaturesDAOInterface {
         
         String query = "SELECT feature_name FROM features ORDER BY feature_name";
                    
-        List<String> featureList = jdbcTemplate.query(query, new RowMapper<String>(){
+            List<String> featureList = jdbcTemplate.query(query, new RowMapper<String>(){
            
             @Override
             public String mapRow(ResultSet rs, int i) throws SQLException {
@@ -60,13 +60,7 @@ public class RoomFeaturesDAO implements RoomFeaturesDAOInterface {
         String deleteQuery = "DELETE FROM room_features WHERE room_id = " + roomID;
         jdbcTemplate.update(deleteQuery);
         
-        for (String feature : features){
-            String updateQuery = "INSERT INTO room_features (room_id, feature_id) VALUES (?, "
-                                + "(SELECT feature_id FROM features WHERE feature_name = ?))";
-            Object[] params = new Object[]{Integer.parseInt(roomID), feature};
-            int[] types = new int[]{Types.INTEGER, Types.VARCHAR};
-            jdbcTemplate.update(updateQuery);
-        }
+        
     }
     
 }

@@ -6,7 +6,10 @@ import hotelmaster.Room;
 import hotelmaster.Booking;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
@@ -115,6 +118,90 @@ public class RoomDAO implements RoomDAOInterface {
         });
         
         return roomList;
+    }
+
+    @Override
+    public void setRoomFeatures(List<Room> rooms) {
+        for (final Room room : rooms){
+            final HashMap<String, Boolean> features = new HashMap<String, Boolean>();
+            features.put("Balcony", Boolean.FALSE);
+            features.put("Breakfast in bed", Boolean.FALSE);
+            features.put("Jacuzzi", Boolean.FALSE);
+            features.put("Netflix Enabled TV", Boolean.FALSE);
+            features.put("Open Bar", Boolean.FALSE);
+            features.put("Room Service", Boolean.FALSE);
+            features.put("Wifi", Boolean.FALSE);
+            
+            String query = "SELECT * FROM room_features WHERE room_id = " + room.getRoomID();
+            
+            jdbcTemplate.query(query, new RowMapper<Object>(){
+                @Override
+                public Object mapRow(ResultSet rs, int i) throws SQLException {
+                    
+                    
+                    
+                    features.put(rs.getString("feature_id"), Boolean.TRUE);  
+                    
+                    return null; 
+                }
+            });
+            
+            room.setFeatures(features);
+        }   
+    }
+    
+    
+    
+    @Override 
+    public void addRoomFeatures(Room room){
+        jdbcTemplate.setDataSource(getDataSource());
+
+        HashMap<String, Boolean> features = room.getFeatures();
+        
+        String deleteQuery = "DELETE FROM room_features WHERE room_id = " + room.getRoomID();
+        jdbcTemplate.update(deleteQuery);
+        
+        Iterator iterator = features.entrySet().iterator();
+        
+        while (iterator.hasNext()){
+            Map.Entry pair = (Map.Entry) iterator.next();
+            
+            if ((Boolean) pair.getValue()){
+                String insertQuery = "INSERT INTO room_features (room_id, feature_id) VALUES (?, SELECT feature_id FROM features WHERE feature_name = ?))";
+                Object[] params = new Object[]{room.getRoomID(), (String) pair.getKey()};
+                int[] types = new int[]{Types.INTEGER, Types.VARCHAR};
+                
+                jdbcTemplate.update(insertQuery);
+            }
+        }
+        
+//        for (String feature : features){
+//            String insertQuery = "INSERT INTO room_features (room_id, feature_id) VALUES (?, (SELECT feature_id FROM features WHERE feature_name = ?))";
+//            Object[] params = new Object[]{room.getRoomID(), feature};
+//            int[] types = new int[]{Types.INTEGER, Types.VARCHAR};
+//        
+//            jdbcTemplate.update(insertQuery);
+//        }
+        
+    }
+    
+    @Override
+    public List<String> listFeatures() {
+        jdbcTemplate.setDataSource(getDataSource());
+        
+        String query = "SELECT feature_name FROM features ORDER BY feature_name";
+                   
+            List<String> featureList = jdbcTemplate.query(query, new RowMapper<String>(){
+           
+            @Override
+            public String mapRow(ResultSet rs, int i) throws SQLException {
+                String s = rs.getString("feature_name");
+                
+                return s;
+            }
+        });
+        
+        return featureList;
     }
     
     /**
