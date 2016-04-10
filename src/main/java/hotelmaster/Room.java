@@ -5,6 +5,7 @@
  */
 package hotelmaster;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Component;
@@ -22,7 +23,7 @@ public class Room {
     private String roomViewURL;
     
     List<Photo> photos;
-    HashMap<String, Boolean> features;
+    ArrayList<String> features;
     List<Review> reviews;
 
     //Empty constructor

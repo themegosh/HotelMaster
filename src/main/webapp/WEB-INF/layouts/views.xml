@@ -33,6 +33,9 @@
     <definition name="notifications" extends="DefaultTemplate">
         <put-attribute name="body"	value="/WEB-INF/views/register.jsp" />
     </definition>
+    <definition name="roomFeatures" extends="DefaultTemplate">
+        <put-attribute name="body"	value="/WEB-INF/views/roomFeatures.jsp" />
+    </definition>
     
     
     <!-- Admin Template -->

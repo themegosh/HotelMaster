@@ -54,7 +54,6 @@
                         <td><form:input path="floor" placeholder=""/></td>
                         <td><form:input path="pricePerNight" placeholder=""/></td>
                         <td><form:input path="maxGuests" placeholder=""/></td>
-                        <td><form:checkbox path="features" value=""/></td>
                         <td><button type="submit" class="btn btn-default" name="action" value="add">Add</button></td>
                     </form:form>
                 </tr>

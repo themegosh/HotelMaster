@@ -3,10 +3,8 @@ package hotelmaster.rooms;
 import hotelmaster.Room;
 import java.io.IOException;
 import java.util.List;
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 //Author - Danny Ardona
-//Create a RoomForm and inject it in the modelandview
 @Controller
 public class RoomController {
 
