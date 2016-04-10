@@ -10,7 +10,29 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 
+<div class="container-fluid">
+    <img src="resources/img/hotelNew.png" class="img-responsive" alt="hotel">
+    <div class="row">
+        <div class="col-xs-12">
+            <form:form modelAttribute="searchResult" method="POST" enctype="utf8">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <%--<form:input path="maxguests" placeholder="MaxGuests" value="" class="form-control" />--%>
+                </div>
+                <%--<form:errors class="formError" path="email" element="strong"/>--%>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                    </div>
+                </div>
+                <%--<form:errors class="formError" element="strong"/>--%>
+            </form:form>
+        </div>
+    </div>
+</div>
+
 <div class="container">
+    
     <h1>Gallery</h1>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->

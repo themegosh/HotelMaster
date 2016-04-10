@@ -6,12 +6,11 @@
 package hotelmaster.home;
 
 import hotelmaster.Photo;
+import hotelmaster.Room;
 import hotelmaster.account.Account;
 import hotelmaster.gallery.PhotoDAO;
-import hotelmaster.notification.Notification;
 import hotelmaster.notification.NotificationService;
-import hotelmaster.notification.NotificationType;
-import java.util.ArrayList;
+import hotelmaster.search.SearchDAO;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +29,13 @@ public class HomeController {
     private PhotoDAO photoDAO;
     
     @Autowired
+    private SearchDAO searchDAO;
+    
+    @Autowired
     private NotificationService notificationService;
         
     @RequestMapping(value={"/", "/home"})
-    public ModelAndView home(HttpServletRequest htrequest){
+    public ModelAndView home(HttpServletRequest htrequest) {
         ModelAndView modelAndView = new ModelAndView("home"); //viewing the home.jsp
         
         Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
@@ -43,9 +45,13 @@ public class HomeController {
         //add notification handling to this page
         modelAndView.addObject("notificationService", notificationService);
                 
-        //do stuff for the home page
+        //gallery stuff
         List<Photo> photoList = photoDAO.getAllPhotos();
         modelAndView.addObject("photoList", photoList);
+        
+        //search stuff
+        List<Room> searchResult = searchDAO.getAllRooms();
+        modelAndView.addObject("searchResult", searchResult);
         
         return modelAndView;
     }
