@@ -90,6 +90,7 @@ public class Room {
     public final void setRoomViewURL(String roomName){
         roomViewURL = roomName.trim().replaceAll("[^a-zA-Z0-9\\-\\s\\.]", "");
         roomViewURL = roomViewURL.replaceAll("[\\-| |\\.]+", "-");
+        roomViewURL = roomViewURL.toLowerCase();
     }
     
 }

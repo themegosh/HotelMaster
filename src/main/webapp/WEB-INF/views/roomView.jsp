@@ -9,11 +9,20 @@
         <div class="col-md-12 column ui-sortable">
                
             <div class="page-header">
-                <h1> hello </h1>
                 <h1><c:out value="${room.getRoomName()}"/></h1>
-            </div>
+            </div>            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 float-right">
+            
+            <form:form type="submit">
+                
+            </form:form>
+            
             
         </div>
+        <div class="col-sm-8"></div>
     </div>
     
 </div>
