@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface RoomDAOInterface {    
     int insertRoom(Room room);
-    int updateRoom(Room room, String newRoomName);
-    void deleteRoom(String roomName);
+    int updateRoom(Room room);
+    void deleteRoom(Room room);
     List<Room> list();
     Room get(String roomName);
 }

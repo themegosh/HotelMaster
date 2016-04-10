@@ -44,7 +44,7 @@ public class RoomDAO implements RoomDAOInterface {
     public int insertRoom(Room room) {
         jdbcTemplate.setDataSource(getDataSource());
         
-        String insertQuery = "INSERT INTO room VALUES (room_name, floor, price_per_night, max_guests) VALUES (?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO room (room_name, floor, price_per_night, max_guests) VALUES (?, ?, ?, ?)";
         Object[] params = new Object[]{room.getRoomName(), room.getFloor(), room.getPricePerNight(), room.getMaxGuests()};
         int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.DECIMAL, Types.INTEGER};
         
@@ -57,15 +57,15 @@ public class RoomDAO implements RoomDAOInterface {
      */
     
     @Override
-    public void deleteRoom(String roomName) {
+    public void deleteRoom(Room room) {
         jdbcTemplate.setDataSource(getDataSource());
         
-        String deleteQuery = "DELETE FROM room WHERE room_name = ?";    
-        int count = jdbcTemplate.update(deleteQuery, roomName, Types.VARCHAR);
+        String deleteQuery = "DELETE FROM room WHERE room_ID = " + room.getRoomID();    
+        int count = jdbcTemplate.update(deleteQuery);
         if (count > 0)
-            System.out.println("Room " + roomName + " was successfully deleted");
+            System.out.println("Room " + room.getRoomName() + " was successfully deleted");
         else
-            System.out.println("Room " + roomName + " does not exist in the database");
+            System.out.println("Room " + room.getRoomName() + " does not exist in the database");
     }
 
     /**
@@ -76,11 +76,11 @@ public class RoomDAO implements RoomDAOInterface {
      */
     
     @Override
-    public int updateRoom(Room room, String newRoomName) {
+    public int updateRoom(Room room) {
         jdbcTemplate.setDataSource(getDataSource());
         
-        String updateQuery = "UPDATE room SET room_name = ?, floor = ?, price_per_night = ?, max_guests = ? WHERE room_name = ?";
-        Object[] params = new Object[]{newRoomName, room.getFloor(), room.getPricePerNight(), room.getMaxGuests(), room.getRoomName()};
+        String updateQuery = "UPDATE room SET room_name = ?, floor = ?, price_per_night = ?, max_guests = ? WHERE room_id = ?";
+        Object[] params = new Object[]{room.getRoomName(), room.getFloor(), room.getPricePerNight(), room.getMaxGuests(), room.getRoomID()};
         int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.DECIMAL, Types.INTEGER, Types.VARCHAR};
      
         return jdbcTemplate.update(updateQuery, params, types);
