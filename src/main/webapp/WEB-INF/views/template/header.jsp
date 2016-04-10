@@ -87,17 +87,19 @@
             </div><!--/.nav-collapse -->
         </div>
     </nav>
-        <c:forEach items="${notificationService.getNotifications()}" var="notification"> 
-            <div class="alert ${notification.getAlertClass()} alert-dismissible fade in" role="alert">
-                <div class="container">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button> 
-                    <strong>${notification.title}</strong> ${notification.message}
+        <c:if test="${notificationService.getNotifications().size() > 0}" >
+            <c:forEach items="${notificationService.getNotifications()}" var="notification"> 
+                <div class="alert ${notification.getAlertClass()} alert-dismissible fade in" role="alert">
+                    <div class="container">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button> 
+                        <strong>${notification.title}</strong> ${notification.message}
+                    </div>
                 </div>
-            </div>
-        </c:forEach>
-        ${notificationService.clear()}
+            </c:forEach>
+            ${notificationService.clear()}
+        </c:if>
          
 </header>
                     
