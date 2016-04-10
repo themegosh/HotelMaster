@@ -13,8 +13,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,18 +49,17 @@ public class ContactController {
             
             modelAndView.addObject("contactForm", cf);
             
-            String recipientAddress = "george.didok@gmail.com"; //change to admin email
-            String subject = htrequest.getParameter("subject");
-            String message = htrequest.getParameter("message");
-
-            // prints debug info
-            System.out.println("To: " + recipientAddress);
-            System.out.println("Subject: " + subject);
-            System.out.println("Message: " + message);
+            
+            String senderEmail = cf.getEmail();
+            
+            String subject = cf.getSubject();
+            String message = cf.getMessage();
 
             // creates a simple e-mail object
             SimpleMailMessage email = new SimpleMailMessage();
-            email.setTo(recipientAddress);
+            
+            email.setFrom(senderEmail);
+            email.setTo("george.didok@gmail.com"); //SET RECEPIENTS
             email.setSubject(subject);
             email.setText(message);
 

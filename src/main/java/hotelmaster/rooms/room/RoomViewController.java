@@ -10,11 +10,9 @@ import hotelmaster.rooms.RoomDAO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -29,15 +27,19 @@ public class RoomViewController {
     private RoomDAO roomDAO;
     
     @RequestMapping(value="{roomViewURL}", method = RequestMethod.GET)
-    public ModelAndView showRoomsDirectory(@RequestParam("roomViewURL") String URL){
+    public ModelAndView showRoomsDirectory(@PathVariable String roomViewURL){ //@RequestParam("roomViewURL") String URL
         ModelAndView modelAndView = new ModelAndView("roomView");
                
         List<Room> roomList = roomDAO.list();
         
+        String URL = roomViewURL;
+        System.out.println(URL);
+        
         for(int i = 0; i < roomList.size(); i++){
             if(roomList.get(i).getRoomViewURL().equalsIgnoreCase(URL)){
+                System.out.println("Found URL: " + roomList.get(i).getRoomViewURL());
                 Room room = new Room();
-                modelAndView.addObject("room", room);
+                modelAndView.addObject("room", roomList.get(i));
                 modelAndView.setViewName("roomView");
             }
         }

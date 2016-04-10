@@ -111,7 +111,10 @@ body {
     font-size: 2rem;
 }
 
-
+/* Room View Page */
+.float-right{
+    float: right;
+}
 
 /* Misc form properties */
 #map{

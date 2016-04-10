@@ -26,22 +26,15 @@
                 font-family: inherit;
                 font-size: inherit;
             }
-        </style>
-        <script>
-            $('table td tr input').click(
-            function(e) {
-                e.preventDefault(); // prevent the default action
-                e.stopPropagation(); // stop the click from bubbling
-                $(this).closest('input').find('.borderlessInput').removeClass('borderlessInput');
-                $(this).parent().addClass('borderlessInput');
-            });
-        </script>
-        
+        </style>     
     </head>
     <body>
-        <h1>Room Manager</h1>
+        
         
         <div>
+        
+            <h1>Room Manager</h1>
+            
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -50,50 +43,37 @@
                         <td>Floor</td>
                         <td>Price per night</td>
                         <td>Max no. of guests</td>
+                        <td>Features</td>
                         <td></td>
                     </tr>
                 </thead>
-                    <tr>
-                        
-                        <form:form action="addRoom" method="post" modelAttribute="room">
-                            <!-- If I remove the form:input tag apache tiles won't complain -->
-                            <form:input path="roomName"/>                            
+                <tr>
+                    <td></td>
+                    <form:form modelAttribute="roomForm" method="POST" encoding="utf8">
+                        <td><form:input path="roomName" placeholder=""/></td>
+                        <td><form:input path="floor" placeholder=""/></td>
+                        <td><form:input path="pricePerNight" placeholder=""/></td>
+                        <td><form:input path="maxGuests" placeholder=""/></td>
+                        <td><form:checkbox path="features" value=""/></td>
+                        <td><button type="submit" class="btn btn-default" name="action" value="add">Add</button></td>
+                    </form:form>
+                </tr>
+                <c:forEach var="room" items="${roomList}" varStatus="status">
+                    <tr>            
+                        <form:form modelAttribute="roomForm" method="POST" encoding="utf8">
+                            <td><input class="borderlessInput" type="text" name="roomID" value="${room.roomID}"/></td>
+                            <td><input class="borderlessInput" type="text" name="roomName" value="${room.roomName}"/></td>
+                            <td><input class="borderlessInput" type="text" name="floor" value="${room.floor}"/></td>
+                            <td>$<input class="borderlessInput" type="number" name="pricePerNight" step="0.01" value="${room.pricePerNight}" min="0" max="99.99"/></td>
+                            <td><input class="borderlessInput" type="number" name="maxGuests" value="${room.maxGuests}" min="1" max="9"/></td>
+                            <td>
+                                <button type="submit" class="btn btn-default" name="action" value="edit">Edit</button> &nbsp;
+                                <button type="submit" class="btn btn-default" name="action" value="delete">Delete</button> 
+                            </td>
                         </form:form>
                     </tr>
-                <c:forEach var="room" items="${roomList}" varStatus="status">
-                    <tr>
-                        <td>${room.roomID}</td>
-                        <td><input class="borderlessInput" type="text" name="${room.roomName}" value="${room.roomName}"/></td>
-                        <td><input class="borderlessInput" type="text" name="${room.floor}" value="${room.floor}"/></td>
-                        <td>$<input class="borderlessInput" type="number" name="${room.pricePerNight}" value="${room.pricePerNight}" min="0"/></td>
-                        <td><input class="borderlessInput" type="number" name="${room.maxGuests}" value="${room.maxGuests}" min="1" max="9"/></td>
-                        <td>
-                            <button type="submit" class="btn btn-default" name="edit">Edit</button> &nbsp;
-                            <button type="submit" class="btn btn-default" name="delete">Delete</button> 
-                        </td>
-                    </tr>
-            </c:forEach>
+                </c:forEach>
             </table>
         </div>
-            
-        <!--
-        <form method="POST" role="form">
-            <label for="room_name">Room name: </label>
-            <input id="room_name" type="text" name="roomName" /> <br />
-            
-            <label for="room_floor">Floor: </label>
-            <input id="room_floor" type="text" name="floor"/> <br />
-            
-            <label for="room_price">Price per night: </label>
-            <input id="room_price" type="number" name="price"/> <br />
-            
-            <label for="room_max_guests">Max number of guests: </label>
-            <input id="room_max_guests" type="number" name="maxGuests" min="1" max="8"/> <br />
-            
-            <button type="submit" name="add">Add</button> &nbsp;
-            <button type="submit" name="delete">Delete</button> &nbsp; 
-            <button type="submit" name="edit">Edit</button> 
-        </form>>
-        -->
     </body>
 </html>

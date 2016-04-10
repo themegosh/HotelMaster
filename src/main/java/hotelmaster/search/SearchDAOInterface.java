@@ -12,5 +12,5 @@ import java.util.List;
  * @author Trevor
  */
 public interface SearchDAOInterface {
-    List<SearchResult> getAllRooms();
+    List<SearchParams> getAllRooms();
 }

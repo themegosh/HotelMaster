@@ -23,7 +23,7 @@ public class SearchController {
     
     @RequestMapping(value={"/getResults"})
     public void getResults() {
-        List<SearchResult> resultList = searchDAO.getAllRooms();
+        List<SearchParams> resultList = searchDAO.getAllRooms();
         
     }
     

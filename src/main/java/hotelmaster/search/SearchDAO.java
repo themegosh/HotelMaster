@@ -28,17 +28,17 @@ public class SearchDAO implements SearchDAOInterface {
     private DataSource dataSource;
     
     @Override
-    public List<SearchResult> getAllRooms() {
+    public List<SearchParams> getAllRooms() {
         String query = "SELECT * FROM room";
         
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         
-        List<SearchResult> resultList = new ArrayList<SearchResult>();
+        List<SearchParams> resultList = new ArrayList<SearchParams>();
         
         //map columns to room object
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(query);
         for (Map<String, Object> row : rows) {
-            SearchResult result = new SearchResult();
+            SearchParams result = new SearchParams();
             result.setNumOfGuests((int)row.get("max_guests"));
             resultList.add(result);
         }

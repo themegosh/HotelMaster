@@ -6,6 +6,6 @@
         <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
         <li><a href="/admin/rooms">Manage Rooms</a></li>
         <li><a href="/admin/photos">Manage Photos</a></li>
-        <li><a href="/admin/users">Manage User Access</a></li>
+        <li><a href="/admin/accounts">Manage User Access</a></li>
     </ul>
 </div>
