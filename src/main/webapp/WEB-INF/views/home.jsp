@@ -57,7 +57,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <form:form modelAttribute="searchParams" method="POST" enctype="utf8">
+            <form:form modelAttribute="searchParams" action="${pageContext.request.contextPath}/rooms" method="POST" enctype="utf8">
                 <div class="input-group">
                     <form:label path="numOfGuests" for="ddlGuests">Number of Guests:</form:label>&nbsp;
                     <form:select name="ddlGuests" path="numOfGuests">
@@ -86,7 +86,7 @@
                 
                 <div class="row">
                     <div class="col-xs-6">
-                        <a href="${pageContext.request.contextPath}/rooms" class="btn btn-lg btn-default btn-block" type="submit">Search</a>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
                     </div>
                 </div>
             </form:form>

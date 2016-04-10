@@ -159,28 +159,15 @@ public class RoomDAO implements RoomDAOInterface {
         jdbcTemplate.setDataSource(getDataSource());
         
         //String query = "SELECT * FROM room";
+        System.out.println(sdate);
+        System.out.println(edate);
         
         
-        
-        String query = "SELECT * FROM booking"
-            + "WHERE check_in_date >= '" + sdate + "' AND check_out_date <='" + edate + "'"
-            + ";";
-        
-        List<Booking> bookingList = jdbcTemplate.query(query, new RowMapper<Booking>() {
-            @Override
-            public Booking mapRow(ResultSet rs, int i) throws SQLException {
-                Booking bkng = new Booking();
-                
-                bkng.setAccount_id(rs.getInt("account_id"));
-                bkng.setRoom_id(rs.getInt("room_id"));
-                bkng.setStartDate(rs.getDate("check_in_date"));
-                bkng.setEndDate(rs.getDate("check_out_date"));
-                bkng.setNumGuests(rs.getInt("num_guests"));
-                
-                return bkng;
-            }
-        });
-        List<Room> roomList = jdbcTemplate.query(query, new RowMapper<Room>() {
+        String query = "SELECT * FROM room WHERE room_id NOT IN (SELECT room_id FROM booking WHERE check_in_date >= ? AND check_out_date <= ?)";
+        Object[] params = new Object[] { sdate, edate };
+        int[] types = new int[] { Types.VARCHAR, Types.VARCHAR };
+
+        List<Room> roomList = jdbcTemplate.query(query, params, types, new RowMapper<Room>() {
             
             @Override
             public Room mapRow(ResultSet rs, int i) throws SQLException {
@@ -192,6 +179,7 @@ public class RoomDAO implements RoomDAOInterface {
                 room.setPricePerNight(rs.getDouble("price_per_night"));
                 room.setMaxGuests(rs.getInt("max_guests"));
                 
+                System.out.println("roomSearch");
                 return room;
             }
         });

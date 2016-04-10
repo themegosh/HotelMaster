@@ -130,7 +130,7 @@ public class AccountsDaoImpl implements AccountsDao {
         String selectQuery = "SELECT * FROM account WHERE email = ? AND password = ?";
         Object[] params = new Object[] { email, passHash };
         
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         
         try {
                         

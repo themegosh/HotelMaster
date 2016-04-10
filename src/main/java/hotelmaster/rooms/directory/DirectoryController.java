@@ -7,8 +7,11 @@ package hotelmaster.rooms.directory;
 
 import hotelmaster.Room;
 import hotelmaster.rooms.RoomDAO;
+import hotelmaster.search.SearchParams;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import javax.naming.directory.SearchResult;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +38,8 @@ public class DirectoryController {
     public ModelAndView showRoomsDirectory(){
         ModelAndView modelAndView = new ModelAndView("rooms");
         //ContactForm cf = new ContactForm();
-       // modelAndView.addObject("contactForm", cf);
-       
+        // modelAndView.addObject("contactForm", cf);
+        System.out.println("hihi");
         List<Room> roomList = roomDAO.list();
         modelAndView.addObject("roomList", roomList);
         Room room = new Room();
@@ -47,13 +50,35 @@ public class DirectoryController {
         
     }
     
-    @RequestMapping(value="/processParams", method = RequestMethod.POST)
-    public ModelAndView processParams(@ModelAttribute("searchParams") @Valid SearchResult searchParams,  BindingResult result, HttpServletRequest htrequest, Errors errors) {
+    @RequestMapping(value="/rooms", method = RequestMethod.POST)
+    public ModelAndView processParams(@ModelAttribute("searchParams") @Valid SearchParams searchParams,  BindingResult result, HttpServletRequest htrequest, Errors errors) throws ParseException {
         ModelAndView modelAndView = new ModelAndView("rooms");
        
-        List<Room> roomList = roomDAO.list();
+//        String oldFormat = "yyyy-MM-dd";
+//        String newFormat = "MM-dd-yy";
+//        
+//        SimpleDateFormat sdfStart = new SimpleDateFormat(oldFormat);
+//        
+//        String oldSDateString = searchParams.getCheckInDate();
+//        Date ds = sdfStart.parse(oldSDateString);
+//        sdfStart.applyPattern(newFormat);
+//        String newSDateString = sdfStart.format(ds);
+//        
+//        
+//        SimpleDateFormat sdfEnd = new SimpleDateFormat(oldFormat);
+//        
+//        String oldEDateString = searchParams.getCheckOutDate();
+//        Date de = sdfEnd.parse(oldEDateString);
+//        sdfEnd.applyPattern(newFormat);
+//        String newEDateString = sdfEnd.format(de);
+        
+        
+        
+        List<Room> roomList = roomDAO.roomSearch(searchParams.getCheckInDate(), searchParams.getCheckOutDate());
         modelAndView.addObject("roomList", roomList);
         
+        Room room = new Room();
+        modelAndView.addObject("room", room);
         modelAndView.setViewName("rooms");
         
         return modelAndView;
