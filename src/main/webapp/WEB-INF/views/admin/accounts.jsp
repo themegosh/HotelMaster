@@ -10,22 +10,17 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Administrator Room Manager</title>
-        
         <!--
             JUST IGNORE THIS STUFF FOR THE TIME BEING.
         -->
         <style>
             .borderlessInput {
                 border: none;
-                outline: none;
                 background-color: transparent;
                 font-family: inherit;
                 font-size: inherit;
             }
+            
         </style>
         <script>
             $('table td tr input').click(
@@ -36,38 +31,36 @@
                 $(this).parent().addClass('borderlessInput');
             });
         </script>
-        
-    </head>
-    <body>
+  
         <h1>Room Manager</h1>
         
         <div>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <td>ID</td> 
-                        <td>Name</td>
-                        <td>Floor</td>
-                        <td>Price per night</td>
-                        <td>Max no. of guests</td>
-                        <td></td>
+                        <th>First Name</th> 
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Administrator</th>
+                        <th></th>
                     </tr>
                 </thead>
                     <tr>
                         
                         
                     </tr>
-                <c:forEach var="room" items="${roomList}" varStatus="status">
+                <c:forEach var="account" items="${accountsList}" varStatus="status">
                     <tr>
-                        <td>${room.roomID}</td>
-                        <td><input class="borderlessInput" type="text" name="${room.roomName}" value="${room.roomName}"/></td>
-                        <td><input class="borderlessInput" type="text" name="${room.floor}" value="${room.floor}"/></td>
-                        <td>$<input class="borderlessInput" type="number" name="${room.pricePerNight}" value="${room.pricePerNight}" min="0"/></td>
-                        <td><input class="borderlessInput" type="number" name="${room.maxGuests}" value="${room.maxGuests}" min="1" max="9"/></td>
-                        <td>
-                            <button type="submit" class="btn btn-default" name="edit">Edit</button> &nbsp;
-                            <button type="submit" class="btn btn-default" name="delete">Delete</button> 
-                        </td>
+                        <form:form modelAttribute="accountForm" method="POST" enctype="utf8">
+                            <td><form:input path="firstName" placeholder="First Name" name="${account.firstName}" value="${account.firstName}" class="borderlessInput" /></td>
+                            <td><input class="borderlessInput" type="text" name="${account.lastName}" value="${account.lastName}"/></td>
+                            <td><input class="borderlessInput" type="text" name="${account.email}" value="${account.email}"/></td>
+                            <td><input class="borderlessInput" type="checkbox" name="${account.email.getClass()}" value="${account.getClass()}" min="1"/> &nbsp; Admin</td>
+                            <td>
+                                <button type="submit" class="btn btn-default" name="save">Save</button> &nbsp;
+                                <button type="submit" class="btn btn-default" name="delete">Delete</button> 
+                            </td>
+                        </form:form>
                     </tr>
             </c:forEach>
             </table>
@@ -93,4 +86,3 @@
         </form>>
         -->
     </body>
-</html>

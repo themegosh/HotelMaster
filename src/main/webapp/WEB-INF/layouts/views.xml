@@ -39,8 +39,8 @@
     <definition name="admin.home" extends="AdminTemplate">
         <put-attribute name="body"	value="/WEB-INF/views/admin/home.jsp" />
     </definition>
-    <definition name="admin.users" extends="AdminTemplate">
-        <put-attribute name="body"	value="/WEB-INF/views/admin/users.jsp" />
+    <definition name="admin.accounts" extends="AdminTemplate">
+        <put-attribute name="body"	value="/WEB-INF/views/admin/accounts.jsp" />
     </definition>
     
 </tiles-definitions>

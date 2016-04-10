@@ -5,6 +5,7 @@
  */
 package hotelmaster.account;
 
+import java.util.List;
 import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +21,5 @@ public interface AccountsDao {
     int updateAccountByFacebook(JSONObject fb);
     int updateAccountByEmail(Account account);
     Account getAccountByEmailPass(String email, String pass) throws Exception;
+    List<Account> getAccounts();
 }

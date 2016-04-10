@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 import javax.sql.DataSource;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONObject;
@@ -142,6 +144,16 @@ public class AccountsDaoImpl implements AccountsDao {
             System.out.println(e.toString());
         }
         return null; 
+    }
+    
+    @Override
+    public List<Account> getAccounts(){
+        
+        String selectQuery = "SELECT * FROM account";
+        
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
+        
+        return jdbcTemplate.query(selectQuery, new AccountRowMapper());
     }
     
 }
