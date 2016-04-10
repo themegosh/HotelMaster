@@ -11,29 +11,6 @@
 <!DOCTYPE html>
 
 <div class="container-fluid">
-    <img src="resources/img/hotelNew.png" class="img-responsive" alt="hotel">
-    <div class="row">
-        <div class="col-xs-12">
-            <form:form modelAttribute="searchResult" method="POST" enctype="utf8">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <%--<form:input path="maxguests" placeholder="MaxGuests" value="" class="form-control" />--%>
-                </div>
-                <%--<form:errors class="formError" path="email" element="strong"/>--%>
-                <div class="row">
-                    <div class="col-xs-6">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-                    </div>
-                </div>
-                <%--<form:errors class="formError" element="strong"/>--%>
-            </form:form>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    
-    <h1>Gallery</h1>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -74,5 +51,45 @@
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <form:form modelAttribute="searchParams" method="POST" enctype="utf8">
+                <div class="input-group">
+                    <form:label path="numOfGuests" for="ddlGuests">Number of Guests:</form:label>&nbsp;
+                    <form:select name="ddlGuests" path="numOfGuests">
+                        <form:option value="1" label="1"/>
+                        <form:option value="2" label="2"/>
+                        <form:option value="3" label="3"/>
+                        <form:option value="4" label="4"/>
+                    </form:select>
+                </div>
+                <form:errors class="formError" path="numOfGuests" element="strong"/>    
+                <span class="help-block"></span>
+                
+                <div class="input-group">
+                    <form:label path="checkInDate">Check In:</form:label>
+                    <form:input name="txtCheckIn" path="checkInDate" placeholder="Check In Date" value="" type="date" class="form-control" />
+                </div>
+                <form:errors class="formError" path="checkInDate" element="strong"/>
+                <span class="help-block"></span>
+                    
+                <div class="input-group">
+                    <form:label path="checkOutDate">Check Out:</form:label>
+                    <form:input name="txtCheckOut" path="checkOutDate" placeholder="Check Out Date" value="" type="date" class="form-control" />
+                </div>
+                <form:errors class="formError" path="checkOutDate" element="strong"/>
+                <span class="help-block"></span>
+                
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="${pageContext.request.contextPath}/rooms" class="btn btn-lg btn-default btn-block" type="submit">Search</a>
+                    </div>
+                </div>
+            </form:form>
+        </div>
     </div>
 </div>

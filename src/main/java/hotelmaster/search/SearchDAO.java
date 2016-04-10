@@ -5,7 +5,6 @@
  */
 package hotelmaster.search;
 
-import hotelmaster.Room;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,19 +28,19 @@ public class SearchDAO implements SearchDAOInterface {
     private DataSource dataSource;
     
     @Override
-    public List<Room> getAllRooms() {
+    public List<SearchResult> getAllRooms() {
         String query = "SELECT * FROM room";
         
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         
-        List<Room> resultList = new ArrayList<Room>();
+        List<SearchResult> resultList = new ArrayList<SearchResult>();
         
         //map columns to room object
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(query);
         for (Map<String, Object> row : rows) {
-            Room room = new Room();
-            //room.setMaxGuests((Long)row.get("max_guests"));
-            resultList.add(room);
+            SearchResult result = new SearchResult();
+            result.setNumOfGuests((int)row.get("max_guests"));
+            resultList.add(result);
         }
         
         //return list to be used by controller

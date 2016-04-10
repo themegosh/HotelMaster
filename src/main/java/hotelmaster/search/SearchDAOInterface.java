@@ -5,7 +5,6 @@
  */
 package hotelmaster.search;
 
-import hotelmaster.Room;
 import java.util.List;
 
 /**
@@ -13,5 +12,5 @@ import java.util.List;
  * @author Trevor
  */
 public interface SearchDAOInterface {
-    List<Room> getAllRooms();
+    List<SearchResult> getAllRooms();
 }

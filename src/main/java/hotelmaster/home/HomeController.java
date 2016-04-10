@@ -6,11 +6,11 @@
 package hotelmaster.home;
 
 import hotelmaster.Photo;
-import hotelmaster.Room;
 import hotelmaster.account.Account;
 import hotelmaster.gallery.PhotoDAO;
 import hotelmaster.notification.NotificationService;
 import hotelmaster.search.SearchDAO;
+import hotelmaster.search.SearchParams;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +50,8 @@ public class HomeController {
         modelAndView.addObject("photoList", photoList);
         
         //search stuff
-        List<Room> searchResult = searchDAO.getAllRooms();
-        modelAndView.addObject("searchResult", searchResult);
+        SearchParams searchParams = new SearchParams();
+        modelAndView.addObject("searchParams", searchParams);
         
         return modelAndView;
     }
