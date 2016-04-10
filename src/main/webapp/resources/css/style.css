@@ -116,6 +116,23 @@ body {
     float: right;
 }
 
+.float-left{
+    float: left;
+}
+
+.room-photo{
+    
+}
+
+.room-photo img{
+    width:100%;
+}
+
+.room-content-title{
+    text-align: center;
+}
+
+
 /* Misc form properties */
 #map{
     width:100%;
@@ -133,4 +150,12 @@ body {
 .formError {
     padding: 6px 12px;
     color: #a94442;
+}
+
+/* ============== RESPONSIVE ============== */
+
+@media (max-width: 768px) {
+  .float-right {
+    float: none;
+  }
 }

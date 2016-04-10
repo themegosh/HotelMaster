@@ -3,6 +3,7 @@ package hotelmaster.rooms;
 import java.sql.Types;
 import org.springframework.jdbc.core.JdbcTemplate;
 import hotelmaster.Room;
+import hotelmaster.Booking;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -149,6 +150,53 @@ public class RoomDAO implements RoomDAOInterface {
  
     });
         
+    }
+    
+    
+    /* ====== SEARCH FORM ====== */
+    
+    public List<Room> roomSearch(String sdate, String edate) {
+        jdbcTemplate.setDataSource(getDataSource());
+        
+        //String query = "SELECT * FROM room";
+        
+        
+        
+        String query = "SELECT * FROM booking"
+            + "WHERE check_in_date >= '" + sdate + "' AND check_out_date <='" + edate + "'"
+            + ";";
+        
+        List<Booking> bookingList = jdbcTemplate.query(query, new RowMapper<Booking>() {
+            @Override
+            public Booking mapRow(ResultSet rs, int i) throws SQLException {
+                Booking bkng = new Booking();
+                
+                bkng.setAccount_id(rs.getInt("account_id"));
+                bkng.setRoom_id(rs.getInt("room_id"));
+                bkng.setStartDate(rs.getDate("check_in_date"));
+                bkng.setEndDate(rs.getDate("check_out_date"));
+                bkng.setNumGuests(rs.getInt("num_guests"));
+                
+                return bkng;
+            }
+        });
+        List<Room> roomList = jdbcTemplate.query(query, new RowMapper<Room>() {
+            
+            @Override
+            public Room mapRow(ResultSet rs, int i) throws SQLException {
+                Room room = new Room();
+                
+                room.setRoomID(rs.getInt("room_id"));
+                room.setRoomName(rs.getString("room_name"));
+                room.setFloor(rs.getString("floor"));
+                room.setPricePerNight(rs.getDouble("price_per_night"));
+                room.setMaxGuests(rs.getInt("max_guests"));
+                
+                return room;
+            }
+        });
+        
+        return roomList;
     }
    
 }
