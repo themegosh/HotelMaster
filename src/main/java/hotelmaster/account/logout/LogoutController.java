@@ -5,6 +5,7 @@
  */
 package hotelmaster.account.logout;
 
+import hotelmaster.account.AccountSession;
 import hotelmaster.notification.NotificationService;
 import hotelmaster.notification.NotificationType;
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +24,11 @@ public class LogoutController {
     @Autowired
     private NotificationService notificationService;
     
+    @Autowired
+    private AccountSession accountSession;
+    
     @RequestMapping(value="/logout")
-    public ModelAndView showLogout(HttpServletRequest htrequest) {
+    public ModelAndView showLogout() {
         
         //send them home
         ModelAndView modelAndView = new ModelAndView("redirect:home");
@@ -32,10 +36,8 @@ public class LogoutController {
         //add notification handling to this page
         modelAndView.addObject("notificationService", notificationService);
         
-        if (htrequest.getSession().getAttribute("accountSession") != null){
-            //remove the session
-            htrequest.getSession().removeAttribute("accountSession");
-            
+        if (accountSession.getAccount() != null) {
+            accountSession.setAccount(null); //nulify the account
             notificationService.add("Success!", "Successfully logged out.", NotificationType.SUCCESS);
         } else {
             notificationService.add("Warning!", "You are trying to log out when you're not logged in!", NotificationType.WARNING);

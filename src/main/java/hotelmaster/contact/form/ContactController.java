@@ -41,15 +41,14 @@ public class ContactController {
      
     
     @RequestMapping(value="/contact", method = RequestMethod.POST)
-    public ModelAndView processForm(@ModelAttribute("contactForm") @Valid ContactForm cf,  BindingResult result, HttpServletRequest htrequest, Errors errors) {
+    public ModelAndView processForm(@ModelAttribute("contactForm") @Valid ContactForm cf,  BindingResult result, Errors errors) {
          ModelAndView modelAndView = new ModelAndView("contactResult");
         
         if (!result.hasErrors()){
             System.out.println("Form submitted: No Errors.");
             
             modelAndView.addObject("contactForm", cf);
-            
-            
+                        
             String senderEmail = cf.getEmail();
             
             String subject = cf.getSubject();

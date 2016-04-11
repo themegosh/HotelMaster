@@ -7,6 +7,7 @@ package hotelmaster.home;
 
 import hotelmaster.Photo;
 import hotelmaster.account.Account;
+import hotelmaster.account.AccountSession;
 import hotelmaster.gallery.PhotoDAO;
 import hotelmaster.notification.NotificationService;
 import hotelmaster.search.SearchDAO;
@@ -33,15 +34,18 @@ public class HomeController {
     
     @Autowired
     private NotificationService notificationService;
+    
+    @Autowired
+    private AccountSession accountSession;
         
     @RequestMapping(value={"/", "/home"})
-    public ModelAndView home(HttpServletRequest htrequest) {
+    public ModelAndView home() {
+        
         ModelAndView modelAndView = new ModelAndView("home"); //viewing the home.jsp
         
-        Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
-        if (accountSession != null) {
-            System.out.println("HomeController: /home accountSession:" + accountSession.toString());
-        }
+        if (accountSession.getAccount() != null)
+            System.out.println("HomeController: /home accountSession:" + accountSession.getAccount().toString());
+        
         //add notification handling to this page
         modelAndView.addObject("notificationService", notificationService);
                 

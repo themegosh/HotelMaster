@@ -11,7 +11,7 @@
     </definition>
     
     <definition name="AdminTemplate"    template="/WEB-INF/views/template/admin/siteTemplate.jsp">
-        <put-attribute name="header" 	value="/WEB-INF/views/template/admin/header.jsp" />
+        <put-attribute name="header" 	value="/WEB-INF/views/template/header.jsp" />
         <put-attribute name="menu" 	value="/WEB-INF/views/template/admin/menu.jsp" />
         <put-attribute name="body" 	value="" />
         <put-attribute name="footer" 	value="/WEB-INF/views/template/admin/footer.jsp" />

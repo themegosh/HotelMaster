@@ -10,6 +10,7 @@ import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.*;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import hotelmaster.account.Account;
+import hotelmaster.account.AccountSession;
 import hotelmaster.account.AccountsDao;
 import hotelmaster.notification.NotificationService;
 import hotelmaster.notification.NotificationType;
@@ -40,6 +41,9 @@ public class FacebookController {
     
     @Autowired
     private NotificationService notificationService;
+    
+    @Autowired
+    private AccountSession accountSession;
         
     private final String ATTR_OAUTH_ACCESS_TOKEN = "ATTR_OAUTH_ACCESS_TOKEN";
     private final String ATTR_OAUTH_REQUEST_TOKEN = "ATTR_OAUTH_REQUEST_TOKEN";
@@ -51,9 +55,8 @@ public class FacebookController {
     private static final Token EMPTY_TOKEN = null;
 
     @RequestMapping(value={"/login-facebook"}, method = RequestMethod.GET)
-    public ModelAndView login(WebRequest request, HttpServletRequest htrequest) {
-        Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
-        if (accountSession != null) {
+    public ModelAndView login(WebRequest request) {
+        if (accountSession.getAccount() != null) {
             notificationService.add("Error!", "You are already logged in!", NotificationType.ERROR);
             return new ModelAndView("redirect:home", "notificationService", notificationService);
         }
@@ -78,9 +81,8 @@ public class FacebookController {
     }
 
     @RequestMapping(value={"/facebook-callback"}, method = RequestMethod.GET)
-    public ModelAndView callback(@RequestParam(value="code", required=false) String oauthVerifier, WebRequest request, HttpServletRequest htrequest) {
-        Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
-        if (accountSession != null) {
+    public ModelAndView callback(@RequestParam(value="code", required=false) String oauthVerifier, WebRequest request) {
+        if (accountSession.getAccount() != null) {
             notificationService.add("Error!", "You are already logged in!", NotificationType.ERROR);
             return new ModelAndView("redirect:home", "notificationService", notificationService);
         }
@@ -122,31 +124,29 @@ public class FacebookController {
         if (!fb.isNull("id")) {
             try {
                 //this will start the DB login flow
-                //accountSession = new AccountFactory().loginFacebook(jobj);
                 
                 //try to find the account by the facebook id
-                accountSession = accountsDao.getAccountByFBId(fb.getString("id"));
-                if (accountSession.getId() > 0){
+                Account tmpAccount = accountsDao.getAccountByFBId(fb.getString("id"));
+                if (tmpAccount.getId() > 0){
                     //we found it
                     //update their facebook details
                     accountsDao.updateAccountByFacebook(fb);
+                    accountSession.setAccount(tmpAccount);
                 } else {
                     //we have a new user
                     if (!fb.isNull("id"))
-                        accountSession.setFacebookId(fb.getString("id"));
+                        tmpAccount.setFacebookId(fb.getString("id"));
                     if (!fb.isNull("first_name"))
-                        accountSession.setFirstName(fb.getString("first_name"));
+                        tmpAccount.setFirstName(fb.getString("first_name"));
                     if (!fb.isNull("last_name"))
-                        accountSession.setLastName(fb.getString("last_name"));
+                        tmpAccount.setLastName(fb.getString("last_name"));
                     if (!fb.isNull("email"))
-                        accountSession.setEmail(fb.getString("email"));
+                        tmpAccount.setEmail(fb.getString("email"));
                     if (!fb.isNull("gender"))
-                        accountSession.setGender(fb.getString("gender"));
+                        tmpAccount.setGender(fb.getString("gender"));
 
-                    accountSession = accountsDao.insertNewAccount(accountSession); //inserting returns the freshly generated ID
+                    accountSession.setAccount(accountsDao.insertNewAccount(tmpAccount)); //inserting returns the freshly generated ID
                 }
-                
-                htrequest.getSession().setAttribute("accountSession", accountSession);
                                                 
                 System.out.println("facebookController: /facebook-callback accountSession:" + accountSession.toString());
             

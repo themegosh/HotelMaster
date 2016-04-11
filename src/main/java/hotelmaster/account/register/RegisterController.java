@@ -6,6 +6,7 @@
 package hotelmaster.account.register;
 
 import hotelmaster.account.Account;
+import hotelmaster.account.AccountSession;
 import hotelmaster.account.AccountsDao;
 import hotelmaster.account.User;
 import hotelmaster.notification.NotificationService;
@@ -34,13 +35,14 @@ public class RegisterController {
     @Autowired
     private NotificationService notificationService;
     
+    @Autowired
+    private AccountSession accountSession;
+    
     @RequestMapping(value="/register", method = RequestMethod.GET)
-    public ModelAndView showRegistrationPage(HttpServletRequest htrequest) {
+    public ModelAndView showRegistrationPage() {
         
-        //get an active session
-        Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
         //dont let them register again!
-        if (accountSession != null) {
+        if (accountSession.getAccount() != null) {
             notificationService.add("Error!", "You are already logged in!", NotificationType.ERROR);
             return new ModelAndView("redirect:home", "notificationService", notificationService);
         }
@@ -57,12 +59,10 @@ public class RegisterController {
     }
     
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public ModelAndView processRegistration(@ModelAttribute("accountForm") @Valid User accountForm,  BindingResult result, HttpServletRequest htrequest, Errors errors) {
+    public ModelAndView processRegistration(@ModelAttribute("accountForm") @Valid User accountForm,  BindingResult result, Errors errors) {
         
-        //get an active session
-        Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
         //dont let them register again!
-        if (accountSession != null) {
+        if (accountSession.getAccount() != null) {
             notificationService.add("Error!", "You are already logged in!", NotificationType.ERROR);
             return new ModelAndView("redirect:home", "notificationService", notificationService);
         }
@@ -77,11 +77,9 @@ public class RegisterController {
             //create the account
             try {
                 //try to register the new user
-                accountSession = accountsDao.insertNewAccount(accountForm); //inserting returns the freshly generated ID
-                
-                //if we've gotten here, we assume theyve registered successfully
-                htrequest.getSession().setAttribute("accountSession", accountSession);
-                
+                //inserting returns the freshly generated ID
+                accountSession.setAccount(accountsDao.insertNewAccount(accountForm)); 
+                                
                 //notify them of the successful registration and login
                 notificationService.add("Success!", "You have successfully registered and are now logged in.", NotificationType.SUCCESS);
                 

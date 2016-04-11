@@ -6,6 +6,7 @@
 package hotelmaster.account.login;
 
 import hotelmaster.account.Account;
+import hotelmaster.account.AccountSession;
 import hotelmaster.account.AccountsDao;
 import hotelmaster.notification.NotificationService;
 import hotelmaster.notification.NotificationType;
@@ -34,12 +35,14 @@ public class LoginController {
     @Autowired
     private NotificationService notificationService;
     
+    @Autowired
+    private AccountSession accountSession;
+    
     @RequestMapping(value="/login", method = RequestMethod.GET)
-    public ModelAndView showLoginPage(HttpServletRequest htrequest) {
-        Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
+    public ModelAndView showLoginPage() {
         
         //dont let them log in again!
-        if (accountSession != null) {
+        if (accountSession.getAccount() != null) {
             notificationService.add("Error!", "You are already logged in!", NotificationType.ERROR);
             return new ModelAndView("redirect:home", "notificationService", notificationService);
         }
@@ -56,10 +59,9 @@ public class LoginController {
     }
     
     @RequestMapping(value="/login", method = RequestMethod.POST)
-    public ModelAndView processRegistration(@ModelAttribute("loginForm") @Valid Login loginForm,  BindingResult result, HttpServletRequest htrequest, Errors errors) {
+    public ModelAndView processRegistration(@ModelAttribute("loginForm") @Valid Login loginForm, BindingResult result, Errors errors) {
         ModelAndView modelAndView = new ModelAndView("login"); //viewing the login.jsp
-        Account accountSession = (Account)htrequest.getSession().getAttribute("accountSession");
-        if (accountSession != null) { //already logged in, redirect
+        if (accountSession.getAccount() != null) { //already logged in, redirect
             notificationService.add("Error!", "You are already logged in!", NotificationType.ERROR);
             return new ModelAndView("redirect:home", "notificationService", notificationService);
         }
@@ -72,10 +74,9 @@ public class LoginController {
             //create the account
             try {
                 //try to login the user
-                accountSession = accountsDao.getAccountByEmailPass(loginForm.getEmail(), loginForm.getPassword());
+                accountSession.setAccount(accountsDao.getAccountByEmailPass(loginForm.getEmail(), loginForm.getPassword()));
                 
                 //if we've gotten here, we assume theyve registered successfully
-                htrequest.getSession().setAttribute("accountSession", accountSession);
                 notificationService.add("Success!", "Successfully logged in.", NotificationType.SUCCESS);
                 //send a message to the message service
                 return new ModelAndView("redirect:home");

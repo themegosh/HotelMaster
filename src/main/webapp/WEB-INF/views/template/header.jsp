@@ -29,11 +29,11 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <c:choose>
-                        <c:when test="${accountSession.getId() > '0'}">
+                        <c:when test="${sessionScope['scopedTarget.accountSession'].account.id > '0'}">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle nav-login-dropdown" data-toggle="dropdown">
-                                    <img class="img-circle" src="<c:out value="${accountSession.getProfilePicUrl()}"/>?width=40&height=40" />
-                                    <strong><c:out value="${accountSession.getFirstName()}" /></strong>
+                                    <img class="img-circle" src="<c:out value="${sessionScope['scopedTarget.accountSession'].account.getProfilePicUrl()}"/>?width=40&height=40" />
+                                    <strong><c:out value="${sessionScope['scopedTarget.accountSession'].account.getFirstName()}" /></strong>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -41,13 +41,13 @@
                                             <div class="row">
                                                 <div class="col-lg-4">
                                                     <p class="text-center">
-                                                        <img class="img-circle" src="<c:out value="${accountSession.getProfilePicUrl()}"/>?width=87&height=87" />
+                                                        <img class="img-circle" src="<c:out value="${sessionScope['scopedTarget.accountSession'].account.getProfilePicUrl()}"/>?width=87&height=87" />
                                                     </p>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <p class="text-left"><strong><c:out value="${accountSession.getFirstName()}" /> <c:out value="${accountSession.getLastName()}" /></strong></p>
-                                                    <p class="text-left small"><c:out value="${accountSession.getEmail()}" /></p>
-                                                    <c:if test="${accountSession.getClass().getName() == 'hotelmaster.account.Admin'}">
+                                                    <p class="text-left"><strong><c:out value="${sessionScope['scopedTarget.accountSession'].account.getFirstName()}" /> <c:out value="${sessionScope['scopedTarget.accountSession'].account.getLastName()}" /></strong></p>
+                                                    <p class="text-left small"><c:out value="${sessionScope['scopedTarget.accountSession'].account.getEmail()}" /></p>
+                                                    <c:if test="${sessionScope['scopedTarget.accountSession'].account.getClass().getName() == 'hotelmaster.account.Admin'}">
                                                         <p class="text-left">
                                                             <spring:url value="/admin" var="adminUrl" htmlEscape="true" />
                                                             <a href="${adminUrl}" class="btn btn-primary btn-block btn-sm">Admin Panel</a>
@@ -100,5 +100,3 @@
             </c:forEach>
             ${notificationService.clear()}
         </c:if>
-</header>
-                    
