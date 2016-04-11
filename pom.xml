@@ -24,7 +24,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>4.1.4.RELEASE</version>
+            <version>4.2.5.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
@@ -49,7 +49,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.6</version>
+            <version>5.1.38</version>
         </dependency>
         <!-- Scribe Facebook API -->
         <dependency>
@@ -63,11 +63,14 @@
             <artifactId>spring-aop</artifactId>
             <version>4.2.5.RELEASE</version>
         </dependency>
+
+
         <dependency>
             <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-            <version>3.2.1</version>
+            <artifactId>cglib-full</artifactId>
+            <version>2.0.2</version>
         </dependency>
+
         
         <!-- JSON parser -->
         <dependency>
@@ -78,7 +81,7 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
-            <version>1.9.4.RELEASE</version>
+            <version>1.10.1.RELEASE</version>
         </dependency>
         
         <dependency>
@@ -101,7 +104,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>4.2.0.Final</version>
+            <version>5.2.4.Final</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.session</groupId>
@@ -112,7 +115,7 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>1.0.0.GA</version>
+            <version>1.1.0.Final</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
@@ -122,7 +125,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>3.2.0.RELEASE</version>
+            <version>4.2.5.RELEASE</version>
         </dependency>
         
         <!-- SMTP AND JAVA MAIL -->

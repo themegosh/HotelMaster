@@ -100,6 +100,5 @@
             </c:forEach>
             ${notificationService.clear()}
         </c:if>
-         
 </header>
                     
