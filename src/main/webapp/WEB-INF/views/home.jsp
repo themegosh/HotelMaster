@@ -18,12 +18,12 @@
                 <c:choose>
                     <c:when test="${status.count == 1}">
                         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    </c:when>
-                    <c:otherwise>
+                        </c:when>
+                        <c:otherwise>
                         <li data-target="#myCarousel" data-slide-to="${status.count}"></li>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
         </ol>
 
         <!-- Wrapper for slides -->
@@ -32,33 +32,34 @@
                 <c:choose>
                     <c:when test="${status.count == 1}">
                         <div class="item active">
-                    </c:when>
-                    <c:otherwise>
-                        <div class="item">
-                    </c:otherwise>
-                </c:choose>
-                    <img src="/getPhoto?ID=${photo.imageID}" alt="placeholder">
-                </div>
-            </c:forEach>
-        </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="item">
+                            </c:otherwise>
+                        </c:choose>
+                        <img src="/getPhoto?ID=${photo.imageID}" alt="placeholder">
+                    </div>
+                </c:forEach>
+            </div>
 
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
     </div>
-</div>
+    <span class="help-block"></span>
 
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <form:form modelAttribute="searchParams" action="${pageContext.request.contextPath}/rooms" method="POST" enctype="utf8">
-                <div class="input-group">
+    <div class="col-xs-offset-3 col-xs-6" id="searchContainer">
+        <form:form modelAttribute="searchParams" action="${pageContext.request.contextPath}/rooms" method="POST" enctype="utf8">
+            <div class="input-group col-xs-12">
+                <div class="col-xs-6">
                     <form:label path="numOfGuests" for="ddlGuests">Number of Guests:</form:label>&nbsp;
                     <form:select name="ddlGuests" path="numOfGuests">
                         <form:option value="1" label="1"/>
@@ -66,30 +67,30 @@
                         <form:option value="3" label="3"/>
                         <form:option value="4" label="4"/>
                     </form:select>
+                    <form:errors class="formError" path="numOfGuests" element="strong"/>
                 </div>
-                <form:errors class="formError" path="numOfGuests" element="strong"/>    
-                <span class="help-block"></span>
-                
-                <div class="input-group">
+            </div> 
+            <span class="help-block"></span>
+
+            <div class="input-group col-xs-12">
+                <div class="col-xs-6">
                     <form:label path="checkInDate">Check In:</form:label>
-                    <form:input name="txtCheckIn" path="checkInDate" placeholder="Check In Date" value="" type="date" class="form-control" />
+                    <form:input path="checkInDate" placeholder="Check In Date" value="" type="date" class="form-control" />
+                    <form:errors class="formError" path="checkInDate" element="strong"/>
                 </div>
-                <form:errors class="formError" path="checkInDate" element="strong"/>
-                <span class="help-block"></span>
-                    
-                <div class="input-group">
+
+                <div class="col-xs-6">
                     <form:label path="checkOutDate">Check Out:</form:label>
-                    <form:input name="txtCheckOut" path="checkOutDate" placeholder="Check Out Date" value="" type="date" class="form-control" />
+                    <form:input path="checkOutDate" placeholder="Check Out Date" value="" type="date" class="form-control" />
+                    <form:errors class="formError" path="checkOutDate" element="strong"/>
                 </div>
-                <form:errors class="formError" path="checkOutDate" element="strong"/>
-                <span class="help-block"></span>
-                
-                <div class="row">
-                    <div class="col-xs-6">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
-                    </div>
-                </div>
-            </form:form>
-        </div>
+            </div>
+            <span class="help-block"></span>
+
+            <div class="col-xs-3">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
+            </div>
+
+        </form:form>
     </div>
 </div>

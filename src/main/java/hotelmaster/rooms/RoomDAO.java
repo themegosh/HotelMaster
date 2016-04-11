@@ -238,15 +238,15 @@ public class RoomDAO implements RoomDAOInterface {
     
     /* ====== SEARCH FORM ====== */
     
-    public List<Room> roomSearch(String sdate, String edate) {
+    public List<Room> roomSearch(String sdate, String edate, int numOfGuests) {
         jdbcTemplate.setDataSource(getDataSource());
         
         System.out.println(sdate);
         System.out.println(edate);        
         
-        String query = "SELECT * FROM room WHERE room_id NOT IN (SELECT room_id FROM booking WHERE check_in_date >= ? AND check_out_date <= ?)";
-        Object[] params = new Object[] { sdate, edate };
-        int[] types = new int[] { Types.VARCHAR, Types.VARCHAR };
+        String query = "SELECT * FROM room WHERE max_guests >= ? AND room_id NOT IN (SELECT room_id FROM booking WHERE check_in_date >= ? AND check_out_date <= ?)";
+        Object[] params = new Object[] { numOfGuests, sdate, edate };
+        int[] types = new int[] { Types.INTEGER, Types.VARCHAR, Types.VARCHAR };
 
         List<Room> roomList = jdbcTemplate.query(query, params, types, new RowMapper<Room>() {
             

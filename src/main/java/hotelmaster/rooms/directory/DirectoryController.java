@@ -9,8 +9,6 @@ import hotelmaster.Room;
 import hotelmaster.rooms.RoomDAO;
 import hotelmaster.search.SearchParams;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -72,9 +70,7 @@ public class DirectoryController {
 //        sdfEnd.applyPattern(newFormat);
 //        String newEDateString = sdfEnd.format(de);
         
-        
-        
-        List<Room> roomList = roomDAO.roomSearch(searchParams.getCheckInDate(), searchParams.getCheckOutDate());
+        List<Room> roomList = roomDAO.roomSearch(searchParams.getCheckInDate(), searchParams.getCheckOutDate(), searchParams.getNumOfGuests());
         modelAndView.addObject("roomList", roomList);
         
         Room room = new Room();
