@@ -29,6 +29,7 @@ public class RoomController {
         List<Room> roomList = roomDAO.list();
         RoomForm rf = new RoomForm();
         List<String> features = roomDAO.listFeatures();
+        roomDAO.setRoomFeatures(roomList);
         
         model.addObject("roomList", roomList);
         model.addObject("roomForm", new RoomForm());
@@ -55,6 +56,7 @@ public class RoomController {
         else if (action.equalsIgnoreCase("edit")){
             r.setRoomID(Integer.parseInt(request.getParameter("roomID")));
             roomDAO.updateRoom(room);
+            roomDAO.addRoomFeatures(r);
         }
 
             

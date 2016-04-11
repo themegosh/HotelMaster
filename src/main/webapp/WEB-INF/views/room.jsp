@@ -66,7 +66,18 @@
                             <td><input class="borderlessInput" type="text" name="floor" value="${room.floor}"/></td>
                             <td>$<input class="borderlessInput" type="number" name="pricePerNight" step="0.01" value="${room.pricePerNight}" min="0" max="99.99"/></td>
                             <td><input class="borderlessInput" type="number" name="maxGuests" value="${room.maxGuests}" min="1" max="9"/></td>
-                            <td></td>
+                            <td>
+                                <c:forEach var="feature" items="${room.features}">
+                                    <c:choose>
+                                    <c:when test="${feature.value}">
+                                        <form:checkbox value="${feature}" path="features" checked="checked"/>${feature.key}
+                                    </c:when>
+                                    <c:otherwise>
+                                        <form:checkbox value="${feature}" path="features" checked=""/>${feature.key}
+                                    </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </td>
                             <td>
                                 <button type="submit" class="btn btn-default" name="action" value="edit">Edit</button> &nbsp;
                                 <button type="submit" class="btn btn-default" name="action" value="delete">Delete</button> 

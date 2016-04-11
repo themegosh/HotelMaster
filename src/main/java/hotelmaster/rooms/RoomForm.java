@@ -1,6 +1,7 @@
 package hotelmaster.rooms;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
@@ -29,7 +30,7 @@ public class RoomForm {
     @Min(value=1)
     @Max(value=9)
     private int maxGuests;
-    private ArrayList<String> features;
+    private HashMap<String, Boolean> features;
     
     public RoomForm(){
     }
@@ -66,13 +67,11 @@ public class RoomForm {
         this.maxGuests = maxGuests;
     }
 
-    public ArrayList<String> getFeatures() {
+    public HashMap<String, Boolean> getFeatures() {
         return features;
     }
 
-    public void setFeatures(ArrayList<String> features) {
+    public void setFeatures(HashMap<String, Boolean> features) {
         this.features = features;
     }
-
-    
 }

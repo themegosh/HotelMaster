@@ -132,15 +132,12 @@ public class RoomDAO implements RoomDAOInterface {
             features.put("Room Service", Boolean.FALSE);
             features.put("Wifi", Boolean.FALSE);
             
-            String query = "SELECT * FROM room_features WHERE room_id = " + room.getRoomID();
+            String query = "SELECT feature_name FROM features f JOIN room_features rf ON f.feature_id = rf.feature_id WHERE room_id = " + room.getRoomID();
             
             jdbcTemplate.query(query, new RowMapper<Object>(){
                 @Override
                 public Object mapRow(ResultSet rs, int i) throws SQLException {
-                    
-                    
-                    
-                    features.put(rs.getString("feature_id"), Boolean.TRUE);  
+                    features.put(rs.getString("feature_name"), Boolean.TRUE);  
                     
                     return null; 
                 }
