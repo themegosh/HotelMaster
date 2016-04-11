@@ -8,7 +8,6 @@ package hotelmaster.account.register;
 import hotelmaster.account.Account;
 import hotelmaster.account.AccountSession;
 import hotelmaster.account.AccountsDao;
-import hotelmaster.account.User;
 import hotelmaster.notification.NotificationService;
 import hotelmaster.notification.NotificationType;
 import javax.servlet.http.HttpServletRequest;
@@ -52,14 +51,14 @@ public class RegisterController {
         //add notification handling to this page
         modelAndView.addObject("notificationService", notificationService);
         
-        User accountForm = new User();
+        Account accountForm = new Account();
         modelAndView.addObject("accountForm", accountForm);
         
         return modelAndView;
     }
     
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public ModelAndView processRegistration(@ModelAttribute("accountForm") @Valid User accountForm,  BindingResult result, Errors errors) {
+    public ModelAndView processRegistration(@ModelAttribute("accountForm") @Valid Account accountForm,  BindingResult result, Errors errors) {
         
         //dont let them register again!
         if (accountSession.getAccount() != null) {

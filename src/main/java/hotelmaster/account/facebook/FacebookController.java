@@ -127,12 +127,13 @@ public class FacebookController {
                 
                 //try to find the account by the facebook id
                 Account tmpAccount = accountsDao.getAccountByFBId(fb.getString("id"));
-                if (tmpAccount.getId() > 0){
+                if (tmpAccount != null){
                     //we found it
                     //update their facebook details
                     accountsDao.updateAccountByFacebook(fb);
                     accountSession.setAccount(tmpAccount);
                 } else {
+                    tmpAccount = new Account();
                     //we have a new user
                     if (!fb.isNull("id"))
                         tmpAccount.setFacebookId(fb.getString("id"));

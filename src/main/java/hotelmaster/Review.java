@@ -5,7 +5,7 @@
  */
 package hotelmaster;
 
-import hotelmaster.account.User;
+import hotelmaster.account.Account;
 import java.util.Date;
 
 /**
@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class Review {
     
-    User reviewer;
+    Account reviewer;
     Room room;
     int rating;
     Date date;

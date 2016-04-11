@@ -5,7 +5,6 @@
  */
 package hotelmaster;
 
-import hotelmaster.account.User;
 import java.util.Date;
 
 /**

@@ -5,8 +5,10 @@
  */
 package hotelmaster.admin;
 
+import hotelmaster.account.AccountLevel;
 import hotelmaster.account.AccountSession;
-import hotelmaster.account.User;
+import hotelmaster.notification.NotificationService;
+import hotelmaster.notification.NotificationType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +25,20 @@ public class AdminController {
     @Autowired
     private AccountSession accountSession;
     
+    @Autowired
+    private NotificationService notificationService;
+    
     @RequestMapping(value="/admin", method = RequestMethod.GET)
     public ModelAndView showLoginPage() {
         
-        if (accountSession.getAccount() == null)             
-            return new ModelAndView("redirect:home");
-        else if (accountSession.getAccount().getClass() == User.class)
-            return new ModelAndView("redirect:home");
+        if (accountSession.getAccount() == null){
+            notificationService.add("Error!", "You don't have the required permissions to be there!", NotificationType.ERROR);
+            return new ModelAndView("redirect:/home");
+        }
+        else if (accountSession.getAccount().getAccountLevel() == AccountLevel.USER) {
+            notificationService.add("Error!", "You don't have the required permissions to be there!", NotificationType.ERROR);
+            return new ModelAndView("redirect:/home");
+        }
             
         
         

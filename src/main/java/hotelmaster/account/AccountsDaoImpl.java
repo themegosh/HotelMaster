@@ -86,17 +86,33 @@ public class AccountsDaoImpl implements AccountsDao {
     @Override
     public int updateAccountByEmail(Account account){
         
-        String inserQuery = "UPDATE account SET first_name = ?, last_name = ?, email = ?, password = ?, facebook_id = ?, gender = ? values (?, ?, ?, ?, ?, ?) ";
-        Object[] params = new Object[] { account.getFirstName(), account.getLastName(), account.getEmail(), account.getPassword(), account.getFacebookId(), account.getGender() };
-        int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };
+        String inserQuery = "UPDATE account SET first_name = ?, last_name = ?, email = ?, password = ?, facebook_id = ?, gender = ? WHERE email = ? ";
+        Object[] params = new Object[] { account.getFirstName(), account.getLastName(), account.getEmail(), account.getPassword(), account.getFacebookId(), account.getGender(), account.getEmail() };
+        int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };
                 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
         return jdbcTemplate.update(inserQuery, params, types);
     }
     
     @Override
-    public void deleteAccount(int id){
+    public int updateAccountDetails(Account account){
         
+        String inserQuery = "UPDATE account SET first_name = ?, last_name = ?, email = ?, facebook_id = ?, account_level = ? WHERE email = ? ";
+        Object[] params = new Object[] { account.getFirstName(), account.getLastName(), account.getEmail(), account.getFacebookId(), account.getAccountLevel().ordinal(), account.getEmail() };
+        int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.VARCHAR };
+                
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
+        return jdbcTemplate.update(inserQuery, params, types);
+    }
+    
+    @Override
+    public void deleteAccount(String email){
+        String inserQuery = "DELETE FROM account WHERE email = ? ";
+        Object[] params = new Object[] { email };
+        int[] types = new int[] { Types.VARCHAR };
+                
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
+        jdbcTemplate.update(inserQuery, params, types);
     }
         
     @Override

@@ -18,12 +18,7 @@ public class AccountRowMapper implements RowMapper{
         
     @Override
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Account account;
-        
-        if (rs.getInt("account_level") == 0)
-            account = new User();
-        else
-            account = new Admin();
+        Account account = new Account();
         
         account.setId(rs.getInt("account_id"));
         account.setFirstName(rs.getString("first_name"));
@@ -32,6 +27,7 @@ public class AccountRowMapper implements RowMapper{
         account.setPassword(rs.getString("password"));
         account.setFacebookId(rs.getString("facebook_id"));
         account.setGender(rs.getString("gender"));
+        account.setAccountLevel(AccountLevel.values()[rs.getInt("account_level")]);
         
         return account;
     }

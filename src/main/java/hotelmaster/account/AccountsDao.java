@@ -16,10 +16,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountsDao {
     Account insertNewAccount(Account account);
-    void deleteAccount(int id);
+    void deleteAccount(String email);
     Account getAccountByFBId(String fbId);
     int updateAccountByFacebook(JSONObject fb);
     int updateAccountByEmail(Account account);
+    int updateAccountDetails(Account account);
     Account getAccountByEmailPass(String email, String pass) throws Exception;
     List<Account> getAccounts();
 }
