@@ -54,7 +54,7 @@
                         <td><form:input path="floor" placeholder=""/></td>
                         <td><form:input path="pricePerNight" placeholder=""/></td>
                         <td><form:input path="maxGuests" placeholder=""/></td>
-                        <td><form:checkboxes items="${features}" path="features" /></td>
+                        <td><form:checkboxes items="${features}" path="featuresTest" /></td>
                         <td><button type="submit" class="btn btn-default" name="action" value="add">Add</button></td>
                     </form:form>
                 </tr>
@@ -69,12 +69,12 @@
                             <td>
                                 <c:forEach var="feature" items="${room.features}">
                                     <c:choose>
-                                    <c:when test="${feature.value}">
-                                        <form:checkbox value="${feature}" path="features" checked="checked"/>${feature.key}
-                                    </c:when>
-                                    <c:otherwise>
-                                        <form:checkbox value="${feature}" path="features" checked=""/>${feature.key}
-                                    </c:otherwise>
+                                        <c:when test="${feature.value}">
+                                            <form:checkbox value="${feature}" path="features" checked="checked"/>${feature.key}
+                                        </c:when>
+                                        <c:otherwise>
+                                            <form:checkbox value="${feature}" path="features" checked=""/>${feature.key}
+                                        </c:otherwise>
                                     </c:choose>
                                 </c:forEach>
                             </td>

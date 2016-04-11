@@ -2,6 +2,8 @@ package hotelmaster.rooms;
 
 import hotelmaster.Room;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,13 +44,30 @@ public class RoomController {
     @RequestMapping(value = "/room", method = RequestMethod.POST)
     public ModelAndView addRoom(@ModelAttribute("roomForm") Room room, ModelAndView model, @RequestParam String action, HttpServletRequest request, BindingResult br){
         Room r = new Room();
-        r.setRoomName(request.getParameter("roomName"));
-        r.setFloor(request.getParameter("floor"));
-        r.setPricePerNight(Double.parseDouble(request.getParameter("pricePerNight")));
-        r.setMaxGuests(Integer.parseInt(request.getParameter("maxGuests")));
         
-        if (action.equalsIgnoreCase("add"))
-            roomDAO.insertRoom(room);
+        r.setRoomName(room.getRoomName());
+        r.setFloor(room.getFloor());
+        r.setPricePerNight(room.getPricePerNight());
+        r.setMaxGuests(room.getMaxGuests());
+        r.setFeaturesTest(room.getFeaturesTest());
+        
+        String[] selectedFeatures = room.getFeaturesTest();
+        
+        for (int i = 0; i < selectedFeatures.length; i++){
+            r.getFeatures().put(selectedFeatures[i], Boolean.TRUE);
+        }
+        
+        r.setFeatures(r.getFeatures());
+                        
+        if (action.equalsIgnoreCase("add")){
+            roomDAO.insertRoom(r);
+            r.setRoomID(roomDAO.getMaxRoomID());
+            System.out.println("RoomID = " + r.getRoomID());
+            
+            //Iterator iterator = r.getFeatures()
+            
+            roomDAO.addRoomFeatures(r);
+        }
         else if (action.equalsIgnoreCase("delete")){
             r.setRoomID(Integer.parseInt(request.getParameter("roomID")));
             roomDAO.deleteRoom(room);   
@@ -62,9 +81,12 @@ public class RoomController {
             
         List<Room> roomList = roomDAO.list();
         RoomForm rf = new RoomForm();
+        List<String> features = roomDAO.listFeatures();
+        roomDAO.setRoomFeatures(roomList);
         
         model.addObject("roomList", roomList);
         model.addObject("roomForm", new RoomForm());
+        model.addObject("features", features);
         model.setViewName("room");
         
         return model;

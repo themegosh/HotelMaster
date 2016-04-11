@@ -23,13 +23,30 @@ public class Room {
     private String roomViewURL;
     
     HashMap<String, Boolean> features;
+    String[] featuresTest;
+
+    public String[] getFeaturesTest() {
+        return featuresTest;
+    }
+
+    public void setFeaturesTest(String[] featuresTest) {
+        this.featuresTest = featuresTest;
+    } 
     
     List<Photo> photos;
     List<Review> reviews;
 
     //Empty constructor
     public Room(){
+        features = new HashMap<String, Boolean>();
         
+        features.put("Balcony", Boolean.FALSE);
+        features.put("Breakfast in bed", Boolean.FALSE);
+        features.put("Jacuzzi", Boolean.FALSE);
+        features.put("Netflix Enabled TV", Boolean.FALSE);
+        features.put("Open Bar", Boolean.FALSE);
+        features.put("Room Service", Boolean.FALSE);
+        features.put("Wifi", Boolean.FALSE);
     }
     
     //Constructor with parameters

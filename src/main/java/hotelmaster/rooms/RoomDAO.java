@@ -147,8 +147,6 @@ public class RoomDAO implements RoomDAOInterface {
         }   
     }
     
-    
-    
     @Override 
     public void addRoomFeatures(Room room){
         jdbcTemplate.setDataSource(getDataSource());
@@ -160,15 +158,16 @@ public class RoomDAO implements RoomDAOInterface {
         
         Iterator iterator = features.entrySet().iterator();
         
-        while (iterator.hasNext()){
+        for (String key : features.keySet()){
             Map.Entry pair = (Map.Entry) iterator.next();
             
-            if ((Boolean) pair.getValue()){
-                String insertQuery = "INSERT INTO room_features (room_id, feature_id) VALUES (?, SELECT feature_id FROM features WHERE feature_name = ?))";
-                Object[] params = new Object[]{room.getRoomID(), (String) pair.getKey()};
+            if (features.get(key)){
+                System.out.println("Keys: " + key);
+                String insertQuery = "INSERT INTO room_features (room_id, feature_id) VALUES (?, (SELECT feature_id FROM features WHERE feature_name = ?))";
+                Object[] params = new Object[]{room.getRoomID(), key};
                 int[] types = new int[]{Types.INTEGER, Types.VARCHAR};
                 
-                jdbcTemplate.update(insertQuery);
+                jdbcTemplate.update(insertQuery, params, types);
             }
         }
         
@@ -242,10 +241,8 @@ public class RoomDAO implements RoomDAOInterface {
     public List<Room> roomSearch(String sdate, String edate) {
         jdbcTemplate.setDataSource(getDataSource());
         
-        //String query = "SELECT * FROM room";
         System.out.println(sdate);
-        System.out.println(edate);
-        
+        System.out.println(edate);        
         
         String query = "SELECT * FROM room WHERE room_id NOT IN (SELECT room_id FROM booking WHERE check_in_date >= ? AND check_out_date <= ?)";
         Object[] params = new Object[] { sdate, edate };
@@ -269,6 +266,21 @@ public class RoomDAO implements RoomDAOInterface {
         });
         
         return roomList;
+    }
+
+    @Override
+    public int getMaxRoomID() {
+        String query = "SELECT MAX(room_id) FROM room";
+        
+        List<String> roomList = jdbcTemplate.query(query, new RowMapper<String>() {
+            
+            @Override
+            public String mapRow(ResultSet rs, int i) throws SQLException {
+                return rs.getString(1);
+            }
+        });
+        
+        return Integer.parseInt(roomList.get(0));
     }
    
 }

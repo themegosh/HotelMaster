@@ -8,6 +8,7 @@ import java.util.List;
 public interface RoomDAOInterface {    
     int insertRoom(Room room);
     int updateRoom(Room room);
+    int getMaxRoomID();
     void deleteRoom(Room room);
     void addRoomFeatures(Room room);
     void setRoomFeatures(List<Room> rooms);

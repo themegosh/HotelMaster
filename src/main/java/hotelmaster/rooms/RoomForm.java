@@ -31,6 +31,7 @@ public class RoomForm {
     @Max(value=9)
     private int maxGuests;
     private HashMap<String, Boolean> features;
+    private String[] featuresTest;
     
     public RoomForm(){
     }
@@ -74,4 +75,14 @@ public class RoomForm {
     public void setFeatures(HashMap<String, Boolean> features) {
         this.features = features;
     }
+    
+    public String[] getFeaturesTest() {
+        return featuresTest;
+    }
+
+    public void setFeaturesTest(String[] featuresTest) {
+        this.featuresTest = featuresTest;
+    }
+
+    
 }
