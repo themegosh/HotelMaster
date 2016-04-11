@@ -41,7 +41,7 @@ public class Room {
         features = new HashMap<String, Boolean>();
         
         features.put("Balcony", Boolean.FALSE);
-        features.put("Breakfast in bed", Boolean.FALSE);
+        features.put("Breakfast in Bed", Boolean.FALSE);
         features.put("Jacuzzi", Boolean.FALSE);
         features.put("Netflix Enabled TV", Boolean.FALSE);
         features.put("Open Bar", Boolean.FALSE);

@@ -64,12 +64,10 @@ public class RoomDAO implements RoomDAOInterface {
     public void deleteRoom(Room room) {
         jdbcTemplate.setDataSource(getDataSource());
         
-        String deleteQuery = "DELETE FROM room WHERE room_ID = " + room.getRoomID();    
-        int count = jdbcTemplate.update(deleteQuery);
-        if (count > 0)
-            System.out.println("Room " + room.getRoomName() + " was successfully deleted");
-        else
-            System.out.println("Room " + room.getRoomName() + " does not exist in the database");
+        String deleteQuery = "DELETE FROM room_features WHERE room_ID = " + room.getRoomID();
+        jdbcTemplate.update(deleteQuery);
+        deleteQuery = "DELETE FROM room WHERE room_ID = " + room.getRoomID();    
+        jdbcTemplate.update(deleteQuery);
     }
 
     /**
@@ -125,7 +123,7 @@ public class RoomDAO implements RoomDAOInterface {
         for (final Room room : rooms){
             final HashMap<String, Boolean> features = new HashMap<String, Boolean>();
             features.put("Balcony", Boolean.FALSE);
-            features.put("Breakfast in bed", Boolean.FALSE);
+            features.put("Breakfast in Bed", Boolean.FALSE);
             features.put("Jacuzzi", Boolean.FALSE);
             features.put("Netflix Enabled TV", Boolean.FALSE);
             features.put("Open Bar", Boolean.FALSE);
@@ -156,18 +154,20 @@ public class RoomDAO implements RoomDAOInterface {
         String deleteQuery = "DELETE FROM room_features WHERE room_id = " + room.getRoomID();
         jdbcTemplate.update(deleteQuery);
         
-        Iterator iterator = features.entrySet().iterator();
-        
-        for (String key : features.keySet()){
-            Map.Entry pair = (Map.Entry) iterator.next();
-            
-            if (features.get(key)){
-                System.out.println("Keys: " + key);
-                String insertQuery = "INSERT INTO room_features (room_id, feature_id) VALUES (?, (SELECT feature_id FROM features WHERE feature_name = ?))";
-                Object[] params = new Object[]{room.getRoomID(), key};
-                int[] types = new int[]{Types.INTEGER, Types.VARCHAR};
-                
-                jdbcTemplate.update(insertQuery, params, types);
+        if (!features.isEmpty()){
+            Iterator iterator = features.entrySet().iterator();
+
+            for (String key : features.keySet()){
+                Map.Entry pair = (Map.Entry) iterator.next();
+
+                if (features.get(key)){
+                    System.out.println("Keys: " + key);
+                    String insertQuery = "INSERT INTO room_features (room_id, feature_id) VALUES (?, (SELECT feature_id FROM features WHERE feature_name = ?))";
+                    Object[] params = new Object[]{room.getRoomID(), key.split("=")[0]};
+                    int[] types = new int[]{Types.INTEGER, Types.VARCHAR};
+
+                    jdbcTemplate.update(insertQuery, params, types);
+                }
             }
         }
         

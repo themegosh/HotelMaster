@@ -70,10 +70,10 @@
                                 <c:forEach var="feature" items="${room.features}">
                                     <c:choose>
                                         <c:when test="${feature.value}">
-                                            <form:checkbox value="${feature}" path="features" checked="checked"/>${feature.key}
+                                            <form:checkbox value="${feature}" path="featuresTest" checked="checked"/>${feature.key}
                                         </c:when>
                                         <c:otherwise>
-                                            <form:checkbox value="${feature}" path="features" checked=""/>${feature.key}
+                                            <form:checkbox value="${feature}" path="featuresTest" checked=""/>${feature.key}
                                         </c:otherwise>
                                     </c:choose>
                                 </c:forEach>

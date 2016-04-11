@@ -2,8 +2,6 @@ package hotelmaster.rooms;
 
 import hotelmaster.Room;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +40,7 @@ public class RoomController {
     }
     
     @RequestMapping(value = "/room", method = RequestMethod.POST)
-    public ModelAndView addRoom(@ModelAttribute("roomForm") Room room, ModelAndView model, @RequestParam String action, HttpServletRequest request, BindingResult br){
+    public ModelAndView addRoom(@ModelAttribute("roomForm") Room room, ModelAndView model, @RequestParam String action, BindingResult br){
         Room r = new Room();
         
         r.setRoomName(room.getRoomName());
@@ -53,28 +51,35 @@ public class RoomController {
         
         String[] selectedFeatures = room.getFeaturesTest();
         
-        for (int i = 0; i < selectedFeatures.length; i++){
-            r.getFeatures().put(selectedFeatures[i], Boolean.TRUE);
-        }
+        if (selectedFeatures != null){
+            for (int i = 0; i < selectedFeatures.length; i++){
+                r.getFeatures().put(selectedFeatures[i], Boolean.TRUE);
+            }
+
+            r.setFeatures(r.getFeatures());
+        }                
         
-        r.setFeatures(r.getFeatures());
-                        
         if (action.equalsIgnoreCase("add")){
             roomDAO.insertRoom(r);
-            r.setRoomID(roomDAO.getMaxRoomID());
-            System.out.println("RoomID = " + r.getRoomID());
-            
-            //Iterator iterator = r.getFeatures()
-            
+            r.setRoomID(roomDAO.getMaxRoomID());   
             roomDAO.addRoomFeatures(r);
         }
         else if (action.equalsIgnoreCase("delete")){
-            r.setRoomID(Integer.parseInt(request.getParameter("roomID")));
+            r.setRoomID(room.getRoomID());
             roomDAO.deleteRoom(room);   
         }
         else if (action.equalsIgnoreCase("edit")){
-            r.setRoomID(Integer.parseInt(request.getParameter("roomID")));
+            r.setRoomID(room.getRoomID());
             roomDAO.updateRoom(room);
+            
+            r.setFeaturesTest(room.getFeaturesTest());
+
+            for (int i = 0; i < selectedFeatures.length; i++){  
+                r.getFeatures().put(selectedFeatures[i].split("=")[0], Boolean.TRUE);
+            }
+
+            r.setFeatures(r.getFeatures());
+            
             roomDAO.addRoomFeatures(r);
         }
 
