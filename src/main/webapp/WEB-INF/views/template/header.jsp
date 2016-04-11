@@ -30,6 +30,16 @@
                 <ul class="nav navbar-nav navbar-right">
                     <c:choose>
                         <c:when test="${sessionScope['scopedTarget.accountSession'].account.id > '0'}">
+                            <c:if test="${sessionScope['scopedTarget.accountSession'].account.isAdmin() == 'true'}">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin Tools <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/admin/accounts">Manage User Access</a></li>
+                                        <li><a href="/admin/photos">Manage Photos</a></li>
+                                        <li><a href="/admin/rooms">Manage Rooms</a></li>
+                                    </ul>
+                                </li>
+                            </c:if>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle nav-login-dropdown" data-toggle="dropdown">
                                     <img class="img-circle" src="<c:out value="${sessionScope['scopedTarget.accountSession'].account.getProfilePicUrl()}"/>?width=40&height=40" />
@@ -47,13 +57,6 @@
                                                 <div class="col-lg-8">
                                                     <p class="text-left"><strong><c:out value="${sessionScope['scopedTarget.accountSession'].account.getFirstName()}" /> <c:out value="${sessionScope['scopedTarget.accountSession'].account.getLastName()}" /></strong></p>
                                                     <p class="text-left small"><c:out value="${sessionScope['scopedTarget.accountSession'].account.getEmail()}" /></p>
-                                                    <c:if test="${sessionScope['scopedTarget.accountSession'].account.getClass().getName() == 'hotelmaster.account.Admin'}">
-                                                        <p class="text-left">
-                                                            <spring:url value="/admin" var="adminUrl" htmlEscape="true" />
-                                                            <a href="${adminUrl}" class="btn btn-primary btn-block btn-sm">Admin Panel</a>
-                                                        </p>
-                                                    </c:if>
-                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -100,3 +103,4 @@
             </c:forEach>
             ${notificationService.clear()}
         </c:if>
+                    
