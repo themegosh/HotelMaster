@@ -67,7 +67,7 @@
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <p><spring:url value="/logout" var="logoutUrl" htmlEscape="true" />
-                                                        <a href="${logoutUrl}" class="btn btn-danger btn-block">Log Out</a>
+                                                        <a href="${logoutUrl}" class="btn btn-primary btn-block">Log Out</a>
                                                     </p>
                                                 </div>
                                             </div>
