@@ -55,9 +55,11 @@
                             <td>Room ID</td>
                             <td>Room name</td>
                             <td>Floor</td>
-                            <td>Price per night</td>
                             <td>Check in date</td>
                             <td>Check out date</td>
+                            <td>Price per night</td>
+                            <td>Length of stay</td>
+                            <td>Total Cost</td>
                         </tr>
                     </thead>
                     <c:forEach var="booking" items="${report}" varStatus="status">
@@ -66,13 +68,29 @@
                             <td>${booking.roomID}</td>
                             <td>${booking.roomName}</td>
                             <td>${booking.floor}</td>
-                            <td>${booking.pricePerNight}</td>
                             <td>${booking.checkInDate}</td>
                             <td>${booking.checkOutDate}</td>
+                            <td>$${booking.pricePerNight}</td>
+                            <td>${booking.lengthOfStay}</td>
+                            <td>$${booking.totalPrice}</td>
                         </tr>
                     </c:forEach>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong>$${total}</strong></td>
+                    </tr>
                 </table>
             </c:when>
+            <c:otherwise>
+                <p>No bookings matched your search parameters.</p>
+            </c:otherwise>
         </c:choose>
     </div>
     </body>

@@ -1,5 +1,6 @@
 package hotelmaster;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -15,6 +16,8 @@ public class Report {
     String floor;
     String roomName;
     double pricePerNight;
+    int lengthOfStay;
+    double totalPrice;
     
     public Report(){
         
@@ -74,6 +77,22 @@ public class Report {
 
     public void setPricePerNight(double pricePerNight) {
         this.pricePerNight = pricePerNight;
+    }
+
+    public int getLengthOfStay() {
+        return lengthOfStay;
+    }
+
+    public void setLengthOfStay(int lengthOfStay) {
+        this.lengthOfStay = lengthOfStay;
+    }
+
+    public String getTotalPrice() {
+        return String.format("%.2f", totalPrice);
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
     
     

@@ -43,7 +43,7 @@ public class BookingsDAO implements BookingsDAOInterface {
         List<Report> reportList;
         
         if (floor.equalsIgnoreCase("All")){
-            String selectQuery =  "SELECT b.account_id, b.room_id, b.check_in_date, b.check_out_date, r.room_name, r.price_per_night, r.floor FROM booking b JOIN room r ON b.room_id = r.room_id "
+            String selectQuery =  "SELECT b.account_id, b.room_id, b.check_in_date, b.check_out_date, r.room_name, r.price_per_night, r.floor, b.check_out_date - b.check_in_date FROM booking b JOIN room r ON b.room_id = r.room_id "
                     + "WHERE check_in_date >= ? AND check_out_date <= ? AND price_per_night BETWEEN ? AND ?";
             Object[] params = new Object[]{checkInDate, checkOutDate, lowerPricePerNight, upperPricePerNight};
             int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.DOUBLE, Types.DOUBLE};
@@ -61,13 +61,15 @@ public class BookingsDAO implements BookingsDAOInterface {
                     report.setRoomName(rs.getString("room_name"));
                     report.setPricePerNight(rs.getDouble("price_per_night"));
                     report.setFloor(rs.getString("floor"));
-
+                    report.setLengthOfStay(Integer.parseInt(rs.getString("b.check_out_date - b.check_in_date")));
+                    report.setTotalPrice(report.getPricePerNight() * report.getLengthOfStay());
+                    
                     return report;
                 }
             });
         }
         else {
-            String selectQuery =  "SELECT b.account_id, b.room_id, b.check_in_date, b.check_out_date, r.room_name, r.price_per_night, r.floor FROM booking b JOIN room r ON b.room_id = r.room_id "
+            String selectQuery =  "SELECT b.account_id, b.room_id, b.check_in_date, b.check_out_date, r.room_name, r.price_per_night, r.floor, b.check_out_date - b.check_in_date FROM booking b JOIN room r ON b.room_id = r.room_id "
                     + "WHERE check_in_date >= ? AND check_out_date <= ? AND price_per_night BETWEEN ? AND ? AND FLOOR = ?";
             Object[] params = new Object[]{checkInDate, checkOutDate, lowerPricePerNight, upperPricePerNight, floor};
             int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.DOUBLE, Types.DOUBLE, Types.VARCHAR};
@@ -85,6 +87,8 @@ public class BookingsDAO implements BookingsDAOInterface {
                     report.setRoomName(rs.getString("room_name"));
                     report.setPricePerNight(rs.getDouble("price_per_night"));
                     report.setFloor(rs.getString("floor"));
+                    report.setLengthOfStay(Integer.parseInt(rs.getString("b.check_out_date - b.check_in_date")));
+                    report.setTotalPrice(report.getPricePerNight() * report.getLengthOfStay());
                     
                     return report;
                 }

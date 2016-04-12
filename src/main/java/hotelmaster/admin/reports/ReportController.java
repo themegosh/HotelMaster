@@ -37,6 +37,13 @@ public class ReportController {
         
         List<Report> report = bookingsDAO.listBookings(reportForm.getCheckInDate(), reportForm.getCheckOutDate(), reportForm.getLowerPricePerNight(), reportForm.getUpperPricePerNight(), reportForm.getFloor());
         
+        double total = 0;
+        
+        for (Report r : report){
+            total += Double.parseDouble(r.getTotalPrice());
+        }
+        
+        model.addObject("total", total);
         model.addObject("report", report);
         model.addObject("reportForm", reportForm);
         model.setViewName("reports");
