@@ -55,7 +55,7 @@
                         <td><form:input path="pricePerNight" placeholder=""/></td>
                         <td><form:input path="maxGuests" placeholder=""/></td>
                         <td><form:checkboxes items="${features}" path="featuresTest" /></td>
-                        <td><button type="submit" class="btn btn-default" name="action" value="add">Add</button></td>
+                        <td><button type="submit" class="btn btn-success" name="action" value="add">Add</button></td>
                     </form:form>
                 </tr>
                 <c:forEach var="room" items="${roomList}" varStatus="status">
@@ -79,8 +79,8 @@
                                 </c:forEach>
                             </td>
                             <td>
-                                <button type="submit" class="btn btn-default" name="action" value="edit">Edit</button> &nbsp;
-                                <button type="submit" class="btn btn-default" name="action" value="delete">Delete</button> 
+                                <button type="submit" class="btn btn-primary" name="action" value="edit">Save</button> &nbsp;
+                                <button type="submit" class="btn btn-danger" name="action" value="delete">Delete</button> 
                             </td>
                         </form:form>
                     </tr>

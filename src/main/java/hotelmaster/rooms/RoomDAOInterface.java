@@ -3,7 +3,10 @@ package hotelmaster.rooms;
 import hotelmaster.Room;
 import java.util.List;
 
-//Author - Danny Ardona
+/**
+ *
+ * @author Danny
+ */
 
 public interface RoomDAOInterface {    
     int insertRoom(Room room);

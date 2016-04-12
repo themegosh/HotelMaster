@@ -3,7 +3,6 @@ package hotelmaster.rooms;
 import java.sql.Types;
 import org.springframework.jdbc.core.JdbcTemplate;
 import hotelmaster.Room;
-import hotelmaster.Booking;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -16,7 +15,10 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
 
-//Author - Danny Ardona
+/**
+ *
+ * @author Danny
+ */
 
 @Component
 public class RoomDAO implements RoomDAOInterface {

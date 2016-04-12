@@ -5,12 +5,13 @@
  */
 package hotelmaster;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.springframework.stereotype.Component;
 
-//Author - Danny Ardona
+/**
+ *
+ * @author Danny
+ */
 
 public class Room {
     
