@@ -34,34 +34,58 @@ public class BookingController {
     
     @Autowired
     private BookingDAO bookingDAO;
+    private RoomDAO roomDAO;
     
-    @RequestMapping(value="{roomViewURL}/booking", method = RequestMethod.GET)
-    public ModelAndView showRoomsDirectory(@PathVariable String roomViewURL){ //@RequestParam("roomViewURL") String URL
-        ModelAndView modelAndView = new ModelAndView("booking");
-               
-        //List<Room> roomList = roomDAO.list();
+    @RequestMapping(value="{roomViewURL}/book", method = RequestMethod.GET)
+    public ModelAndView noAccess(@PathVariable String roomViewURL){ //@RequestParam("roomViewURL") String URL
+        ModelAndView modelAndView = new ModelAndView("unauthorized");
         
-//        String URL = roomViewURL;
-//        System.out.println(URL);
-//        
-//        for(int i = 0; i < roomList.size(); i++){
-//            if(roomList.get(i).getRoomViewURL().equalsIgnoreCase(URL)){
-//                System.out.println("Found URL: " + roomList.get(i).getRoomViewURL());
-//                Room room = new Room();
-//                modelAndView.addObject("room", roomList.get(i));
-//                modelAndView.setViewName("roomView");
-//            }
-//        }
+        modelAndView.setViewName("redirect:unauthorized");
         
-        Booking bkng = new Booking();
-        bkng.setAccount_id(777);
-        modelAndView.addObject("bkng", bkng);
-        modelAndView.setViewName("booking");
+        return modelAndView;
+        
+    }
+    
+    @RequestMapping(value="{roomViewURL}/unauthorized", method = RequestMethod.GET)
+    public ModelAndView unauthorized(@PathVariable String roomViewURL){ //@RequestParam("roomViewURL") String URL
+        ModelAndView modelAndView = new ModelAndView("unauthorized");
+        
+        modelAndView.setViewName("unauthorized");
         
         return modelAndView;
         
     }
     
     
+    @RequestMapping(value="{roomViewURL}/book", method = RequestMethod.POST)
+    public ModelAndView bookRoom(@PathVariable String roomViewURL){
+        ModelAndView modelAndView = new ModelAndView("book");
+                       
+        List<Room> roomList = roomDAO.list();
+        String URL = roomViewURL;
+        System.out.println(URL);
+        
+        Booking bkng = new Booking();
+        bkng.setAccount_id(777);
+        
+        for(int i = 0; i < roomList.size(); i++){
+            if(roomList.get(i).getRoomViewURL().equalsIgnoreCase(URL)){
+                System.out.println("Found URL: " + roomList.get(i).getRoomViewURL());
+                
+                //booking
+                Booking booking = new Booking();
+                modelAndView.addObject("booking", booking);
+                
+                Room room = new Room();
+                modelAndView.addObject("room", roomList.get(i));
+                
+            modelAndView.addObject("bkng", bkng);
+            modelAndView.setViewName("book");
+            }
+        }
+        
+        return modelAndView;
+        
+    }   
     
 }

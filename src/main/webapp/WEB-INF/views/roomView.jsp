@@ -1,7 +1,14 @@
+<%@page import="java.util.Date"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+
+<c:set var="now" value="<%=new java.util.Date()%>" />
+<c:set var="tomorrow" value="<%=new Date(new Date().getTime() + 60*60*24*1000)%>"/>
+<fmt:formatDate var="currDate" pattern="yyyy-MM-dd" value="${now}" />
+<fmt:formatDate var="tmrwDate" pattern="yyyy-MM-dd" value="${tomorrow}"/>
 
 <div class="container sections-group">
     
@@ -15,16 +22,44 @@
     </div>
     <div class="row">
         <div class="col-sm-4 float-right">
-            
-            <p style="width: 100%; border: solid red 2px; text-align: center;"> FORM </p>
-            <form:form type="submit">
-                
+            <form:form modelAttribute="booking" method="POST" enctype="utf8">
+                <div class="col-xs-12 no-padding text-center">
+                    <h2 class="block-title">
+                        Book this room!
+                    </h2>
+                </div>
+                <div class="input-group col-xs-12">
+                        <form:label path="numGuests" for="ddlGuests">Number of Guests:</form:label>&nbsp;
+                        <form:select name="ddlGuests" path="numGuests" class="form-control selectWidth">
+                            <form:option value="1" label="1"/>
+                            <form:option value="2" label="2"/>
+                            <form:option value="3" label="3"/>
+                            <form:option value="4" label="4"/>
+                        </form:select>
+                        <form:errors class="formError" path="numGuests" element="strong"/>
+                </div> 
+                <span class="help-block"></span>
+
+                <div class="input-group col-xs-12">
+                        <form:label path="startDate">Check In:</form:label>
+                        <form:input path="startDate" placeholder="Check In Date" value="${currDate}" type="date" class="form-control" />
+                        <form:errors class="formError" path="startDate" element="strong"/>
+                </div>
+                <span class="help-block"></span>
+                <div class="input-group col-xs-12">
+                        <form:label path="endDate">Check Out:</form:label>
+                        <form:input path="endDate" placeholder="Check Out Date" value="${tmrwDate}" type="date" class="form-control" />
+                        <form:errors class="formError" path="endDate" element="strong"/>     
+                </div>
+                <span class="help-block"></span>
+
+                <div class="col-xs-12 no-padding">
+                    <button class="btn btn-primary btn-lg" type="submit">Book Now</button>
+                </div>
             </form:form>
             
         </div>
-        <div class="col-sm-8" style="border: solid blue 2px;">
-             <p style="text-align: center;"> CONTENT </p>
-             
+        <div class="col-sm-8">             
              <div class="room-photo">
                  <img src="/resources/img/room_photo.jpg"/>
              </div>

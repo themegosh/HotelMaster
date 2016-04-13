@@ -157,6 +157,15 @@ body {
     color: #a94442;
 }
 
+.no-padding{
+    padding: 0 !important;
+}
+
+.selectWidth {
+    width: auto;
+    float: none !important;
+  }
+
 /* ============== RESPONSIVE ============== */
 
 @media (max-width: 768px) {

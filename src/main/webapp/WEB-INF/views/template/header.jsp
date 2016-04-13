@@ -17,7 +17,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active">
+                    <li class="active"> <!-- Dynamic class -->
                         <a href="${homeUrl}">Home</a>
                     </li>
                     <li><spring:url value="/rooms" var="roomsDir" htmlEscape="true" />

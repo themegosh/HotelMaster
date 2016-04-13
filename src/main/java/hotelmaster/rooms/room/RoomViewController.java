@@ -5,6 +5,7 @@
  */
 package hotelmaster.rooms.room;
 
+import hotelmaster.Booking;
 import hotelmaster.Room;
 import hotelmaster.rooms.RoomDAO;
 import java.util.List;
@@ -38,15 +39,28 @@ public class RoomViewController {
         for(int i = 0; i < roomList.size(); i++){
             if(roomList.get(i).getRoomViewURL().equalsIgnoreCase(URL)){
                 System.out.println("Found URL: " + roomList.get(i).getRoomViewURL());
+                
+                //booking
+                Booking booking = new Booking();
+                modelAndView.addObject("booking", booking);
+                
                 Room room = new Room();
                 modelAndView.addObject("room", roomList.get(i));
                 modelAndView.setViewName("roomView");
             }
         }
         
-        
         return modelAndView;
         
-    }   
+    }
+//    
+//    @RequestMapping(value="{roomViewURL}", method = RequestMethod.POST)
+//    public ModelAndView bookRoom(@PathVariable String roomViewURL){
+//        ModelAndView modelAndView = new ModelAndView("booking");
+//        
+//        modelAndView.setViewName("redirect:{roomViewURL}/book");
+//        
+//        return modelAndView;
+//    }
     
 }

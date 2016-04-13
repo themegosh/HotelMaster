@@ -12,16 +12,16 @@ import java.util.Date;
  * @author mathe_000
  */
 public class Booking {
-    Date startDate;
-    Date endDate;
-    int numGuests;
-    int room_id;
-    int account_id;
-    int booking_id;
+    private String startDate;
+    private String endDate;
+    private int numGuests;
+    private int room_id;
+    private int account_id;
+    private int booking_id;
     
     public Booking(){}
     
-    public Booking(Date startDate, Date endDate, int numGuests, int room, int account){
+    public Booking(String startDate, String endDate, int numGuests, int room, int account){
         this.startDate = startDate;
         this.endDate = endDate;
         this.numGuests = numGuests;
@@ -34,19 +34,19 @@ public class Booking {
         return booking_id;
     }
     
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

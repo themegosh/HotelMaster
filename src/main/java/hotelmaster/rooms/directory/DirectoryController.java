@@ -51,24 +51,6 @@ public class DirectoryController {
     @RequestMapping(value="/rooms", method = RequestMethod.POST)
     public ModelAndView processParams(@ModelAttribute("searchParams") @Valid SearchParams searchParams,  BindingResult result, HttpServletRequest htrequest, Errors errors) throws ParseException {
         ModelAndView modelAndView = new ModelAndView("rooms");
-       
-//        String oldFormat = "yyyy-MM-dd";
-//        String newFormat = "MM-dd-yy";
-//        
-//        SimpleDateFormat sdfStart = new SimpleDateFormat(oldFormat);
-//        
-//        String oldSDateString = searchParams.getCheckInDate();
-//        Date ds = sdfStart.parse(oldSDateString);
-//        sdfStart.applyPattern(newFormat);
-//        String newSDateString = sdfStart.format(ds);
-//        
-//        
-//        SimpleDateFormat sdfEnd = new SimpleDateFormat(oldFormat);
-//        
-//        String oldEDateString = searchParams.getCheckOutDate();
-//        Date de = sdfEnd.parse(oldEDateString);
-//        sdfEnd.applyPattern(newFormat);
-//        String newEDateString = sdfEnd.format(de);
         
         List<Room> roomList = roomDAO.roomSearch(searchParams.getCheckInDate(), searchParams.getCheckOutDate(), searchParams.getNumOfGuests());
         modelAndView.addObject("roomList", roomList);
