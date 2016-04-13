@@ -7,6 +7,6 @@ import java.util.List;
  *
  * @author Danny
  */
-public interface BookingsDAOInterface {
+public interface ReportDAOInterface {
     List<Report> listBookings(String checkInDate, String checkOutDate, double lowerPricePerNight, double upperPricePerNight, String floor);
 }

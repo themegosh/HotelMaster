@@ -14,8 +14,8 @@
     
     <!-- Room Management Admin Pages -->
     
-    <definition name="room" extends="DefaultTemplate">
-        <put-attribute name="body"      value="/WEB-INF/views/room.jsp" />
+    <definition name="admin/rooms" extends="DefaultTemplate">
+        <put-attribute name="body"      value="/WEB-INF/views/admin/rooms.jsp" />
     </definition>
     
     <definition name="roomFeatures" extends="DefaultTemplate">
@@ -55,8 +55,8 @@
     <definition name="notifications" extends="DefaultTemplate">
         <put-attribute name="body"	value="/WEB-INF/views/register.jsp" />
     </definition>
-    <definition name="reports" extends="DefaultTemplate">
-        <put-attribute name="body"	value="/WEB-INF/views/reports.jsp" />
+    <definition name="admin/reports" extends="DefaultTemplate">
+        <put-attribute name="body"	value="/WEB-INF/views/admin/reports.jsp" />
     </definition>
     
     

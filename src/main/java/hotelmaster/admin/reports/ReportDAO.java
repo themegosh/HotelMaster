@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @author Danny
  */
 @Component
-public class BookingsDAO implements BookingsDAOInterface {
+public class ReportDAO implements ReportDAOInterface {
 
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
 

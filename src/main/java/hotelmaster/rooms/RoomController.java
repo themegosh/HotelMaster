@@ -1,6 +1,10 @@
 package hotelmaster.rooms;
 
 import hotelmaster.Room;
+import hotelmaster.account.AccountLevel;
+import hotelmaster.account.AccountSession;
+import hotelmaster.notification.NotificationService;
+import hotelmaster.notification.NotificationType;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +26,19 @@ public class RoomController {
 
     @Autowired
     private RoomDAO roomDAO;
+    @Autowired
+    private NotificationService notificationService;
+    @Autowired
+    private AccountSession accountSession; 
     
-    @RequestMapping(value = "/room")
+    @RequestMapping(value = "/admin/rooms")
     public ModelAndView listRoom(ModelAndView model) throws IOException {
+        
+        if (accountSession.getAccount() == null || accountSession.getAccount().getAccountLevel() == AccountLevel.USER) {
+            notificationService.add("Error!", "You do not have the required permissions to access the page", NotificationType.ERROR);
+            return new ModelAndView("redirect:/home");
+        }
+        
         List<Room> roomList = roomDAO.list();
         RoomForm rf = new RoomForm();
         List<String> features = roomDAO.listFeatures();
@@ -33,12 +47,12 @@ public class RoomController {
         model.addObject("roomList", roomList);
         model.addObject("roomForm", new RoomForm());
         model.addObject("features", features);
-        model.setViewName("room");
+        model.setViewName("admin/rooms");
                
         return model;
     }
     
-    @RequestMapping(value = "/room", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/rooms", method = RequestMethod.POST)
     public ModelAndView addRoom(@ModelAttribute("roomForm") Room room, ModelAndView model, @RequestParam String action, BindingResult br){
         Room r = new Room();
         
@@ -91,7 +105,7 @@ public class RoomController {
         model.addObject("roomList", roomList);
         model.addObject("roomForm", new RoomForm());
         model.addObject("features", features);
-        model.setViewName("room");
+        model.setViewName("admin/rooms");
         
         return model;
     }

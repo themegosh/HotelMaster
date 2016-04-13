@@ -37,6 +37,7 @@
                                         <li><a href="/admin/accounts">Manage User Access</a></li>
                                         <li><a href="/admin/photos">Manage Photos</a></li>
                                         <li><a href="/admin/rooms">Manage Rooms</a></li>
+                                        <li><a href="/admin/reports">Generate Reports</a></li>
                                     </ul>
                                 </li>
                             </c:if>
