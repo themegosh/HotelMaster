@@ -35,8 +35,9 @@ public class RoomViewController {
                
         List<Room> roomList = roomDAO.list();
         
+        roomDAO.setRoomFeatures(roomList);
+        
         String URL = roomViewURL;
-        System.out.println(URL);
         
         for(int i = 0; i < roomList.size(); i++){
             if(roomList.get(i).getRoomViewURL().equalsIgnoreCase(URL)){
@@ -51,14 +52,14 @@ public class RoomViewController {
                 HashMap<String, Integer> numGuests = new HashMap<String, Integer>();
                 
                 for (int k = 1; k <= maxGuests; k++){
-                    numGuests.put(""+k, k);
+                    numGuests.put("" + k, k);
                 }
                 
                 modelAndView.addObject("numGuests", numGuests);
                 modelAndView.addObject("room", roomList.get(i));       
             }
         }
-        
+                        
         modelAndView.setViewName("roomView");
         
         return modelAndView;

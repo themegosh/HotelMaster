@@ -69,7 +69,13 @@
              
              <div class="room-info">
                  <ul class="feature-list list-unstyled">
-                     <li><i class="fa fa-check"></i>Features</li>
+                     <c:forEach var="feature" items="${room.features}">
+                        <c:choose>
+                            <c:when test="${feature.value}">
+                                <li><i class="fa fa-check"></i>${feature.key}</li>
+                            </c:when>
+                        </c:choose>
+                    </c:forEach>
                     <li><i class="fa fa-check"></i>Max <strong><c:out value="${room.getMaxGuests()}"/></strong> guests</li>
                  </ul>
              </div>

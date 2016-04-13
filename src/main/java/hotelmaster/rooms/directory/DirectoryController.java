@@ -41,6 +41,8 @@ public class DirectoryController {
         List<Room> roomList = roomDAO.list();
         modelAndView.addObject("roomList", roomList);
         Room room = new Room();
+        roomDAO.setRoomFeatures(roomList);
+                modelAndView.addObject("roomList", roomList);
         modelAndView.addObject("room", room);
         modelAndView.setViewName("rooms");
         
