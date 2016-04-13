@@ -10,6 +10,7 @@ import hotelmaster.Room;
 import hotelmaster.notification.NotificationService;
 import hotelmaster.notification.NotificationType;
 import hotelmaster.rooms.RoomDAO;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/rooms")
-public class BookingController {
+public class BookingEditController {
     
     @Autowired
     private BookingDAO bookingDAO;
@@ -45,10 +46,10 @@ public class BookingController {
     
     
     
-    @RequestMapping(value="{roomViewURL}/book", method = RequestMethod.GET)
-    public ModelAndView noAccess(@PathVariable String roomViewURL, @ModelAttribute("booking") @Valid Booking booking){ //@RequestParam("roomViewURL") String URL
-        ModelAndView modelAndView = new ModelAndView("book");
-                
+    @RequestMapping(value="{roomViewURL}/book/edit", method = RequestMethod.GET)
+    public ModelAndView noAccess(@PathVariable String roomViewURL, @ModelAttribute("bookingEdit") @Valid Booking booking){ //@RequestParam("roomViewURL") String URL
+        ModelAndView modelAndView = new ModelAndView("bookingEdit");
+        
         if (bookingSession.getBooking()== null) {
             notificationService.add("Error: ", "Please try booking a room first", NotificationType.ERROR);
             return new ModelAndView("redirect:/home", "notificationService", notificationService);
@@ -58,6 +59,13 @@ public class BookingController {
         booking = bookingSes;
         
         Room room = roomDAO.getByURL(roomViewURL);
+        
+        //Max Guests Select Limit
+        HashMap<String, Integer> numGuests = new HashMap<String, Integer>();
+        for(int i = 1; i <= room.getMaxGuests(); i++){
+            numGuests.put("" + i, i);
+        }
+        modelAndView.addObject("numGuests", numGuests);
         modelAndView.addObject("room", room);
         
         //Set Variables        
@@ -66,31 +74,30 @@ public class BookingController {
         booking.setEndDate(booking.getEndDate());
         booking.setNumGuests(booking.getNumGuests());
         booking.setNumNights(booking.getStartDate(), booking.getEndDate());
-        System.out.println("Booking: " + booking.getBookingDate());
-        
-        
         //Total Cost
         double getCost = booking.getNumNights() * room.getPricePerNight();
         String roundedCost = String.format("%.2f", getCost);
         double totalCost = Double.parseDouble(roundedCost);
         
-        booking.setTotalCost(totalCost); 
+        booking.setTotalCost(totalCost);
+        
+        //Setters
+        
         modelAndView.addObject("booking", booking);
-        modelAndView.setViewName("book");
+        modelAndView.setViewName("bookingEdit");
         
         return modelAndView;
     }
     
     
-    @RequestMapping(value="{roomViewURL}/book", method = RequestMethod.POST)
-    public ModelAndView bookRoom(@PathVariable String roomViewURL, @ModelAttribute("booking") @Valid Booking booking,  BindingResult result, HttpServletRequest htrequest, Errors errors){
-        ModelAndView modelAndView = new ModelAndView("book");
+    @RequestMapping(value="{roomViewURL}/book/edit", method = RequestMethod.POST)
+    public ModelAndView bookRoom(@PathVariable String roomViewURL, @ModelAttribute("bookingEdit") @Valid Booking booking,  BindingResult result, HttpServletRequest htrequest, Errors errors){
+        ModelAndView modelAndView = new ModelAndView("bookingEdit");
         
         //Room
         Room room = roomDAO.getByURL(roomViewURL);
         modelAndView.addObject("room", room);
         
-        System.out.println("Booking: " + booking.getBookingDate());
         //Set Variables        
         booking.setBookingDate(booking.getBookingDate());
         booking.setStartDate(booking.getStartDate());
@@ -98,17 +105,18 @@ public class BookingController {
         booking.setNumGuests(booking.getNumGuests());
         booking.setNumNights(booking.getStartDate(), booking.getEndDate());
         
-        System.out.println("Room: " + booking.getRoomID());
         
         //Total Cost
         double getCost = booking.getNumNights() * room.getPricePerNight();
         String roundedCost = String.format("%.2f", getCost);
         double totalCost = Double.parseDouble(roundedCost);
         
-        booking.setTotalCost(totalCost);        
-        modelAndView.setViewName("book");
         
+        //Setters
+        booking.setTotalCost(totalCost);
+        modelAndView.addObject("edtBkng", booking);
         bookingSession.setBooking(booking);
+        modelAndView.setViewName("redirect:../book");
         
         return modelAndView;
         

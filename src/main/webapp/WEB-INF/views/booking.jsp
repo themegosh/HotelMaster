@@ -67,7 +67,7 @@
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Confirm</button>
             </div>
             <div class="col-xs-4">
-                <a href="" class="btn btn-lg btn-default btn-block" type="submit">Edit</a>
+                <a href="${pageContext.request.contextPath}/rooms/${room.getRoomViewURL()}/book/edit" class="btn btn-lg btn-default btn-block" type="submit">Edit</a>
             </div>
             <div class="col-xs-4">
                 <a href="${pageContext.request.contextPath}/rooms/${room.getRoomViewURL()}/book/cancel" class="btn btn-lg btn-default btn-block" type="submit">Cancel</a>

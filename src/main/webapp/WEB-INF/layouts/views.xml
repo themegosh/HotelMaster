@@ -37,8 +37,12 @@
         <put-attribute name="body"	value="/WEB-INF/views/booking.jsp" />
     </definition>
     
-    <definition name="confirm" extends="DefaultTemplate">
+    <definition name="bookingConfirm" extends="DefaultTemplate">
         <put-attribute name="body"	value="/WEB-INF/views/bookingConfirm.jsp" />
+    </definition>
+    
+    <definition name="bookingEdit" extends="DefaultTemplate">
+        <put-attribute name="body"	value="/WEB-INF/views/bookingEdit.jsp" />
     </definition>
     
     <!-- Contact Page -->

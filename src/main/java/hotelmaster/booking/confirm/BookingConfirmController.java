@@ -43,7 +43,7 @@ public class BookingConfirmController {
     
     @RequestMapping(value="{roomViewURL}/book/confirm", method = RequestMethod.GET)
     public ModelAndView confirmBookingGet(@PathVariable String roomViewURL){ //@RequestParam("roomViewURL") String URL
-        ModelAndView modelAndView = new ModelAndView("confirm");
+        ModelAndView modelAndView = new ModelAndView("bookingConfirm");
         
         if (accountSession.getAccount() == null) {
             notificationService.add("Error:", "Please login first", NotificationType.ERROR);
@@ -62,7 +62,7 @@ public class BookingConfirmController {
         bookingDAO.insertBooking(booking);
         
         bookingSession.cancelBooking();
-        modelAndView.setViewName("confirm");
+        modelAndView.setViewName("bookingConfirm");
         
         return modelAndView;
         
@@ -70,7 +70,7 @@ public class BookingConfirmController {
     
     @RequestMapping(value="{roomViewURL}/book/confirm", method = RequestMethod.POST)
     public ModelAndView confirmBookingPost(@PathVariable String roomViewURL){ //@RequestParam("roomViewURL") String URL
-        ModelAndView modelAndView = new ModelAndView("confirm");
+        ModelAndView modelAndView = new ModelAndView("bookingConfirm");
         
         if (accountSession.getAccount() == null) {
             notificationService.add("Error:", "Please login first", NotificationType.ERROR);
@@ -89,7 +89,7 @@ public class BookingConfirmController {
         bookingDAO.insertBooking(booking);
         
         bookingSession.cancelBooking();
-        modelAndView.setViewName("confirm");
+        modelAndView.setViewName("bookingConfirm");
         return modelAndView;
         
     }
