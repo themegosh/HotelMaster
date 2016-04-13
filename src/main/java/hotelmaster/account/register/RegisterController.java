@@ -8,6 +8,7 @@ package hotelmaster.account.register;
 import hotelmaster.account.Account;
 import hotelmaster.account.AccountSession;
 import hotelmaster.account.AccountsDao;
+import hotelmaster.booking.BookingSession;
 import hotelmaster.notification.NotificationService;
 import hotelmaster.notification.NotificationType;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +37,9 @@ public class RegisterController {
     
     @Autowired
     private AccountSession accountSession;
+    
+    @Autowired
+    private BookingSession bookingSession;
     
     @RequestMapping(value="/register", method = RequestMethod.GET)
     public ModelAndView showRegistrationPage() {
@@ -81,6 +85,13 @@ public class RegisterController {
                                 
                 //notify them of the successful registration and login
                 notificationService.add("Success!", "You have successfully registered and are now logged in.", NotificationType.SUCCESS);
+                
+                //Tried booking a room
+                if (bookingSession.getBooking()!= null) {
+                    String URL = bookingSession.getBooking().getBookingURL();
+                    notificationService.add("Welcome back", "You can now proceed", NotificationType.SUCCESS);
+                    return new ModelAndView("redirect:/rooms/" + URL + "/book", "notificationService", notificationService);
+                }
                 
                 //send a message to the message service
                 return new ModelAndView("redirect:home");

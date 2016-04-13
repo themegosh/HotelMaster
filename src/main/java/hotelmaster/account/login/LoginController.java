@@ -8,6 +8,7 @@ package hotelmaster.account.login;
 import hotelmaster.account.Account;
 import hotelmaster.account.AccountSession;
 import hotelmaster.account.AccountsDao;
+import hotelmaster.booking.BookingSession;
 import hotelmaster.notification.NotificationService;
 import hotelmaster.notification.NotificationType;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +38,9 @@ public class LoginController {
     
     @Autowired
     private AccountSession accountSession;
+    
+    @Autowired
+    private BookingSession bookingSession;
     
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public ModelAndView showLoginPage() {
@@ -78,6 +82,15 @@ public class LoginController {
                 
                 //if we've gotten here, we assume theyve registered successfully
                 notificationService.add("Success!", "Successfully logged in.", NotificationType.SUCCESS);
+                
+                //Has a booking
+                if (bookingSession.getBooking()!= null) {
+                    String URL = bookingSession.getBooking().getBookingURL();
+                    notificationService.add("Welcome back", "You can now proceed", NotificationType.SUCCESS);
+                    return new ModelAndView("redirect:/rooms/" + URL + "/book", "notificationService", notificationService);
+                }
+                
+                
                 //send a message to the message service
                 return new ModelAndView("redirect:home");
                 
@@ -95,6 +108,7 @@ public class LoginController {
         //try to register
         System.out.println("Email " + loginForm.getEmail());
         System.out.println("Password " + loginForm.getPassword());
+        
         
         return modelAndView;
     }

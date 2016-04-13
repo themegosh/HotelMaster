@@ -12,6 +12,7 @@ import com.github.scribejava.core.oauth.OAuth20Service;
 import hotelmaster.account.Account;
 import hotelmaster.account.AccountSession;
 import hotelmaster.account.AccountsDao;
+import hotelmaster.booking.BookingSession;
 import hotelmaster.notification.NotificationService;
 import hotelmaster.notification.NotificationType;
 import java.util.List;
@@ -44,6 +45,9 @@ public class FacebookController {
     
     @Autowired
     private AccountSession accountSession;
+    
+    @Autowired
+    private BookingSession bookingSession;
         
     private final String ATTR_OAUTH_ACCESS_TOKEN = "ATTR_OAUTH_ACCESS_TOKEN";
     private final String ATTR_OAUTH_REQUEST_TOKEN = "ATTR_OAUTH_REQUEST_TOKEN";
@@ -156,6 +160,13 @@ public class FacebookController {
             }
         }
         notificationService.add("Success!", "You have successfully logged in with Facebook.", NotificationType.SUCCESS);
+        
+        if (bookingSession.getBooking()!= null) {
+            String URL = bookingSession.getBooking().getBookingURL();
+            notificationService.add("Welcome back", "You can now proceed", NotificationType.SUCCESS);
+            return new ModelAndView("redirect:/rooms/" + URL + "/book", "notificationService", notificationService);
+        }
+        
         modelAndView.setViewName("redirect:home");
         return modelAndView;
     }
