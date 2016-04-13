@@ -70,7 +70,7 @@
                 <a href="" class="btn btn-lg btn-default btn-block" type="submit">Edit</a>
             </div>
             <div class="col-xs-4">
-                <a href="" class="btn btn-lg btn-default btn-block" type="submit">Cancel</a>
+                <a href="${pageContext.request.contextPath}/rooms/${room.getRoomViewURL()}/book/cancel" class="btn btn-lg btn-default btn-block" type="submit">Cancel</a>
             </div>
         </div>
     </form:form>

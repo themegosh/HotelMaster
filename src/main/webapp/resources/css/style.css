@@ -1,7 +1,20 @@
 
 /* Navbar things */
+html {
+    position: relative;
+    min-height: 100%;
+}
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+}
+
 body {
   padding-top: 50px;
+  margin: 0 0 100px;
 }
 
 .nav-login-dropdown {
@@ -170,6 +183,11 @@ body {
     width: auto;
     float: none !important;
   }
+  
+  
+  /* THE KING OF STICKY FOOTER */
+
+  
 
 /* ============== RESPONSIVE ============== */
 

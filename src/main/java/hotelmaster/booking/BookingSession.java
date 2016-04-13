@@ -15,5 +15,5 @@ import hotelmaster.Booking;
 public interface BookingSession {
     public Booking getBooking();
     public void setBooking(Booking booking);
-    public void cancelBooking(Booking booking);
+    public void cancelBooking();
 }

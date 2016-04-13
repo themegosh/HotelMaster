@@ -41,14 +41,17 @@ public class BookingConfirmController {
     @Autowired
     private AccountSession accountSession;
     
-    
-    @RequestMapping(value="{roomViewURL}/book/confirm", method = RequestMethod.POST)
-    public ModelAndView noAccess(@PathVariable String roomViewURL){ //@RequestParam("roomViewURL") String URL
+    @RequestMapping(value="{roomViewURL}/book/confirm", method = RequestMethod.GET)
+    public ModelAndView confirmBookingGet(@PathVariable String roomViewURL){ //@RequestParam("roomViewURL") String URL
         ModelAndView modelAndView = new ModelAndView("confirm");
         
         if (accountSession.getAccount() == null) {
             notificationService.add("Error:", "Please login first", NotificationType.ERROR);
             return new ModelAndView("redirect:/login");
+        }
+        if (bookingSession.getBooking()== null) {
+            notificationService.add("Error:", "Please choose a room first", NotificationType.ERROR);
+            return new ModelAndView("redirect:/rooms");
         }
         
         Booking booking = bookingSession.getBooking();
@@ -58,7 +61,34 @@ public class BookingConfirmController {
         booking.setAccount_id(accountSession.getAccount().getId());
         bookingDAO.insertBooking(booking);
         
+        bookingSession.cancelBooking();
+        modelAndView.setViewName("confirm");
         
+        return modelAndView;
+        
+    }
+    
+    @RequestMapping(value="{roomViewURL}/book/confirm", method = RequestMethod.POST)
+    public ModelAndView confirmBookingPost(@PathVariable String roomViewURL){ //@RequestParam("roomViewURL") String URL
+        ModelAndView modelAndView = new ModelAndView("confirm");
+        
+        if (accountSession.getAccount() == null) {
+            notificationService.add("Error:", "Please login first", NotificationType.ERROR);
+            return new ModelAndView("redirect:/login");
+        }
+        if (bookingSession.getBooking()== null) {
+            notificationService.add("Error:", "Please book a room first", NotificationType.ERROR);
+            return new ModelAndView("redirect:/rooms");
+        }
+        
+        Booking booking = bookingSession.getBooking();
+        
+        System.out.println("Confirm: " + booking.getBookingDate());
+        //modelAndView.setViewName("redirect:unauthorized");
+        booking.setAccount_id(accountSession.getAccount().getId());
+        bookingDAO.insertBooking(booking);
+        
+        bookingSession.cancelBooking();
         modelAndView.setViewName("confirm");
         return modelAndView;
         

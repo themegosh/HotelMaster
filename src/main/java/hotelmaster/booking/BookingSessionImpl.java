@@ -38,8 +38,8 @@ public class BookingSessionImpl implements BookingSession, Serializable{
     }
 
     @Override
-    public void cancelBooking(Booking booking) {
-        this.booking = new Booking();
+    public void cancelBooking() {
+        this.booking = null;
     }
     
 }
