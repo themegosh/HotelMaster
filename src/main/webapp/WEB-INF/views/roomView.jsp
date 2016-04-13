@@ -31,10 +31,7 @@
                 <div class="input-group col-xs-12">
                         <form:label path="numGuests" for="ddlGuests">Number of Guests:</form:label>&nbsp;
                         <form:select name="ddlGuests" path="numGuests" class="form-control selectWidth">
-                            <form:option value="1" label="1"/>
-                            <form:option value="2" label="2"/>
-                            <form:option value="3" label="3"/>
-                            <form:option value="4" label="4"/>
+                                <form:options items="${numGuests}" />                        
                         </form:select>
                         <form:errors class="formError" path="numGuests" element="strong"/>
                 </div> 

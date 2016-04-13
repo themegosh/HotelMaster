@@ -8,6 +8,8 @@ package hotelmaster.rooms.room;
 import hotelmaster.Booking;
 import hotelmaster.Room;
 import hotelmaster.rooms.RoomDAO;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,10 +47,19 @@ public class RoomViewController {
                 modelAndView.addObject("booking", booking);
                 
                 Room room = new Room();
-                modelAndView.addObject("room", roomList.get(i));
-                modelAndView.setViewName("roomView");
+                int maxGuests = roomList.get(i).getMaxGuests();
+                HashMap<String, Integer> numGuests = new HashMap<String, Integer>();
+                
+                for (int k = 1; k <= maxGuests; k++){
+                    numGuests.put(""+k, k);
+                }
+                
+                modelAndView.addObject("numGuests", numGuests);
+                modelAndView.addObject("room", roomList.get(i));       
             }
         }
+        
+        modelAndView.setViewName("roomView");
         
         return modelAndView;
         
