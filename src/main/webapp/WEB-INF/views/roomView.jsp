@@ -22,7 +22,7 @@
     </div>
     <div class="row">
         <div class="col-sm-4 float-right">
-            <form:form modelAttribute="booking" method="POST" enctype="utf8">
+            <form:form modelAttribute="booking" action="${room.getRoomViewURL()}/book" method="POST" enctype="utf8">
                 <div class="col-xs-12 no-padding text-center">
                     <h2 class="block-title">
                         Book this room!
@@ -42,13 +42,13 @@
 
                 <div class="input-group col-xs-12">
                         <form:label path="startDate">Check In:</form:label>
-                        <form:input path="startDate" placeholder="Check In Date" value="${currDate}" type="date" class="form-control" />
+                        <form:input path="startDate" placeholder="Check-in Date" value="${currDate}" type="date" class="form-control" />
                         <form:errors class="formError" path="startDate" element="strong"/>
                 </div>
                 <span class="help-block"></span>
                 <div class="input-group col-xs-12">
                         <form:label path="endDate">Check Out:</form:label>
-                        <form:input path="endDate" placeholder="Check Out Date" value="${tmrwDate}" type="date" class="form-control" />
+                        <form:input path="endDate" placeholder="Check-out Date" value="${tmrwDate}" type="date" class="form-control" />
                         <form:errors class="formError" path="endDate" element="strong"/>     
                 </div>
                 <span class="help-block"></span>

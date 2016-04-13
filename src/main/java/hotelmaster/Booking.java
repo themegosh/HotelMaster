@@ -15,10 +15,12 @@ public class Booking {
     private String startDate;
     private String endDate;
     private int numGuests;
+    private int numNights;
     private int room_id;
     private int account_id;
     private int booking_id;
-    
+    private double totalCost;
+
     public Booking(){}
     
     public Booking(String startDate, String endDate, int numGuests, int room, int account){
@@ -72,6 +74,62 @@ public class Booking {
 
     public void setAccount_id(int account_id) {
         this.account_id = account_id;
+    }
+    
+    public int getNumNights() {
+        return numNights;
+    }
+
+    public void setNumNights(int numNights) {
+        this.numNights = numNights;
+    }
+
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
+    
+    public void setNumNights(String fromDate,String toDate)
+   {    
+       java.util.Calendar cal1 = new java.util.GregorianCalendar();
+       java.util.Calendar cal2 = new java.util.GregorianCalendar();
+       System.out.println(fromDate + " and " + toDate);
+       //split year, month and days from the date using StringBuffer.
+       StringBuffer sBuffer = new StringBuffer(fromDate);
+       String yearFrom = sBuffer.substring(0,4);
+       String monFrom = sBuffer.substring(5,7);
+       String ddFrom = sBuffer.substring(8,10);
+       int intYearFrom = Integer.parseInt(yearFrom);
+       int intMonFrom = Integer.parseInt(monFrom);
+       int intDdFrom = Integer.parseInt(ddFrom);
+
+       // set the fromDate in java.util.Calendar
+       cal1.set(intYearFrom, intMonFrom, intDdFrom);
+
+       //split year, month and days from the date using StringBuffer.
+       StringBuffer sBuffer1 = new StringBuffer(toDate);
+       String yearTo = sBuffer1.substring(0,4);
+       String monTo = sBuffer1.substring(5,7);
+       String ddTo = sBuffer1.substring(8,10);
+       int intYearTo = Integer.parseInt(yearTo);
+       int intMonTo = Integer.parseInt(monTo);
+       int intDdTo = Integer.parseInt(ddTo);
+
+       // set the toDate in java.util.Calendar
+       cal2.set(intYearTo, intMonTo, intDdTo);
+
+       //call method daysBetween to get the number of days between two dates
+       int numNights = nightsBetween(cal1.getTime(),cal2.getTime());
+       
+       this.numNights = numNights;
+   }
+    
+    public int nightsBetween(Date d1, Date d2)
+    {
+       return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
     }
     
 }

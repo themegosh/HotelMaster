@@ -300,5 +300,22 @@ public class RoomDAO implements RoomDAOInterface {
         
         return floorsMap;
     }
+    
+    /* GET A ROOM BY URL */
+    public Room getByURL(String URL) {
+        
+        Room room = new Room();
+        
+        List<Room> roomList = list();
+        
+        for(int i = 0; i < roomList.size(); i++){
+            if(roomList.get(i).getRoomViewURL().equalsIgnoreCase(URL)){
+                System.out.println("Found URL: " + roomList.get(i).getRoomViewURL());
+                room = roomList.get(i);
+            }
+        }
+        
+        return room;
+    }
    
 }

@@ -132,6 +132,11 @@ body {
     text-align: center;
 }
 
+/* Booking */
+.booking td{
+    padding-right: 20px;
+}
+
 /* Home Page Styling */
 #searchContainer {
     background-color: #d9d9d9;

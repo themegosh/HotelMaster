@@ -10,13 +10,23 @@ import hotelmaster.Photo;
 import hotelmaster.Room;
 import hotelmaster.gallery.PhotoDAO;
 import hotelmaster.rooms.RoomDAO;
+import hotelmaster.search.SearchParams;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +44,8 @@ public class BookingController {
     
     @Autowired
     private BookingDAO bookingDAO;
+    
+    @Autowired
     private RoomDAO roomDAO;
     
     @RequestMapping(value="{roomViewURL}/book", method = RequestMethod.GET)
@@ -58,31 +70,28 @@ public class BookingController {
     
     
     @RequestMapping(value="{roomViewURL}/book", method = RequestMethod.POST)
-    public ModelAndView bookRoom(@PathVariable String roomViewURL){
+    public ModelAndView bookRoom(@PathVariable String roomViewURL, @ModelAttribute("booking") @Valid Booking booking,  BindingResult result, HttpServletRequest htrequest, Errors errors){
         ModelAndView modelAndView = new ModelAndView("book");
-                       
-        List<Room> roomList = roomDAO.list();
-        String URL = roomViewURL;
-        System.out.println(URL);
         
-        Booking bkng = new Booking();
-        bkng.setAccount_id(777);
+        //Room
+        Room room = roomDAO.getByURL(roomViewURL);
+        modelAndView.addObject("room", room);
         
-        for(int i = 0; i < roomList.size(); i++){
-            if(roomList.get(i).getRoomViewURL().equalsIgnoreCase(URL)){
-                System.out.println("Found URL: " + roomList.get(i).getRoomViewURL());
+        
+        //Set Variables        
+        booking.setStartDate(booking.getStartDate());
+        booking.setEndDate(booking.getEndDate());
+        booking.setNumGuests(booking.getNumGuests());
+        booking.setNumNights(booking.getStartDate(), booking.getEndDate());
+        
+        //Total Cost
+        double getCost = booking.getNumNights() * room.getPricePerNight();
+        String roundedCost = String.format("%.2f", getCost);
+        double totalCost = Double.parseDouble(roundedCost);
+        
+        booking.setTotalCost(totalCost);
                 
-                //booking
-                Booking booking = new Booking();
-                modelAndView.addObject("booking", booking);
-                
-                Room room = new Room();
-                modelAndView.addObject("room", roomList.get(i));
-                
-            modelAndView.addObject("bkng", bkng);
-            modelAndView.setViewName("book");
-            }
-        }
+        modelAndView.setViewName("book");
         
         return modelAndView;
         
