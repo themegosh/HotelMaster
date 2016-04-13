@@ -164,7 +164,6 @@ public class RoomDAO implements RoomDAOInterface {
                 Map.Entry pair = (Map.Entry) iterator.next();
 
                 if (features.get(key)){
-                    System.out.println("Keys: " + key);
                     String insertQuery = "INSERT INTO room_features (room_id, feature_id) VALUES (?, (SELECT feature_id FROM features WHERE feature_name = ?))";
                     Object[] params = new Object[]{room.getRoomID(), key.split("=")[0]};
                     int[] types = new int[]{Types.INTEGER, Types.VARCHAR};
@@ -230,10 +229,7 @@ public class RoomDAO implements RoomDAOInterface {
     /* ====== SEARCH FORM ====== */
     
     public List<Room> roomSearch(String sdate, String edate, int numOfGuests) {
-        jdbcTemplate.setDataSource(getDataSource());
-        
-        System.out.println(sdate);
-        System.out.println(edate);        
+        jdbcTemplate.setDataSource(getDataSource());      
         
         String query = "SELECT * FROM room WHERE max_guests >= ? AND room_id NOT IN (SELECT room_id FROM booking WHERE check_in_date >= ? AND check_out_date <= ?)";
         Object[] params = new Object[] { numOfGuests, sdate, edate };

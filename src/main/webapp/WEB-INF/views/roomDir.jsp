@@ -26,7 +26,7 @@
                 <li><i class="fa fa-check"></i>Features</li>
                 <li><i class="fa fa-check"></i>Max <strong><c:out value="${room.getMaxGuests()}"/></strong> guests</li>
             </ul>
-            <p class="priceLabel">Just <strong><c:out value="${room.getPricePerNight()}"/></strong> per night</p>
+            <p class="priceLabel">Just $<strong><c:out value="${room.getPricePerNight()}"/></strong> per night</p>
             <a href="${pageContext.request.contextPath}/rooms/${room.getRoomViewURL()}" class="btn btn-primary">Details</a>
         </div>
             
