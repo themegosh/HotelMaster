@@ -37,7 +37,11 @@
             </tr>
             <tr>
                 <td>Floor</td>
-                <td><form:input path="floor" /></td>
+                <td>
+                    <form:select path="floor">
+                        <form:options items="${floors}" />                        
+                    </form:select>
+                </td>
             </tr>
             <tr>
                 <td><button type="submit" class="btn btn-primary" name="action" value="continue">Continue</button></td>

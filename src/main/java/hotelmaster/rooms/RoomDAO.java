@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
@@ -171,16 +172,7 @@ public class RoomDAO implements RoomDAOInterface {
                     jdbcTemplate.update(insertQuery, params, types);
                 }
             }
-        }
-        
-//        for (String feature : features){
-//            String insertQuery = "INSERT INTO room_features (room_id, feature_id) VALUES (?, (SELECT feature_id FROM features WHERE feature_name = ?))";
-//            Object[] params = new Object[]{room.getRoomID(), feature};
-//            int[] types = new int[]{Types.INTEGER, Types.VARCHAR};
-//        
-//            jdbcTemplate.update(insertQuery);
-//        }
-        
+        }  
     }
     
     @Override
@@ -198,7 +190,7 @@ public class RoomDAO implements RoomDAOInterface {
                 return s;
             }
         });
-        
+            
         return featureList;
     }
     
@@ -216,25 +208,22 @@ public class RoomDAO implements RoomDAOInterface {
         
         return jdbcTemplate.query(query, new ResultSetExtractor<Room>() {
  
-        @Override
-        public Room extractData(ResultSet rs) throws SQLException,
-                DataAccessException {
-            if (rs.next()) {
-                Room room = new Room();
-                room.setRoomID(rs.getInt("room_id"));
-                room.setRoomName(rs.getString("room_name"));
-                room.setFloor(rs.getString("floor"));
-                room.setPricePerNight(rs.getDouble("price_per_night"));
-                room.setMaxGuests(rs.getInt("max_guests"));
+            @Override
+            public Room extractData(ResultSet rs) throws SQLException,
+                    DataAccessException {
+                if (rs.next()) {
+                    Room room = new Room();
+                    room.setRoomID(rs.getInt("room_id"));
+                    room.setRoomName(rs.getString("room_name"));
+                    room.setFloor(rs.getString("floor"));
+                    room.setPricePerNight(rs.getDouble("price_per_night"));
+                    room.setMaxGuests(rs.getInt("max_guests"));
 
-                return room;
+                    return room;
+                }
+                return null;
             }
- 
-            return null;
-        }
- 
-    });
-        
+        });    
     }
     
     
@@ -272,6 +261,8 @@ public class RoomDAO implements RoomDAOInterface {
 
     @Override
     public int getMaxRoomID() {
+        jdbcTemplate.setDataSource(getDataSource());
+        
         String query = "SELECT MAX(room_id) FROM room";
         
         List<String> roomList = jdbcTemplate.query(query, new RowMapper<String>() {
@@ -283,6 +274,31 @@ public class RoomDAO implements RoomDAOInterface {
         });
         
         return Integer.parseInt(roomList.get(0));
+    }
+
+    @Override
+    public TreeMap<String, String> getFloors() {
+        jdbcTemplate.setDataSource(getDataSource());
+
+        String query = "SELECT DISTINCT floor FROM room";
+        
+        TreeMap<String, String> floorsMap = new TreeMap<String, String>();
+                
+        List<String> floorList = jdbcTemplate.query(query, new RowMapper<String>(){
+           
+            @Override
+            public String mapRow(ResultSet rs, int i) throws SQLException {
+                return rs.getString(1);
+            }
+        });
+        
+        floorsMap.put("All", "All");
+        
+        for (String s : floorList){
+            floorsMap.put(s, s);
+        }
+        
+        return floorsMap;
     }
    
 }

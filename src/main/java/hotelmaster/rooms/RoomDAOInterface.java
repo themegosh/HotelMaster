@@ -2,6 +2,8 @@ package hotelmaster.rooms;
 
 import hotelmaster.Room;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
@@ -18,5 +20,5 @@ public interface RoomDAOInterface {
     List<Room> list();
     List<String> listFeatures();
     Room get(String roomName);
-    
+    TreeMap<String, String> getFloors();
 }
