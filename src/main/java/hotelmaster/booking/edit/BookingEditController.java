@@ -98,8 +98,12 @@ public class BookingEditController {
         Room room = roomDAO.getByURL(roomViewURL);
         modelAndView.addObject("room", room);
         
+        Booking bookingSes = bookingSession.getBooking();
+        
         //Set Variables        
-        booking.setBookingDate(booking.getBookingDate());
+        booking.setBookingDate(bookingSes.getBookingDate());
+        booking.setRoomID(bookingSes.getRoomID());
+        booking.setBookingURL(bookingSes.getBookingURL());
         booking.setStartDate(booking.getStartDate());
         booking.setEndDate(booking.getEndDate());
         booking.setNumGuests(booking.getNumGuests());

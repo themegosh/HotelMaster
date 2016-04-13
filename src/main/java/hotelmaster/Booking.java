@@ -21,6 +21,7 @@ public class Booking {
     private int account_id;
     private int booking_id;
     private double totalCost;
+    private String bookingURL;
 
     public Booking(){}
     
@@ -139,6 +140,14 @@ public class Booking {
     public int nightsBetween(Date d1, Date d2)
     {
        return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
+    }
+
+    public String getBookingURL() {
+        return bookingURL;
+    }
+
+    public void setBookingURL(String bookingURL) {
+        this.bookingURL = bookingURL;
     }
     
 }

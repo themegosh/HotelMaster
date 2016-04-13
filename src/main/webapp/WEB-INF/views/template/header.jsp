@@ -27,7 +27,20 @@
                         <a href="${contactUrl}">Contact Us</a>
                     </li>
                 </ul>
+                
                 <ul class="nav navbar-nav navbar-right">
+                    
+                    <li class="dropdown">
+                        <c:choose>
+                            <c:when test="${sessionScope['scopedTarget.bookingSession'].booking.roomID > '0'}">
+                                <a href="/rooms/${sessionScope['scopedTarget.bookingSession'].booking.bookingURL}/book" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i> View Bookings</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i> Book a Room</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                    
                     <c:choose>
                         <c:when test="${sessionScope['scopedTarget.accountSession'].account.id > '0'}">
                             <c:if test="${sessionScope['scopedTarget.accountSession'].account.isAdmin() == 'true'}">

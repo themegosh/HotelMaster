@@ -62,6 +62,7 @@ public class BookingController {
         
         //Set Variables        
         booking.setBookingDate(booking.getBookingDate());
+        booking.setRoomID(booking.getRoomID());
         booking.setStartDate(booking.getStartDate());
         booking.setEndDate(booking.getEndDate());
         booking.setNumGuests(booking.getNumGuests());
@@ -97,6 +98,7 @@ public class BookingController {
         booking.setEndDate(booking.getEndDate());
         booking.setNumGuests(booking.getNumGuests());
         booking.setNumNights(booking.getStartDate(), booking.getEndDate());
+        booking.setBookingURL(roomViewURL);
         
         System.out.println("Room: " + booking.getRoomID());
         
