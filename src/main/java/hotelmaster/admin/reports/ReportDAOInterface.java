@@ -1,5 +1,6 @@
 package hotelmaster.admin.reports;
 
+import hotelmaster.Booking;
 import hotelmaster.Report;
 import java.util.List;
 

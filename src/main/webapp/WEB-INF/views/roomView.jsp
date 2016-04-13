@@ -42,13 +42,13 @@
 
                 <div class="input-group col-xs-12">
                         <form:label path="startDate">Check In:</form:label>
-                        <form:input path="startDate" placeholder="Check-in Date" value="${currDate}" type="date" class="form-control" />
+                        <form:input path="startDate" placeholder="Check-in Date" value="${currDate}" min="${currDate}" type="date" class="form-control" />
                         <form:errors class="formError" path="startDate" element="strong"/>
                 </div>
                 <span class="help-block"></span>
                 <div class="input-group col-xs-12">
                         <form:label path="endDate">Check Out:</form:label>
-                        <form:input path="endDate" placeholder="Check-out Date" value="${tmrwDate}" type="date" class="form-control" />
+                        <form:input path="endDate" placeholder="Check-out Date" value="${tmrwDate}" min="${tmrwDate}" type="date" class="form-control" />
                         <form:errors class="formError" path="endDate" element="strong"/>     
                 </div>
                 <span class="help-block"></span>
@@ -56,6 +56,8 @@
                 <div class="col-xs-12 no-padding">
                     <button class="btn btn-primary btn-lg" type="submit">Book Now</button>
                 </div>
+                <form:input path="bookingDate" value="${currDate}" type="date" class="hidden" />
+                <form:input path="roomID" value="${room.getRoomID()}" class="hidden" />
             </form:form>
             
         </div>

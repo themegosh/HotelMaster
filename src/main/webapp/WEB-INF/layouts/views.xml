@@ -37,6 +37,10 @@
         <put-attribute name="body"	value="/WEB-INF/views/booking.jsp" />
     </definition>
     
+    <definition name="confirm" extends="DefaultTemplate">
+        <put-attribute name="body"	value="/WEB-INF/views/bookingConfirm.jsp" />
+    </definition>
+    
     <!-- Contact Page -->
     
     <definition name="contact" extends="DefaultTemplate">
@@ -66,11 +70,6 @@
     </definition>
     <definition name="admin.accounts" extends="DefaultTemplate">
         <put-attribute name="body"	value="/WEB-INF/views/admin/accounts.jsp" />
-    </definition>
-    
-    <!-- 401 Unauthorized -->
-    <definition name="unauthorized" extends="DefaultTemplate">
-        <put-attribute name="body"	value="/WEB-INF/views/customError/401.jsp" />
     </definition>
     
 </tiles-definitions>

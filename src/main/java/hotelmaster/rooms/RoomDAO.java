@@ -51,7 +51,7 @@ public class RoomDAO implements RoomDAOInterface {
     public int insertRoom(Room room) {
         jdbcTemplate.setDataSource(getDataSource());
         
-        String insertQuery = "INSERT INTO room (room_name, floor, price_per_night, max_guests) VALUES (?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO booking (room_name, floor, price_per_night, max_guests) VALUES (?, ?, ?, ?)";
         Object[] params = new Object[]{room.getRoomName(), room.getFloor(), room.getPricePerNight(), room.getMaxGuests()};
         int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.DECIMAL, Types.INTEGER};
         

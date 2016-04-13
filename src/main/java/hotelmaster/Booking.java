@@ -14,9 +14,10 @@ import java.util.Date;
 public class Booking {
     private String startDate;
     private String endDate;
+    private String bookingDate;
     private int numGuests;
     private int numNights;
-    private int room_id;
+    private int roomID;
     private int account_id;
     private int booking_id;
     private double totalCost;
@@ -27,7 +28,7 @@ public class Booking {
         this.startDate = startDate;
         this.endDate = endDate;
         this.numGuests = numGuests;
-        this.room_id = room;
+        this.roomID = room;
         this.account_id = account;
         //this.id = id;
     }
@@ -52,6 +53,14 @@ public class Booking {
         this.endDate = endDate;
     }
 
+    public String getBookingDate() {
+        return bookingDate;
+    }
+
+    public void setBookingDate(String bookingDate) {
+        this.bookingDate = bookingDate;
+    }
+
     public int getNumGuests() {
         return numGuests;
     }
@@ -60,12 +69,12 @@ public class Booking {
         this.numGuests = numGuests;
     }
 
-    public int getRoom_id() {
-        return room_id;
+    public int getRoomID() {
+        return roomID;
     }
 
-    public void setRoom_id(int room_id) {
-        this.room_id = room_id;
+    public void setRoomID(int roomID) {
+        this.roomID = roomID;
     }
 
     public int getAccount_id() {

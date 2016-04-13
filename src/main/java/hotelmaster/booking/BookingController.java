@@ -6,21 +6,11 @@
 package hotelmaster.booking;
 
 import hotelmaster.Booking;
-import hotelmaster.Photo;
 import hotelmaster.Room;
-import hotelmaster.gallery.PhotoDAO;
+import hotelmaster.notification.NotificationService;
+import hotelmaster.notification.NotificationType;
 import hotelmaster.rooms.RoomDAO;
-import hotelmaster.search.SearchParams;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +20,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -48,24 +37,47 @@ public class BookingController {
     @Autowired
     private RoomDAO roomDAO;
     
+    @Autowired
+    private BookingSession bookingSession;
+    
+    @Autowired
+    private NotificationService notificationService;
+    
+    
+    
     @RequestMapping(value="{roomViewURL}/book", method = RequestMethod.GET)
     public ModelAndView noAccess(@PathVariable String roomViewURL){ //@RequestParam("roomViewURL") String URL
         ModelAndView modelAndView = new ModelAndView("unauthorized");
         
-        modelAndView.setViewName("redirect:unauthorized");
+        if (bookingSession.getBooking()== null) {
+            notificationService.add("Error: ", "Please try booking a room first", NotificationType.ERROR);
+            return new ModelAndView("redirect:/home", "notificationService", notificationService);
+        }
+        
+        Booking booking = bookingSession.getBooking();
+        
+        Room room = roomDAO.getByURL(roomViewURL);
+        modelAndView.addObject("room", room);
+        
+        System.out.println("Booking: " + booking.getBookingDate());
+        //Set Variables        
+        booking.setBookingDate(booking.getBookingDate());
+        booking.setStartDate(booking.getStartDate());
+        booking.setEndDate(booking.getEndDate());
+        booking.setNumGuests(booking.getNumGuests());
+        booking.setNumNights(booking.getStartDate(), booking.getEndDate());
+        
+        System.out.println("Room: " + booking.getRoomID());
+        
+        //Total Cost
+        double getCost = booking.getNumNights() * room.getPricePerNight();
+        String roundedCost = String.format("%.2f", getCost);
+        double totalCost = Double.parseDouble(roundedCost);
+        
+        booking.setTotalCost(totalCost);        
+        modelAndView.setViewName("book");
         
         return modelAndView;
-        
-    }
-    
-    @RequestMapping(value="{roomViewURL}/unauthorized", method = RequestMethod.GET)
-    public ModelAndView unauthorized(@PathVariable String roomViewURL){ //@RequestParam("roomViewURL") String URL
-        ModelAndView modelAndView = new ModelAndView("unauthorized");
-        
-        modelAndView.setViewName("unauthorized");
-        
-        return modelAndView;
-        
     }
     
     
@@ -77,21 +89,25 @@ public class BookingController {
         Room room = roomDAO.getByURL(roomViewURL);
         modelAndView.addObject("room", room);
         
-        
+        System.out.println("Booking: " + booking.getBookingDate());
         //Set Variables        
+        booking.setBookingDate(booking.getBookingDate());
         booking.setStartDate(booking.getStartDate());
         booking.setEndDate(booking.getEndDate());
         booking.setNumGuests(booking.getNumGuests());
         booking.setNumNights(booking.getStartDate(), booking.getEndDate());
+        
+        System.out.println("Room: " + booking.getRoomID());
         
         //Total Cost
         double getCost = booking.getNumNights() * room.getPricePerNight();
         String roundedCost = String.format("%.2f", getCost);
         double totalCost = Double.parseDouble(roundedCost);
         
-        booking.setTotalCost(totalCost);
-                
+        booking.setTotalCost(totalCost);        
         modelAndView.setViewName("book");
+        
+        bookingSession.setBooking(booking);
         
         return modelAndView;
         

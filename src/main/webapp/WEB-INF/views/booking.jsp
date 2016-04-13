@@ -13,7 +13,7 @@
                 </div>            
             </div>
         </div>
-    <form:form>
+    <form:form action="book/confirm" modelAttribute="booking" method="POST" enctype="utf8">
         <div class="row" style="padding-bottom: 10px;">
             <div class="col-sm-12" style="border: solid black 2px; padding: 0 20px 20px 20px;">
                 <h3>Here your booking information</h3>
