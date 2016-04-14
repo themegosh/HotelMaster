@@ -135,6 +135,19 @@
             <version>1.4.7</version>
         </dependency>
         
+        <!-- FILE UPLOAD -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        
     </dependencies>
     
     <repositories>

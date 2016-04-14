@@ -3,7 +3,6 @@
     Created on : 2-Apr-2016, 9:27:41 PM
     Author     : Danny
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -26,10 +25,7 @@
                 font-family: inherit;
                 font-size: inherit;
             }
-        </style>
-        <script>
-             
-        </script>
+        </style> 
     </head>
     <body>
         

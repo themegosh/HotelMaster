@@ -15,4 +15,6 @@ import java.util.List;
 public interface PhotoDAOInterface {
     List<Photo> getAllPhotos();
     Photo getPhotoByID(int id);
+    Photo getPhotoByRoomID(int roomID);
+    Photo insertPhoto(int roomID, byte[] image, String title);
 }

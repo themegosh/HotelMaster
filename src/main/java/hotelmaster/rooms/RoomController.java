@@ -3,6 +3,7 @@ package hotelmaster.rooms;
 import hotelmaster.Room;
 import hotelmaster.account.AccountLevel;
 import hotelmaster.account.AccountSession;
+import hotelmaster.gallery.PhotoDAO;
 import hotelmaster.notification.NotificationService;
 import hotelmaster.notification.NotificationType;
 import java.io.IOException;
@@ -29,9 +30,12 @@ public class RoomController {
     @Autowired
     private RoomDAO roomDAO;
     @Autowired
+    private PhotoDAO photoDAO;
+    @Autowired
     private NotificationService notificationService;
     @Autowired
-    private AccountSession accountSession; 
+    private AccountSession accountSession;
+    
     
     @RequestMapping(value = "/admin/rooms")
     public ModelAndView listRoom(ModelAndView model) throws IOException {

@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelmaster.booking;
+package hotelmaster.booking.edit;
 
 import hotelmaster.Booking;
 import hotelmaster.Room;
+import hotelmaster.booking.BookingSession;
 import hotelmaster.notification.NotificationService;
 import hotelmaster.notification.NotificationType;
 import hotelmaster.rooms.RoomDAO;
@@ -31,9 +32,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/rooms")
 public class BookingEditController {
-    
-    @Autowired
-    private BookingDAO bookingDAO;
     
     @Autowired
     private RoomDAO roomDAO;

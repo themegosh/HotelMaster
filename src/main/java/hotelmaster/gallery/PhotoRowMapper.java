@@ -6,7 +6,6 @@
 package hotelmaster.gallery;
 
 import hotelmaster.Photo;
-import hotelmaster.account.Account;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
@@ -21,8 +20,8 @@ public class PhotoRowMapper implements RowMapper {
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
         Photo photo = new Photo();
         
-        photo.setImageID(rs.getLong("image_id"));
-        photo.setRoomID(rs.getLong("room_id"));
+        photo.setImageID(rs.getInt("image_id"));
+        photo.setRoomID(rs.getInt("room_id"));
         photo.setImage(rs.getBytes("image"));
         photo.setTitle(rs.getString("title"));
 
