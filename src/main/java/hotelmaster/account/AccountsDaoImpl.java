@@ -107,11 +107,18 @@ public class AccountsDaoImpl implements AccountsDao {
     
     @Override
     public void deleteAccount(String email){
-        String inserQuery = "DELETE FROM account WHERE email = ? ";
-        Object[] params = new Object[] { email };
-        int[] types = new int[] { Types.VARCHAR };
-                
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
+        
+        String deleteBookings = "DELETE FROM booking WHERE account_id = (SELECT account_id FROM account WHERE email = ?)";
+        Object[] params = new Object[]{email};
+        int[] types = new int[]{Types.VARCHAR};
+        
+        jdbcTemplate.update(deleteBookings, params, types);
+        
+        String inserQuery = "DELETE FROM account WHERE email = ? ";
+        params = new Object[] { email };
+        types = new int[] { Types.VARCHAR };
+                
         jdbcTemplate.update(inserQuery, params, types);
     }
         

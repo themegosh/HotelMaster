@@ -47,7 +47,7 @@
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin Tools <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/admin/accounts">Manage User Access</a></li>
+                                        <li><a href="/admin/accounts">Manage Users</a></li>
                                         <li><a href="/admin/photos">Manage Photos</a></li>
                                         <li><a href="/admin/rooms">Manage Rooms</a></li>
                                         <li><a href="/admin/reports">Generate Reports</a></li>

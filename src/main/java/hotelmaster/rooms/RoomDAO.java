@@ -67,10 +67,18 @@ public class RoomDAO implements RoomDAOInterface {
     public void deleteRoom(Room room) {
         jdbcTemplate.setDataSource(getDataSource());
         
-        String deleteQuery = "DELETE FROM room_features WHERE room_ID = " + room.getRoomID();
-        jdbcTemplate.update(deleteQuery);
-        deleteQuery = "DELETE FROM room WHERE room_ID = " + room.getRoomID();    
-        jdbcTemplate.update(deleteQuery);
+        String deleteQuery = "DELETE FROM room_features WHERE room_ID = ?";
+        Object[] params = new Object[]{room.getRoomID()};
+        int[] types = new int[]{Types.INTEGER};
+        jdbcTemplate.update(deleteQuery, params, types);
+        deleteQuery = "DELETE FROM booking WHERE room_id = (SELECT room_id FROM room WHERE room_id = ?)";
+        params = new Object[]{room.getRoomID()};
+        types = new int[]{Types.INTEGER};
+        jdbcTemplate.update(deleteQuery, params, types);
+        deleteQuery = "DELETE FROM room WHERE room_ID = ?";    
+        params = new Object[]{room.getRoomID()};
+        types = new int[]{Types.INTEGER};
+        jdbcTemplate.update(deleteQuery, params, types);
     }
 
     /**
