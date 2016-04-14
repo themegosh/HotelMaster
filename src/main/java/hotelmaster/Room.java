@@ -7,6 +7,7 @@ package hotelmaster;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -24,13 +25,13 @@ public class Room {
     private String roomViewURL;
     
     HashMap<String, Boolean> features;
-    String[] featuresTest;
+    private Set<String> featuresTest;
 
-    public String[] getFeaturesTest() {
+    public Set<String> getFeaturesTest() {
         return featuresTest;
     }
 
-    public void setFeaturesTest(String[] featuresTest) {
+    public void setFeaturesTest(Set<String> featuresTest) {
         this.featuresTest = featuresTest;
     } 
     

@@ -26,7 +26,10 @@
                 font-family: inherit;
                 font-size: inherit;
             }
-        </style>     
+        </style>
+        <script>
+             
+        </script>
     </head>
     <body>
         
@@ -54,7 +57,18 @@
                         <td><form:input path="floor" placeholder=""/></td>
                         <td><form:input path="pricePerNight" placeholder=""/></td>
                         <td><form:input path="maxGuests" placeholder=""/></td>
-                        <td><form:checkboxes items="${features}" path="featuresTest" /></td>
+                        <td class="featuresDropdown">
+                            <div class="col-lg-12">
+                            <div class="button-group">
+                                <button id="btnDrop" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Select Features <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <c:forEach var="feature" items="${features}" varStatus="i">
+                                        <li style="padding-left: 5px;"><form:checkbox id="${feature}" value="${feature}" path="featuresTest"/> <label for="${feature}"><c:out value="${feature}"/></label></li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                            </div>
+                        </td>
                         <td><button type="submit" class="btn btn-success" name="action" value="add">Add</button></td>
                     </form:form>
                 </tr>
@@ -66,17 +80,24 @@
                             <td><input class="borderlessInput" type="text" name="floor" value="${room.floor}"/></td>
                             <td>$<input class="borderlessInput" type="number" name="pricePerNight" step="0.01" value="${room.pricePerNight}" min="0" max="99.99"/></td>
                             <td><input class="borderlessInput" type="number" name="maxGuests" value="${room.maxGuests}" min="1" max="9"/></td>
-                            <td>
-                                <c:forEach var="feature" items="${room.features}">
-                                    <c:choose>
-                                        <c:when test="${feature.value}">
-                                            <form:checkbox value="${feature}" path="featuresTest" checked="checked"/>${feature.key}
-                                        </c:when>
-                                        <c:otherwise>
-                                            <form:checkbox value="${feature}" path="featuresTest" checked=""/>${feature.key}
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
+                            <td class="featuresDropdown">
+                                <div class="col-lg-12">
+                                    <div class="button-group">
+                                        <button id="btnDrop" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Select Features <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <c:forEach var="feature" items="${room.features}" varStatus="i">
+                                                <c:choose>
+                                                    <c:when test="${feature.value}">
+                                                        <li style="padding-left: 5px;"><form:checkbox id="${feature.key}" value="${feature}" path="featuresTest" checked="checked"/><label for="${feature.key}"><c:out value="${feature.key}"/></label></li>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <li style="padding-left: 5px;"><form:checkbox id="${feature.key}" value="${feature}" path="featuresTest" checked=""/><label for="${feature.key}"><c:out value="${feature.key}"/></label></li>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                </div>
                             </td>
                             <td>
                                 <button type="submit" class="btn btn-primary" name="action" value="edit">Save</button> &nbsp;

@@ -6,7 +6,9 @@ import hotelmaster.account.AccountSession;
 import hotelmaster.notification.NotificationService;
 import hotelmaster.notification.NotificationType;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -62,13 +64,14 @@ public class RoomController {
         r.setMaxGuests(room.getMaxGuests());
         r.setFeaturesTest(room.getFeaturesTest());
         
-        String[] selectedFeatures = room.getFeaturesTest();
+        Set<String> selectedFeatures = room.getFeaturesTest();
         
         if (selectedFeatures != null){
-            for (int i = 0; i < selectedFeatures.length; i++){
-                r.getFeatures().put(selectedFeatures[i], Boolean.TRUE);
+            Iterator it = selectedFeatures.iterator();
+            while (it.hasNext()){
+                r.getFeatures().put((String) it.next(), Boolean.TRUE);
             }
-
+        
             r.setFeatures(r.getFeatures());
         }                
         
@@ -87,8 +90,9 @@ public class RoomController {
             
             r.setFeaturesTest(room.getFeaturesTest());
 
-            for (int i = 0; i < selectedFeatures.length; i++){  
-                r.getFeatures().put(selectedFeatures[i].split("=")[0], Boolean.TRUE);
+            Iterator it = selectedFeatures.iterator();
+            while (it.hasNext()){
+                r.getFeatures().put((String) it.next(), Boolean.TRUE);
             }
 
             r.setFeatures(r.getFeatures());

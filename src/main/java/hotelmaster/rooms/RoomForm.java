@@ -1,6 +1,7 @@
 package hotelmaster.rooms;
 
 import java.util.HashMap;
+import java.util.Set;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -27,7 +28,7 @@ public class RoomForm {
     @Max(value=9)
     private int maxGuests;
     private HashMap<String, Boolean> features;
-    private String[] featuresTest;
+    private Set<String> featuresTest;
     
     public RoomForm(){
     }
@@ -72,11 +73,11 @@ public class RoomForm {
         this.features = features;
     }
     
-    public String[] getFeaturesTest() {
+    public Set<String> getFeaturesTest() {
         return featuresTest;
     }
 
-    public void setFeaturesTest(String[] featuresTest) {
+    public void setFeaturesTest(Set<String> featuresTest) {
         this.featuresTest = featuresTest;
     }
 
