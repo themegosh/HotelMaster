@@ -75,5 +75,8 @@
     <definition name="admin.accounts" extends="DefaultTemplate">
         <put-attribute name="body"	value="/WEB-INF/views/admin/accounts.jsp" />
     </definition>
+    <definition name="admin.photos" extends="DefaultTemplate">
+        <put-attribute name="body"	value="/WEB-INF/views/admin/photos.jsp" />
+    </definition>
     
 </tiles-definitions>

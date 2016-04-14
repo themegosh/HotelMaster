@@ -12,16 +12,16 @@ package hotelmaster;
 public class Photo {
     
     //variables associated with the room_images table
-    Long imageID;
-    Long roomID;
-    byte[] image;
-    String title;
+    private int imageID;
+    private int roomID;
+    private byte[] image;
+    private String title;
     
     
     //constructors
     public Photo() { }
     
-    public Photo(Long imageID, Long roomID, byte[] image, String title) {
+    public Photo(int imageID, int roomID, byte[] image, String title) {
         this.imageID = imageID;
         this.roomID = roomID;
         this.image = image;
@@ -29,19 +29,19 @@ public class Photo {
     }
     
     //Getters and setters
-    public Long getImageID() {
+    public int getImageID() {
         return imageID;
     }
     
-    public void setImageID(Long imageID){
+    public void setImageID(int imageID){
         this.imageID = imageID;
     }
     
-    public Long getRoomID() {
+    public int getRoomID() {
         return roomID;
     }
     
-    public void setRoomID(Long RoomID){
+    public void setRoomID(int roomID){
         this.roomID = roomID;
     }
     

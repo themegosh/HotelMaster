@@ -24,19 +24,13 @@ public class Room {
     private int maxGuests;
     private String roomViewURL;
     
-    HashMap<String, Boolean> features;
+    private HashMap<String, Boolean> features;
     private Set<String> featuresTest;
-
-    public Set<String> getFeaturesTest() {
-        return featuresTest;
-    }
-
-    public void setFeaturesTest(Set<String> featuresTest) {
-        this.featuresTest = featuresTest;
-    } 
     
-    List<Photo> photos;
-    List<Review> reviews;
+    private List<Photo> photos;
+    private Photo photo;
+    
+    //List<Review> reviews;
 
     //Empty constructor
     public Room(){
@@ -115,6 +109,32 @@ public class Room {
     public void setFeatures(HashMap<String, Boolean> features) {
         this.features = features;
     }
+    
+
+    public Set<String> getFeaturesTest() {
+        return featuresTest;
+    }
+
+    public void setFeaturesTest(Set<String> featuresTest) {
+        this.featuresTest = featuresTest;
+    } 
+    
+    public List<Photo> getPhotos(){
+        return photos;
+    }
+    
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
+    
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
+    
     
     public final void setRoomViewURL(String roomName){
         roomViewURL = roomName.trim().replaceAll("[^a-zA-Z0-9\\-\\s\\.]", "");
