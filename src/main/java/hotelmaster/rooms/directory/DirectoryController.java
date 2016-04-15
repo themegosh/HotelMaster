@@ -37,7 +37,6 @@ public class DirectoryController {
         ModelAndView modelAndView = new ModelAndView("rooms");
         //ContactForm cf = new ContactForm();
         // modelAndView.addObject("contactForm", cf);
-        System.out.println("hihi");
         List<Room> roomList = roomDAO.list();
         modelAndView.addObject("roomList", roomList);
         Room room = new Room();
@@ -46,20 +45,29 @@ public class DirectoryController {
         modelAndView.addObject("room", room);
         modelAndView.setViewName("rooms");
         
+        //search bar stuff
+        SearchParams searchParams = new SearchParams();
+        modelAndView.addObject("searchParams", searchParams);
+        
         return modelAndView;
         
     }
     
     @RequestMapping(value="/rooms", method = RequestMethod.POST)
-    public ModelAndView processParams(@ModelAttribute("searchParams") @Valid SearchParams searchParams,  BindingResult result, HttpServletRequest htrequest, Errors errors) throws ParseException {
+    public ModelAndView processParams(@ModelAttribute("searchParams") @Valid SearchParams searchParams, BindingResult result, 
+            HttpServletRequest htrequest, Errors errors) throws ParseException {
         ModelAndView modelAndView = new ModelAndView("rooms");
         
-        List<Room> roomList = roomDAO.roomSearch(searchParams.getCheckInDate(), searchParams.getCheckOutDate(), searchParams.getNumOfGuests());
+        List<Room> roomList = roomDAO.roomSearch(searchParams.getNumOfGuests(), searchParams.getRange(), searchParams.getCheckInDate(), searchParams.getCheckOutDate());
         modelAndView.addObject("roomList", roomList);
         
         Room room = new Room();
         modelAndView.addObject("room", room);
         modelAndView.setViewName("rooms");
+        
+        //search bar stuff
+        searchParams = new SearchParams();
+        modelAndView.addObject("searchParams", searchParams);
         
         return modelAndView;
         

@@ -3,6 +3,7 @@ package hotelmaster.rooms;
 import java.sql.Types;
 import org.springframework.jdbc.core.JdbcTemplate;
 import hotelmaster.Room;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -236,13 +237,28 @@ public class RoomDAO implements RoomDAOInterface {
     
     /* ====== SEARCH FORM ====== */
     
-    public List<Room> roomSearch(String sdate, String edate, int numOfGuests) {
-        jdbcTemplate.setDataSource(getDataSource());      
+    public List<Room> roomSearch(int numOfGuests, String range, String sdate, String edate) {
+        jdbcTemplate.setDataSource(getDataSource());
+        System.out.println(range);
+        BigDecimal lower, upper;
         
-        String query = "SELECT * FROM room WHERE max_guests >= ? AND room_id NOT IN (SELECT room_id FROM booking WHERE check_in_date >= ? AND check_out_date <= ?)";
-        Object[] params = new Object[] { numOfGuests, sdate, edate };
-        int[] types = new int[] { Types.INTEGER, Types.VARCHAR, Types.VARCHAR };
-
+        if (!range.contains("-")) {
+            String newRange = range.substring(0, 3);
+            lower = BigDecimal.valueOf(Double.parseDouble(newRange));
+            upper = BigDecimal.valueOf(9999.99);
+        } else {
+            String[] split = range.split("-");
+            lower = BigDecimal.valueOf(Double.parseDouble(split[0]));
+            upper = BigDecimal.valueOf(Double.parseDouble(split[1]));
+        }
+        
+        String query = "SELECT * FROM room WHERE "
+                + "max_guests >= ? "
+                + "AND price_per_night >= ? AND price_per_night <= ? "
+                + "AND room_id NOT IN (SELECT room_id FROM booking WHERE check_in_date >= ? AND check_out_date <= ?)";
+        Object[] params = new Object[] { numOfGuests, lower, upper, sdate, edate };
+        int[] types = new int[] { Types.INTEGER, Types.DECIMAL, Types.DECIMAL, Types.VARCHAR, Types.VARCHAR };
+        System.out.println(params[2]);
         List<Room> roomList = jdbcTemplate.query(query, params, types, new RowMapper<Room>() {
             
             @Override

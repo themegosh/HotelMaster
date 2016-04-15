@@ -6,14 +6,11 @@
 package hotelmaster.home;
 
 import hotelmaster.Photo;
-import hotelmaster.account.Account;
 import hotelmaster.account.AccountSession;
 import hotelmaster.gallery.PhotoDAO;
 import hotelmaster.notification.NotificationService;
-import hotelmaster.search.SearchDAO;
 import hotelmaster.search.SearchParams;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,9 +25,6 @@ public class HomeController {
     
     @Autowired
     private PhotoDAO photoDAO;
-    
-    @Autowired
-    private SearchDAO searchDAO;
     
     @Autowired
     private NotificationService notificationService;

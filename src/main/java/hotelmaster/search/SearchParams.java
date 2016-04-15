@@ -5,14 +5,13 @@
  */
 package hotelmaster.search;
 
-import java.util.Date;
-
 /**
  *
  * @author Trevor
  */
 public class SearchParams {
     private int numOfGuests;
+    private String range;
     private String checkInDate;
     private String checkOutDate;
     
@@ -24,7 +23,15 @@ public class SearchParams {
 
     public void setNumOfGuests(int numOfGuests) {
         this.numOfGuests = numOfGuests;
-    }   
+    }
+
+    public String getRange() {
+        return range;
+    }
+
+    public void setRange(String range) {
+        this.range = range;
+    }
 
     public String getCheckInDate() {
         return checkInDate;

@@ -12,55 +12,57 @@
 
 <!-- Search Bar -->
 <div id="searchContainer" class="container-fluid">
-    <div class="col-xs-offset-3 col-xs-6"><form:form modelAttribute="searchParams" action="${pageContext.request.contextPath}/rooms" method="POST" enctype="utf8">
-        <div class="col-xs-12">
-            <div class="col-xs-3">
-                <label>Number of Guests</label>
+    <div class="col-xs-offset-3 col-xs-6">
+        <form:form modelAttribute="searchParams" action="${pageContext.request.contextPath}/rooms" method="POST" enctype="utf8">
+            <div class="col-xs-12">
+                <div class="col-xs-3">
+                    <label>Number of Guests</label>
+                </div>
+                <div class="col-xs-3">
+                    <label>Price Range</label>
+                </div>
+                <div class="col-xs-3">
+                    <label>Check In</label>
+                </div>
+                <div class="col-xs-3">
+                    <label>Check Out</label>
+                </div>
             </div>
-            <div class="col-xs-3">
-                <label>Price Range</label>
-            </div>
-            <div class="col-xs-3">
-                <label>Check In</label>
-            </div>
-            <div class="col-xs-3">
-                <label>Check Out</label>
-            </div>
-        </div>
 
-        <div class="col-xs-12">
-            <div class="col-xs-3">
-                <form:select path="numOfGuests">
-                    <form:option value="1" label="1"/>
-                    <form:option value="2" label="2"/>
-                    <form:option value="3" label="3"/>
-                    <form:option value="4" label="4"/>
-                </form:select>
-                <form:errors class="formError" path="numOfGuests" element="strong"/>
+            <div class="col-xs-12">
+                <div class="col-xs-3">
+                    <form:select path="numOfGuests">
+                        <form:option value="1" label="1"/>
+                        <form:option value="2" label="2"/>
+                        <form:option value="3" label="3"/>
+                        <form:option value="4" label="4"/>
+                    </form:select>
+                    <form:errors class="formError" path="numOfGuests" element="strong"/>
+                </div>
+                <div class="col-xs-3">
+                    <form:select path="range">
+                        <form:option value="0-39" label="$0-$39.99"/>
+                        <form:option value="40-79" label="$40-$79.99"/>
+                        <form:option value="80-119" label="$80-$119.99"/>
+                        <form:option value="120+" label="$120+"/>
+                    </form:select>
+                    <form:errors class="formError" path="numOfGuests" element="strong"/>
+                </div>
+                <div class="col-xs-3">
+                    <form:input path="checkInDate" placeholder="Check In Date" value="" type="date" class="form-control" />
+                    <form:errors class="formError" path="checkInDate" element="strong"/>
+                </div>
+                <div class="col-xs-3">
+                    <form:input path="checkOutDate" placeholder="Check Out Date" value="" type="date" class="form-control" />
+                    <form:errors class="formError" path="checkOutDate" element="strong"/>
+                </div>
             </div>
-            <div class="col-xs-3">
-                <select path="">
-                    <option value="0-39" label="$0-$39.99"/>
-                    <option value="40-79" label="$40-$79.99"/>
-                    <option value="80-119" label="$80-$119.99"/>
-                    <option value="120+" label="$120+"/>                      
-                </select>
-                <form:errors class="formError" path="numOfGuests" element="strong"/>
-            </div>
-            <div class="col-xs-3">
-                <form:input path="checkInDate" placeholder="Check In Date" value="" type="date" class="form-control" />
-                <form:errors class="formError" path="checkInDate" element="strong"/>
-            </div>
-            <div class="col-xs-3">
-                <form:input path="checkOutDate" placeholder="Check Out Date" value="" type="date" class="form-control" />
-                <form:errors class="formError" path="checkOutDate" element="strong"/>
-            </div>
-        </div>
 
-        <div id="searchBtnDiv" class="col-xs-3">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
-        </div>
-    </form:form></div>
+            <div id="searchBtnDiv" class="col-xs-3">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
+            </div>
+        </form:form>
+    </div>
 </div>
 
 <!-- Image Gallery -->
