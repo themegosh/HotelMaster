@@ -26,6 +26,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -33,7 +35,6 @@ import org.springframework.web.servlet.ModelAndView;
  * @author GEORGE
  */
 @Controller
-@RequestMapping(value = "/admin/photos")
 public class PhotosController {
     
     @Autowired
@@ -48,8 +49,8 @@ public class PhotosController {
     @Autowired
     private AccountSession accountSession;
     
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView listUsers(ModelAndView model) throws IOException {
+    @RequestMapping(value = "/admin/photos", method = RequestMethod.GET)
+    public ModelAndView listPhotos(ModelAndView model) throws IOException {
         
         if (accountSession.getAccount() == null) {
             notificationService.add("Error!", "You don't have the required permissions to be there!", NotificationType.ERROR);
@@ -70,9 +71,31 @@ public class PhotosController {
         return model;
     }
     
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public ModelAndView updateUser(ModelAndView model, HttpServletRequest request, @ModelAttribute("accountForm") @Valid Account accountForm, BindingResult result, Errors errors) throws IOException {
-       return model;
+    @RequestMapping(value = "/admin/photos/add", method = RequestMethod.POST)
+    public ModelAndView addPhoto(@ModelAttribute("photoBucket") PhotoBucket photo, ModelAndView model) throws IOException{
+        
+        Photo p = new Photo();
+        
+        MultipartFile f = photo.getFile();
+        byte[] image = f.getBytes();
+        
+        p.setRoomID(photo.getRoomID());
+        p.setImage(image);
+        p.setTitle(photo.getTitle());
+            
+        photoDAO.insertPhoto(p);
+        model.setViewName("redirect:/admin/photos");
+        
+        return model;
+    }
+    
+    @RequestMapping(value = "/admin/photos/delete", method = RequestMethod.POST)
+    public ModelAndView deletePhoto(@RequestParam("imageID") int imageID, ModelAndView model) throws IOException{       
+            
+        photoDAO.deletePhoto(imageID);
+        model.setViewName("redirect:/admin/photos");
+        
+        return model;
     }
     
 }

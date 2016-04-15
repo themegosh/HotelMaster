@@ -43,7 +43,6 @@
                         <td>Price per night</td>
                         <td>Max no. of guests</td>
                         <td>Features</td>
-                        <td></td>
                     </tr>
                 </thead>
                 <tr>

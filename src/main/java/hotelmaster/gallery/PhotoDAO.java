@@ -37,6 +37,8 @@ public class PhotoDAO implements PhotoDAOInterface {
     @Qualifier("dataSource")
     private DataSource dataSource;
     
+    private JdbcTemplate jdbcTemplate = new JdbcTemplate();
+    
     @Override
     public List<Photo> getAllPhotos() {        
             
@@ -113,29 +115,29 @@ public class PhotoDAO implements PhotoDAOInterface {
     }
     
     @Override
-    public Photo insertPhoto(int roomID, byte[] image, String title) {
+    public int insertPhoto(Photo photo) {
         
-        Photo photo = new Photo();
+        jdbcTemplate.setDataSource(dataSource);
         
         String insertQuery = "INSERT INTO room_images (room_id, image, title) VALUES (?, ?, ?)";
         Object[] params = new Object[]{photo.getRoomID(), photo.getImage(), photo.getTitle()};
-        int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.DECIMAL, Types.INTEGER};
+        int[] types = new int[]{Types.INTEGER, Types.BLOB, Types.VARCHAR};
         
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
         
-        try {
-            photo = (Photo) jdbcTemplate.queryForObject(insertQuery, params, new PhotoRowMapper());
-        }
-        catch (EmptyResultDataAccessException e){
-            //e.printStackTrace();
-            System.out.println("can't find photo");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.toString());
-        }
+        return jdbcTemplate.update(insertQuery, params, types);
+    }    
+    
+    @Override
+    public int deletePhoto(int imageID) {
         
-        return photo;
-    }
+        jdbcTemplate.setDataSource(dataSource);
+        
+        String deleteQuery = "DELETE FROM room_images WHERE image_id = ?";
+        Object[] params = new Object[]{imageID};
+        int[] types = new int[]{Types.INTEGER};
+        
+        
+        return jdbcTemplate.update(deleteQuery, params, types);
+    }    
     
 }
