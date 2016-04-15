@@ -6,7 +6,9 @@
 package hotelmaster.rooms.room;
 
 import hotelmaster.Booking;
+import hotelmaster.Photo;
 import hotelmaster.Room;
+import hotelmaster.gallery.PhotoDAO;
 import hotelmaster.rooms.RoomDAO;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,12 +30,17 @@ public class RoomViewController {
     
     @Autowired
     private RoomDAO roomDAO;
+    @Autowired 
+    private PhotoDAO photoDAO;
     
     @RequestMapping(value="{roomViewURL}", method = RequestMethod.GET)
     public ModelAndView showRoomsDirectory(@PathVariable String roomViewURL){ //@RequestParam("roomViewURL") String URL
         ModelAndView modelAndView = new ModelAndView("roomView");
                
         List<Room> roomList = roomDAO.list();
+        List<Photo> photoList = photoDAO.getAllPhotos();
+        
+        modelAndView.addObject("photoList", photoList);
         
         roomDAO.setRoomFeatures(roomList);
         
