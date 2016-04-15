@@ -61,11 +61,9 @@
                                     <input type="text" path="title" name="title" value="${room.roomName}" class="hidden"/>
                                     <input type="text" path="roomID" name="roomID" value="${room.roomID}" class="hidden"/>
                                 </form:form>
-                                <script type="text/javascript">
-
-                                    var uploadElement = document.getElementById("room${room.roomID}");
-                                    uploadElement.onchange = function() {
-                                        uploadElement.form.submit();
+                                <script type="text/javascript">                                   
+                                    document.getElementById("room${room.roomID}").onchange = function() {
+                                        document.getElementById("room${room.roomID}").form.submit();
                                     };
                                 </script>
                                 <h2 class="container-fluid">Photos:</h2>
