@@ -55,13 +55,19 @@
                                     <div class="container-fluid">
                                     <label id="uploadBtn" class="text-center btn-primary">
                                         <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-                                        <input id="addFile" type="file" path="file" name="file" class="file" size="50" />
+                                        <input id="room${room.roomID}" type="file" path="file" name="file" class="file" size="50" />
                                     </label>
                                     </div>
                                     <input type="text" path="title" name="title" value="${room.roomName}" class="hidden"/>
                                     <input type="text" path="roomID" name="roomID" value="${room.roomID}" class="hidden"/>
-                                    <button id="btnAddImage" type="submit" class="btn btn-success hidden" name="action" value="add" onclick="$('#addFile').click();">Add</button>
                                 </form:form>
+                                <script type="text/javascript">
+
+                                    var uploadElement = document.getElementById("room${room.roomID}");
+                                    uploadElement.onchange = function() {
+                                        uploadElement.form.submit();
+                                    };
+                                </script>
                                 <h2 class="container-fluid">Photos:</h2>
                                 <c:forEach var="photo" items="${photoList}" varStatus="counter">
                                     <c:if test="${room.roomID eq photo.roomID}" >
@@ -99,10 +105,3 @@
     
 </div>
 
-<script type="text/javascript">
-    
-    var uploadElement = document.getElementById("addFile");
-    uploadElement.onchange = function() {
-        uploadElement.form.submit();
-    };
-</script>
