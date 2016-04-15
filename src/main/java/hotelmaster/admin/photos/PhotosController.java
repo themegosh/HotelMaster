@@ -82,8 +82,9 @@ public class PhotosController {
         p.setRoomID(photo.getRoomID());
         p.setImage(image);
         p.setTitle(photo.getTitle());
-            
+        
         photoDAO.insertPhoto(p);
+        
         model.setViewName("redirect:/admin/photos");
         
         return model;
@@ -92,7 +93,13 @@ public class PhotosController {
     @RequestMapping(value = "/admin/photos/delete", method = RequestMethod.POST)
     public ModelAndView deletePhoto(@RequestParam("imageID") int imageID, ModelAndView model) throws IOException{       
             
-        photoDAO.deletePhoto(imageID);
+        int deleted = photoDAO.deletePhoto(imageID);
+        
+        if(deleted == 0){
+            notificationService.add("Error!", "You do not have the required permissions to access the page", NotificationType.ERROR);
+        } else {
+            notificationService.add("Great!", "Photo has been deleted", NotificationType.SUCCESS);
+        }
         model.setViewName("redirect:/admin/photos");
         
         return model;

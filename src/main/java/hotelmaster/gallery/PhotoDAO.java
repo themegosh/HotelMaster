@@ -90,29 +90,29 @@ public class PhotoDAO implements PhotoDAOInterface {
         return photo;
     }
     
-    
     @Override
-    public Photo getPhotoByRoomID(int roomID) {
-        Photo photo = new Photo();
+    public List<Photo> getPhotosByRoomID(int roomID) {
         
-        String selectQuery = "SELECT * FROM room_images WHERE room_id = ?";
-        Object[] params = new Object[] { roomID };
+        jdbcTemplate = new JdbcTemplate(dataSource);
+                
+        String query = "SELECT * FROM room_images WHERE room_id = " + roomID;
         
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
+        List<Photo> photos = jdbcTemplate.query(query, new RowMapper<Photo>() {
+            
+            @Override
+            public Photo mapRow(ResultSet rs, int i) throws SQLException {
+                Photo photo = new Photo();
+                
+                photo.setImageID(rs.getInt("image_id"));
+                photo.setTitle(rs.getString("title"));
+                photo.setRoomID(rs.getInt("room_id"));
+                photo.setPrimary(rs.getInt("thumbnail"));
+                
+                return photo;
+            }
+        });
         
-        try {
-            photo = (Photo) jdbcTemplate.queryForObject(selectQuery, params, new PhotoRowMapper());
-        }
-        catch (EmptyResultDataAccessException e){
-            //e.printStackTrace();
-            System.out.println("can't find photo");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.toString());
-        }
-        
-        return photo;
+        return photos;
     }
     
     @Override
@@ -120,10 +120,23 @@ public class PhotoDAO implements PhotoDAOInterface {
         
         jdbcTemplate.setDataSource(dataSource);
         
-        String insertQuery = "INSERT INTO room_images (room_id, image, title) VALUES (?, ?, ?)";
-        Object[] params = new Object[]{photo.getRoomID(), photo.getImage(), photo.getTitle()};
-        int[] types = new int[]{Types.INTEGER, Types.BLOB, Types.VARCHAR};
+        String query = "SELECT * FROM room_images WHERE room_id = " + photo.getRoomID();
         
+        List<Photo> photos = this.getPhotosByRoomID(photo.getRoomID());
+        
+        String insertQuery;
+        Object[] params;
+        int[] types;
+        
+        if (photos.isEmpty()){
+            insertQuery = "INSERT INTO room_images (room_id, image, title, thumbnail) VALUES (?, ?, ?, ?)";
+            params = new Object[]{photo.getRoomID(), photo.getImage(), photo.getTitle(), 1};
+            types = new int[]{Types.INTEGER, Types.BLOB, Types.VARCHAR, Types.INTEGER};
+        } else {
+            insertQuery = "INSERT INTO room_images (room_id, image, title) VALUES (?, ?, ?)";
+            params = new Object[]{photo.getRoomID(), photo.getImage(), photo.getTitle()};
+            types = new int[]{Types.INTEGER, Types.BLOB, Types.VARCHAR};
+        }
         
         return jdbcTemplate.update(insertQuery, params, types);
     }    
@@ -133,10 +146,36 @@ public class PhotoDAO implements PhotoDAOInterface {
         
         jdbcTemplate.setDataSource(dataSource);
         
-        String deleteQuery = "DELETE FROM room_images WHERE image_id = ?";
-        Object[] params = new Object[]{imageID};
-        int[] types = new int[]{Types.INTEGER};
+        Photo photo = this.getPhotoByID(imageID);
         
+        List<Photo> photos = this.getPhotosByRoomID(photo.getRoomID());
+        
+        String deleteQuery;
+        Object[] params;
+        int[] types;
+        
+        if (photos.size() <= 1){
+            
+            return 0;
+            
+        } else {
+            
+            int image_id = imageID;
+            int tempID = 0;
+
+            for (Photo p : photos){
+                if (p.getImageID() > tempID && p.getImageID() !=  image_id){
+                    tempID = p.getImageID();
+                }
+            }
+
+            String updateQuery = "UPDATE room_images SET thumbnail = 1 WHERE image_id = " + tempID;
+            jdbcTemplate.update(updateQuery);
+            
+            deleteQuery = "DELETE FROM room_images WHERE image_id = ?";
+            params = new Object[]{imageID};
+            types = new int[]{Types.INTEGER};
+        }
         
         return jdbcTemplate.update(deleteQuery, params, types);
     }
@@ -185,6 +224,7 @@ public class PhotoDAO implements PhotoDAOInterface {
         
         return jdbcTemplate.update(updateQuery, params, types);
     }
+    
     
 
     
