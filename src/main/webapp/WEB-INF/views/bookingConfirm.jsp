@@ -8,7 +8,7 @@
             <div class="col-md-12 column ui-sortable">
 
                 <div class="page-header">
-                    <h1>Enjoy your staying!</h1>
+                    <h1>Enjoy your stay!</h1>
                 </div>            
             </div>
             <div class="col-md-12 column ui-sortable">

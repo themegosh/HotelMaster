@@ -44,7 +44,7 @@
     
     <div class="container contactForm">
     <div class="col-md-4 col-md-offset-4 col-sm-12 ">
-        <div class="col-xs-12">	
+        <div class="col-xs-12" style="text-align:center;">	
             <h1>Contact Us</h1>
         <form:form modelAttribute="contactForm" method="POST" enctype="utf8">
                 
