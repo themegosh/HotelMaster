@@ -2,6 +2,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
+<script>
+    $(document).ready(function() {
+        $('.homeAnchor').addClass('active');
+    });
+</script>
         
           <h1 class="page-header">Dashboard</h1>
 

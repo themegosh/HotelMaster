@@ -17,13 +17,13 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"> <!-- Dynamic class -->
+                    <li class="homeAnchor"> <!-- Dynamic class -->
                         <a href="${homeUrl}">Home</a>
                     </li>
-                    <li><spring:url value="/rooms" var="roomsDir" htmlEscape="true" />
+                    <li class="roomAnchor"><spring:url value="/rooms" var="roomsDir" htmlEscape="true" />
                         <a href="${roomsDir}">Rooms</a>
                     </li>
-                    <li><spring:url value="/contact" var="contactUrl" htmlEscape="true" />
+                    <li class="contactAnchor"><spring:url value="/contact" var="contactUrl" htmlEscape="true" />
                         <a href="${contactUrl}">Contact Us</a>
                     </li>
                 </ul>

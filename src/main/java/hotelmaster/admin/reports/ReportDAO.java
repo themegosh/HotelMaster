@@ -4,42 +4,34 @@ import hotelmaster.Report;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.List;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Danny
  */
-@Component
+@Primary
+@Repository
 public class ReportDAO implements ReportDAOInterface {
 
-    private JdbcTemplate jdbcTemplate = new JdbcTemplate();
+    @Autowired
+    @Qualifier("dataSource")
+    private DataSource dataSource;
+   
+    private JdbcTemplate jdbcTemplate;
 
-    public DriverManagerDataSource getDataSource(){
-        
-        DriverManagerDataSource datasource = new DriverManagerDataSource();
-        datasource.setDriverClassName("com.mysql.jdbc.Driver");
-        datasource.setUrl("jdbc:mysql://dmdev.ca:3306/themegos_hotel_master");
-        datasource.setUsername("themegos_hotel_m");
-        datasource.setPassword("A2b8rbd6%rT9");
-        
-        return datasource;
-    }
-    
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
-        this.jdbcTemplate = jdbcTemplate;
-        jdbcTemplate.setDataSource(getDataSource());
-    }
     
     @Override
     public List<Report> listBookings(String checkInDate, String checkOutDate, double lowerPricePerNight, double upperPricePerNight, String floor){
-        jdbcTemplate.setDataSource(getDataSource());
-       
+        jdbcTemplate = new JdbcTemplate(dataSource);
+        
         List<Report> reportList;
         
         if (floor.equalsIgnoreCase("All")){

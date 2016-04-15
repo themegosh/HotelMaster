@@ -10,6 +10,12 @@
 <fmt:formatDate var="currDate" pattern="yyyy-MM-dd" value="${now}" />
 <fmt:formatDate var="tmrwDate" pattern="yyyy-MM-dd" value="${tomorrow}"/>
 
+<script>
+    $(document).ready(function() {
+        $('.roomAnchor').addClass('active');
+    });
+</script>
+
 <div class="container sections-group">
     
     <div class="row">
@@ -60,7 +66,13 @@
         </div>
         <div class="col-sm-8">             
              <div class="room-photo">
-                 <img src="/resources/img/room_photo.jpg"/>
+                 <c:forEach var="image" items="${photoList}">
+                    <c:if test="${room.getRoomID() eq image.roomID}" >
+                        <form:form>
+                            <img src="/getPhoto?ID=${image.imageID}" alt="placeholder">
+                        </form:form>                        
+                    </c:if>
+                </c:forEach>
              </div>
              
              <div class="room-content-title">
@@ -96,15 +108,6 @@
                     and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. 
                     Gregor then turned to look out the window at the dull weather. Drops</p>
              </div>    
-             
-            <div class="featured-rooms">
-                <c:forEach var="i" begin="1" end="2">
-                    <div style="width: 40%; margin-right: 10px; float: left; padding: 20px;">
-                        <img src="/resources/img/room_photo.jpg" style="width: 50%; float: left;"/>
-                        <p style="padding-left: 20px;"><strong>Batman's Cave</strong></p>
-                    </div>
-                </c:forEach>
-            </div>
              
         </div>
     </div>

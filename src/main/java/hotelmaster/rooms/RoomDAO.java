@@ -11,38 +11,30 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Danny
  */
 
-@Component
+@Primary
+@Repository
 public class RoomDAO implements RoomDAOInterface {
 
-    private JdbcTemplate jdbcTemplate = new JdbcTemplate();
-    
-    public DriverManagerDataSource getDataSource(){
-        
-        DriverManagerDataSource datasource = new DriverManagerDataSource();
-        datasource.setDriverClassName("com.mysql.jdbc.Driver");
-        datasource.setUrl("jdbc:mysql://dmdev.ca:3306/themegos_hotel_master");
-        datasource.setUsername("themegos_hotel_m");
-        datasource.setPassword("A2b8rbd6%rT9");
-        
-        return datasource;
-    }
-    
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
-        this.jdbcTemplate = jdbcTemplate;
-        jdbcTemplate.setDataSource(getDataSource());
-    }
-    
+    @Autowired
+    @Qualifier("dataSource")
+    private DataSource dataSource;
+   
+    private JdbcTemplate jdbcTemplate;
+
     /**
      * Inserts a room into the database. Note that the room name is a unique field in the database.
      * @param room - The room to be inserted
@@ -50,7 +42,8 @@ public class RoomDAO implements RoomDAOInterface {
      */
     @Override
     public int insertRoom(Room room) {
-        jdbcTemplate.setDataSource(getDataSource());
+        
+        jdbcTemplate = new JdbcTemplate(dataSource);
         
         String insertQuery = "INSERT INTO room (room_name, floor, price_per_night, max_guests) VALUES (?, ?, ?, ?)";
         Object[] params = new Object[]{room.getRoomName(), room.getFloor(), room.getPricePerNight(), room.getMaxGuests()};
@@ -66,7 +59,8 @@ public class RoomDAO implements RoomDAOInterface {
     
     @Override
     public void deleteRoom(Room room) {
-        jdbcTemplate.setDataSource(getDataSource());
+        
+        jdbcTemplate = new JdbcTemplate(dataSource);
         
         String deleteQuery = "DELETE FROM room_features WHERE room_ID = ?";
         Object[] params = new Object[]{room.getRoomID()};
@@ -91,8 +85,9 @@ public class RoomDAO implements RoomDAOInterface {
     
     @Override
     public int updateRoom(Room room) {
-        jdbcTemplate.setDataSource(getDataSource());
         
+        jdbcTemplate = new JdbcTemplate(dataSource);
+                
         String updateQuery = "UPDATE room SET room_name = ?, floor = ?, price_per_night = ?, max_guests = ? WHERE room_id = ?";
         Object[] params = new Object[]{room.getRoomName(), room.getFloor(), room.getPricePerNight(), room.getMaxGuests(), room.getRoomID()};
         int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.DECIMAL, Types.INTEGER, Types.VARCHAR};
@@ -107,8 +102,9 @@ public class RoomDAO implements RoomDAOInterface {
     
     @Override
     public List<Room> list() {
-        jdbcTemplate.setDataSource(getDataSource());
         
+        jdbcTemplate = new JdbcTemplate(dataSource);
+                
         String query = "SELECT * FROM room";
         
         List<Room> roomList = jdbcTemplate.query(query, new RowMapper<Room>() {
@@ -132,6 +128,9 @@ public class RoomDAO implements RoomDAOInterface {
 
     @Override
     public void setRoomFeatures(List<Room> rooms) {
+        
+        jdbcTemplate = new JdbcTemplate(dataSource);
+                
         for (final Room room : rooms){
             final HashMap<String, Boolean> features = new HashMap<String, Boolean>();
             features.put("Balcony", Boolean.FALSE);
@@ -159,8 +158,9 @@ public class RoomDAO implements RoomDAOInterface {
     
     @Override 
     public void addRoomFeatures(Room room){
-        jdbcTemplate.setDataSource(getDataSource());
 
+        jdbcTemplate = new JdbcTemplate(dataSource);
+                
         HashMap<String, Boolean> features = room.getFeatures();
         
         String deleteQuery = "DELETE FROM room_features WHERE room_id = " + room.getRoomID();
@@ -185,8 +185,9 @@ public class RoomDAO implements RoomDAOInterface {
     
     @Override
     public List<String> listFeatures() {
-        jdbcTemplate.setDataSource(getDataSource());
         
+        jdbcTemplate = new JdbcTemplate(dataSource);
+                
         String query = "SELECT feature_name FROM features ORDER BY feature_name";
                    
             List<String> featureList = jdbcTemplate.query(query, new RowMapper<String>(){
@@ -210,8 +211,9 @@ public class RoomDAO implements RoomDAOInterface {
     
     @Override
     public Room get(String roomName) {
-        jdbcTemplate.setDataSource(getDataSource());
         
+        jdbcTemplate = new JdbcTemplate(dataSource);
+                
         String query = "SELECT * FROM room WHERE room_name = '" + roomName + "'";
         
         return jdbcTemplate.query(query, new ResultSetExtractor<Room>() {
@@ -238,8 +240,9 @@ public class RoomDAO implements RoomDAOInterface {
     /* ====== SEARCH FORM ====== */
     
     public List<Room> roomSearch(int numOfGuests, String range, String sdate, String edate) {
-        jdbcTemplate.setDataSource(getDataSource());
-        System.out.println(range);
+        
+        jdbcTemplate = new JdbcTemplate(dataSource);
+                
         BigDecimal lower, upper;
         
         if (!range.contains("-")) {
@@ -281,8 +284,9 @@ public class RoomDAO implements RoomDAOInterface {
 
     @Override
     public int getMaxRoomID() {
-        jdbcTemplate.setDataSource(getDataSource());
         
+        jdbcTemplate = new JdbcTemplate(dataSource);
+                
         String query = "SELECT MAX(room_id) FROM room";
         
         List<String> roomList = jdbcTemplate.query(query, new RowMapper<String>() {
@@ -298,8 +302,9 @@ public class RoomDAO implements RoomDAOInterface {
 
     @Override
     public TreeMap<String, String> getFloors() {
-        jdbcTemplate.setDataSource(getDataSource());
-
+        
+        jdbcTemplate = new JdbcTemplate(dataSource);
+        
         String query = "SELECT DISTINCT floor FROM room";
         
         TreeMap<String, String> floorsMap = new TreeMap<String, String>();
@@ -324,6 +329,8 @@ public class RoomDAO implements RoomDAOInterface {
     /* GET A ROOM BY URL */
     public Room getByURL(String URL) {
         
+        jdbcTemplate = new JdbcTemplate(dataSource);
+                
         Room room = new Room();
         
         List<Room> roomList = list();

@@ -5,7 +5,9 @@
  */
 package hotelmaster.rooms.directory;
 
+import hotelmaster.Photo;
 import hotelmaster.Room;
+import hotelmaster.gallery.PhotoDAO;
 import hotelmaster.rooms.RoomDAO;
 import hotelmaster.search.SearchParams;
 import java.text.ParseException;
@@ -31,6 +33,8 @@ public class DirectoryController {
     
     @Autowired
     private RoomDAO roomDAO;
+    @Autowired 
+    private PhotoDAO photoDAO;
     
     @RequestMapping(value="/rooms", method = RequestMethod.GET)
     public ModelAndView showRoomsDirectory(){
@@ -38,6 +42,9 @@ public class DirectoryController {
         //ContactForm cf = new ContactForm();
         // modelAndView.addObject("contactForm", cf);
         List<Room> roomList = roomDAO.list();
+        List<Photo> photoList = photoDAO.getAllPhotos();
+        
+        modelAndView.addObject("photoList", photoList);
         modelAndView.addObject("roomList", roomList);
         Room room = new Room();
         roomDAO.setRoomFeatures(roomList);

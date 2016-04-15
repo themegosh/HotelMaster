@@ -10,6 +10,12 @@
 <fmt:formatDate var="currDate" pattern="yyyy-MM-dd" value="${now}" />
 <fmt:formatDate var="tmrwDate" pattern="yyyy-MM-dd" value="${tomorrow}"/>
 
+<script>
+    $(document).ready(function() {
+        $('.roomAnchor').addClass('active');
+    });
+</script>
+
 <!-- Search Bar -->
 <div id="searchContainer" class="container-fluid">
     <div class="col-xs-offset-3 col-xs-6">
@@ -81,13 +87,20 @@
         </div>
     </div>
     <div class="row directory"> 
-        
+        <!-- /getPhoto?ID={image.imageID} -->
         <c:forEach var="room" items="${roomList}">
         <div class="col-md-4 column ui-sortable roomBlock">
             <div class="wrappers">
             <h3><c:out value="${room.getRoomName()}"/></h3>
             <div class="roomPreview">
-                <img src="/resources/img/room_photo.jpg"/> <!-- Get photo from DB -->
+                <c:forEach var="image" items="${photoList}">
+                    <c:if test="${room.roomID eq image.roomID}" >
+                        <form:form>
+                            <img src="/getPhoto?ID=${image.imageID}" alt="placeholder">
+                        </form:form>                        
+                    </c:if>
+                </c:forEach>
+
             </div>
                 <a style="float: right;" href="${pageContext.request.contextPath}/rooms/${room.getRoomViewURL()}" class="btn btn-primary">Details</a>
                 <p class="priceLabel">Just $<strong><c:out value="${room.getPricePerNight()}"/></strong> per night</p>

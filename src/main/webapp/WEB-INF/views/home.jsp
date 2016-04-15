@@ -16,6 +16,12 @@
 <fmt:formatDate var="currDate" pattern="yyyy-MM-dd" value="${now}" />
 <fmt:formatDate var="tmrwDate" pattern="yyyy-MM-dd" value="${tomorrow}"/>
 
+<script>
+    $(document).ready(function() {
+        $('.homeAnchor').addClass('active');
+    });
+</script>
+
 <!DOCTYPE html>
 
 <!-- Search Bar -->
