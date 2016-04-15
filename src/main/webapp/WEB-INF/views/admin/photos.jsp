@@ -71,6 +71,11 @@
                                         <div class="col-sm-6">
                                             <h3 class="text-center"><c:out value="${photo.title}"/></h3>
                                         </div>
+                                        <form:form action="/admin/photos/update" modelAttribute="photoBucket" method="POST" enctype="multipart/form-data">
+                                            <input type="number" value="${photo.imageID}" name="imageID" class="hidden"/>
+                                            <input type="number" value="${room.roomID}" name="roomID" class="hidden"/>
+                                            <button id="btnPrimaryImage" type="submit" class="btn btn-success" name="action" value="setPrimary">Set Primary</button>  
+                                        </form:form>
                                         <form:form action="/admin/photos/delete" modelAttribute="photoBucket" method="POST" enctype="multipart/form-data">
                                             <input type="number" value="${photo.imageID}" name="imageID" class="hidden"/>
                                             <button id="btnDeleteImage" type="submit" class="btn btn-success" name="action" value="delete">Delete</button>  

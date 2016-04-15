@@ -9,6 +9,7 @@ import hotelmaster.Photo;
 import hotelmaster.Room;
 import hotelmaster.account.Account;
 import hotelmaster.account.AccountRowMapper;
+import hotelmaster.admin.photos.PhotoBucket;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -138,6 +139,54 @@ public class PhotoDAO implements PhotoDAOInterface {
         
         
         return jdbcTemplate.update(deleteQuery, params, types);
-    }    
+    }
+    
+    @Override
+    public int setPrimaryPhoto(int imageID) {
+        
+        jdbcTemplate.setDataSource(dataSource);
+        
+        String updateQuery = "UPDATE room_images SET thumbnail = ? WHERE image_id = ?";
+        Object[] params = new Object[]{1, imageID};
+        int[] types = new int[]{Types.INTEGER, Types.INTEGER};
+        
+        
+        return jdbcTemplate.update(updateQuery, params, types);
+    }
+    
+    @Override
+    public int getCurrPrimaryPhoto(int currRoomID) {
+        
+        jdbcTemplate.setDataSource(dataSource);
+        
+        String query = "SELECT image_id FROM room_images WHERE room_id = + " + currRoomID + " AND thumbnail = 1";
+        
+        
+        List<String> primaryPhoto = jdbcTemplate.query(query, new RowMapper<String>() {
+            
+            @Override
+            public String mapRow(ResultSet rs, int i) throws SQLException {
+                return rs.getString(1);
+            }
+        });
+        
+        return Integer.parseInt(primaryPhoto.get(0));
+    }
+    
+    @Override
+    public int unsetCurrPrimaryPhoto(int imageID) {
+        
+        jdbcTemplate.setDataSource(dataSource);
+        
+        String updateQuery = "UPDATE room_images SET thumbnail = ? WHERE image_id = ?";
+        Object[] params = new Object[]{0, imageID};
+        int[] types = new int[]{Types.INTEGER, Types.INTEGER};
+        
+        
+        return jdbcTemplate.update(updateQuery, params, types);
+    }
+    
+
+    
     
 }

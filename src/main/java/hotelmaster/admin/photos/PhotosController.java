@@ -98,4 +98,15 @@ public class PhotosController {
         return model;
     }
     
+    @RequestMapping(value = "/admin/photos/update", method = RequestMethod.POST)
+    public ModelAndView setPrimaryPhoto(@RequestParam("imageID") int imageID, @RequestParam("roomID") int roomID, ModelAndView model) throws IOException{       
+            
+        int currPrimary = photoDAO.getCurrPrimaryPhoto(roomID);
+        photoDAO.unsetCurrPrimaryPhoto(currPrimary);
+        photoDAO.setPrimaryPhoto(imageID);
+        model.setViewName("redirect:/admin/photos");
+        
+        return model;
+    }
+    
 }
