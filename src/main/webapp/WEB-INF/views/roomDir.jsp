@@ -1,7 +1,14 @@
+<%@page import="java.util.Date"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+
+<c:set var="now" value="<%=new java.util.Date()%>" />
+<c:set var="tomorrow" value="<%=new Date(new Date().getTime() + 60*60*24*1000)%>"/>
+<fmt:formatDate var="currDate" pattern="yyyy-MM-dd" value="${now}" />
+<fmt:formatDate var="tmrwDate" pattern="yyyy-MM-dd" value="${tomorrow}"/>
 
 <!-- Search Bar -->
 <div id="searchContainer" class="container-fluid">
@@ -24,16 +31,21 @@
 
             <div class="col-xs-12">
                 <div class="col-xs-3">
-                    <form:select path="numOfGuests">
+                    <form:select class="form-control selectWidth" path="numOfGuests">
                         <form:option value="1" label="1"/>
                         <form:option value="2" label="2"/>
                         <form:option value="3" label="3"/>
                         <form:option value="4" label="4"/>
+                        <form:option value="5" label="5"/>
+                        <form:option value="6" label="6"/>
+                        <form:option value="7" label="7"/>
+                        <form:option value="8" label="8"/>
+                        <form:option value="9" label="9"/>
                     </form:select>
                     <form:errors class="formError" path="numOfGuests" element="strong"/>
                 </div>
                 <div class="col-xs-3">
-                    <form:select path="range">
+                    <form:select class="form-control selectWidth" path="range">
                         <form:option value="0-39" label="$0-$39.99"/>
                         <form:option value="40-79" label="$40-$79.99"/>
                         <form:option value="80-119" label="$80-$119.99"/>
@@ -42,17 +54,17 @@
                     <form:errors class="formError" path="numOfGuests" element="strong"/>
                 </div>
                 <div class="col-xs-3">
-                    <form:input path="checkInDate" placeholder="Check In Date" value="" type="date" class="form-control" />
+                    <form:input path="checkInDate" placeholder="Check In Date" min="${currDate}" value="${currDate}" type="date" class="form-control selectWidth" />
                     <form:errors class="formError" path="checkInDate" element="strong"/>
                 </div>
                 <div class="col-xs-3">
-                    <form:input path="checkOutDate" placeholder="Check Out Date" value="" type="date" class="form-control" />
+                    <form:input path="checkOutDate" placeholder="Check Out Date" min="${tmrwDate}" value="${tmrwDate}" type="date" class="form-control selectWidth" />
                     <form:errors class="formError" path="checkOutDate" element="strong"/>
                 </div>
             </div>
 
-            <div id="searchBtnDiv" class="col-xs-3">
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
+            <div id="searchBtnDiv" class="col-xs-2"><br/>
+                <p><button class="btn btn-primary btn-block" type="submit">Search</button></p>
             </div>
         </form:form>
     </div>

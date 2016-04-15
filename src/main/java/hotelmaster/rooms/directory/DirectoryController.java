@@ -59,6 +59,7 @@ public class DirectoryController {
         ModelAndView modelAndView = new ModelAndView("rooms");
         
         List<Room> roomList = roomDAO.roomSearch(searchParams.getNumOfGuests(), searchParams.getRange(), searchParams.getCheckInDate(), searchParams.getCheckOutDate());
+        roomDAO.setRoomFeatures(roomList);
         modelAndView.addObject("roomList", roomList);
         
         Room room = new Room();
