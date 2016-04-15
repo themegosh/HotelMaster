@@ -10,6 +10,12 @@
 <fmt:formatDate var="currDate" pattern="yyyy-MM-dd" value="${now}" />
 <fmt:formatDate var="tmrwDate" pattern="yyyy-MM-dd" value="${tomorrow}"/>
 
+<script>
+    $(document).ready(function() {
+        $('.roomAnchor').addClass('active');
+    });
+</script>
+
 <!-- Search Bar -->
 <div id="searchContainer" class="container-fluid">
     <div class="col-xs-offset-3 col-xs-6">

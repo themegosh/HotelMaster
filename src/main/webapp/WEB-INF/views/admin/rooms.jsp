@@ -106,3 +106,9 @@
         </div>
     </body>
 </html>
+
+<script type="text/javascript">
+    $('ul.dropdown-menu').click(function(e) {
+        e.stopPropagation();
+    });
+</script>
