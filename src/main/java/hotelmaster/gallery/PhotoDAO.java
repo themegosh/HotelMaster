@@ -56,7 +56,7 @@ public class PhotoDAO implements PhotoDAOInterface {
                     photo.setRoomID(rs.getInt("room_id"));
                     photo.setImage(rs.getBytes("image"));
                     photo.setTitle(rs.getNString("title"));
-
+                    photo.setPrimary(rs.getInt("thumbnail"));
                     return photo;
                 }
             });

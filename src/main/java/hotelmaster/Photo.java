@@ -16,19 +16,29 @@ public class Photo {
     private int roomID;
     private byte[] image;
     private String title;
-    
+    private int primary;
     
     //constructors
     public Photo() { }
     
-    public Photo(int imageID, int roomID, byte[] image, String title) {
+    public Photo(int imageID, int roomID, byte[] image, String title, int primary) {
         this.imageID = imageID;
         this.roomID = roomID;
         this.image = image;
         this.title = title;
+        this.primary = primary;
     }
     
     //Getters and setters
+
+    public int getPrimary() {
+        return primary;
+    }
+
+    public void setPrimary(int primary) {
+        this.primary = primary;
+    }
+    
     public int getImageID() {
         return imageID;
     }
