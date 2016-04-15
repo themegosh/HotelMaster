@@ -4,10 +4,18 @@
     Author     : Danny
 --%>
 
+<%@page import="java.util.Date"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+
+<c:set var="now" value="<%=new java.util.Date()%>" />
+<c:set var="tomorrow" value="<%=new Date(new Date().getTime() + 60*60*24*1000)%>"/>
+<fmt:formatDate var="currDate" pattern="yyyy-MM-dd" value="${now}" />
+<fmt:formatDate var="tmrwDate" pattern="yyyy-MM-dd" value="${tomorrow}"/>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,24 +29,24 @@
         <table class="table test">
             <tr>
                 <td>Check in date</td>
-                <td><form:input path="checkInDate" placeholder="Check In Date"  type="date" /> </td>
+                <td><form:input class="form-control selectWidth" path="checkInDate" placeholder="Check In Date" value="${currDate}" type="date" /> </td>
             </tr>
             <tr>
                 <td>Check out date</td>
-                <td><form:input path="checkOutDate" placeholder="Check Out Date" type="date" /></td>
+                <td><form:input class="form-control selectWidth" path="checkOutDate" placeholder="Check Out Date" value="${tmrwDate}" type="date" /></td>
             </tr>
             <tr>
                 <td>Lower price range</td>
-                <td><form:input path="lowerPricePerNight" placeholder="0.00" type="number" step="0.01" min="0" max="99.99" /></td>
+                <td><form:input class="form-control selectWidth" path="lowerPricePerNight" placeholder="0.00" type="number" step="0.01" min="0" max="99.99" /></td>
             </tr>
             <tr>
                 <td>Upper price range</td>
-                <td><form:input path="upperPricePerNight" placeholder="0.00" type="number" step="0.01" min="0" max="99.99" /></td>
+                <td><form:input class="form-control selectWidth" path="upperPricePerNight" placeholder="0.00" type="number" step="0.01" min="0" max="99.99" /></td>
             </tr>
             <tr>
                 <td>Floor</td>
                 <td>
-                    <form:select path="floor">
+                    <form:select class="form-control selectWidth" path="floor">
                         <form:options items="${floors}" />                        
                     </form:select>
                 </td>

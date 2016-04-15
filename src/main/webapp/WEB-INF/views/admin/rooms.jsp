@@ -49,10 +49,10 @@
                 <tr>
                     <td></td>
                     <form:form modelAttribute="roomForm" method="POST" encoding="utf8">
-                        <td><form:input path="roomName" placeholder=""/></td>
-                        <td><form:input path="floor" placeholder=""/></td>
-                        <td><form:input path="pricePerNight" placeholder=""/></td>
-                        <td><form:input path="maxGuests" placeholder=""/></td>
+                        <td><form:input class="form-control selectWidth" path="roomName" placeholder="" required="required"/></td>
+                        <td><form:input class="form-control selectWidth" path="floor" placeholder="" required="required"/></td>
+                        <td><form:input type="number" min="0.01" max="99.99" step="0.01" class="form-control selectWidth" path="pricePerNight" placeholder=""/></td>
+                        <td><form:input type="number" min="1" max="9" class="form-control selectWidth" path="maxGuests" placeholder=""/></td>
                         <td class="featuresDropdown">
                             <div class="col-lg-12">
                             <div class="button-group">

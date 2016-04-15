@@ -3,6 +3,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
+<script>
+    $(document).ready(function() {
+        $('.contactAnchor').addClass('active');
+    });
+</script>
+
+
 <div class="sections_group">
     <div class="section cont-map-section" style="border: 1px dashed black;" id="where" data-id="#where">
         <h1>Map</h1>
@@ -10,7 +17,7 @@
     <div align="center">
             <table border="0">
                 <tr>
-                    <td colspan="2" align="center"><h2>Yaaay!</h2></td>
+                    <td colspan="2" align="center"><h2>Message delivered.</h2></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
