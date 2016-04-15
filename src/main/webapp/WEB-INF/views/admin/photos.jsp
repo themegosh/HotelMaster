@@ -51,7 +51,7 @@
                             </div>
                             <div class="modal-body container-fluid">
                                 <c:set var="checkCounter" value="${0}"/>
-                                <form:form action="/admin/photos/add" modelAttribute="photoBucket" method="POST" enctype="multipart/form-data">
+                                <form:form id="addImageForm" action="/admin/photos/add" modelAttribute="photoBucket" method="POST" enctype="multipart/form-data">
                                     <div class="container-fluid">
                                     <label id="uploadBtn" class="text-center btn-primary">
                                         <i class="fa fa-plus-square-o" aria-hidden="true"></i>
@@ -93,3 +93,11 @@
     </div>
     
 </div>
+
+<script type="text/javascript">
+    
+    var uploadElement = document.getElementById("addFile");
+    uploadElement.onchange = function() {
+        uploadElement.form.submit();
+    };
+</script>
