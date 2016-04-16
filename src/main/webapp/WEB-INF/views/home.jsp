@@ -90,13 +90,15 @@
         <!-- Indicators -->
         <ol class="carousel-indicators">
             <c:forEach var="photo" items="${photoList}" varStatus="loop">
-                <li data-target="#myCarousel" data-slide-to="${loop.index}"
-                <c:choose>
-                    <c:when test="${loop.index == 0}">
-                        class="active"
-                    </c:when>   
-                </c:choose>
-                ></li>
+                <c:if test="${photo.primary eq 1}">
+                    <li data-target="#myCarousel" data-slide-to="${loop.index}"
+                    <c:choose>
+                        <c:when test="${loop.index == 0}">
+                            class="active"
+                        </c:when>   
+                    </c:choose>
+                    ></li>
+                </c:if>
             </c:forEach>
         </ol>
 
@@ -110,7 +112,9 @@
                     </c:when>
                 </c:choose>
                 ">
-                <img class="img-responsive" src="/getPhoto?ID=${photo.imageID}" alt="Hotel Room Image">
+                <c:if test="${photo.primary eq 1}">
+                    <img class="img-responsive" src="/getPhoto?ID=${photo.imageID}" alt="Hotel Room Image">
+                </c:if>
                 </div>
             </c:forEach>
         </div>
