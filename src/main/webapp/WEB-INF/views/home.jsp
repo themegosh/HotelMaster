@@ -105,17 +105,19 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <c:forEach var="photo" items="${photoList}" varStatus="loop">
-                <div class="item 
-                <c:choose>
-                    <c:when test="${loop.index == 0}">
-                        active
-                    </c:when>
-                </c:choose>
-                ">
                 <c:if test="${photo.primary eq 1}">
-                    <img class="img-responsive" src="/getPhoto?ID=${photo.imageID}" alt="Hotel Room Image">
+                    <div class="item 
+                    <c:choose>
+                        <c:when test="${loop.index == 0}">
+                            active
+                        </c:when>
+                    </c:choose>
+                    ">
+
+                        <img class="img-responsive" src="/getPhoto?ID=${photo.imageID}" alt="Hotel Room Image">
+
+                    </div>
                 </c:if>
-                </div>
             </c:forEach>
         </div>
 
