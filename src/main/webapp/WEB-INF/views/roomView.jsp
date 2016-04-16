@@ -58,6 +58,7 @@
 
                 <div class="col-xs-12 no-padding">
                     <button class="btn btn-primary btn-lg" type="submit">Book Now</button>
+                    <br/>
                 </div>
                 <form:input path="bookingDate" value="${currDate}" type="date" class="hidden" />
                 <form:input path="roomID" value="${room.getRoomID()}" class="hidden" />
@@ -65,20 +66,45 @@
             
         </div>
         <div class="col-sm-8">             
-             <div class="room-photo">
-                 <c:forEach var="image" items="${photoList}">
-                    <c:if test="${room.getRoomID() eq image.roomID}" >
-                        <form:form>
-                            <c:if test="${image.primary eq 1}">
-                                <img src="/getPhoto?ID=${image.imageID}" alt="placeholder">
-                            </c:if>
-                        </form:form>                        
-                    </c:if>
-                </c:forEach>
-             </div>
-             
+            <div id="myCarousel" class="carousel slide room-photo"  data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <c:forEach var="image" items="${photoList}" varStatus="loop">
+                        <c:if test="${photoList.size() > 1}">
+                            <li data-target="#myCarousel" data-slide-to="${loop.index}"
+                            <c:choose>
+                                <c:when test="${loop.index == 0}">
+                                    class="active"
+                                </c:when>   
+                            </c:choose>
+                            ></li>
+                        </c:if>
+                    </c:forEach>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <c:forEach var="image" items="${photoList}" varStatus="loop">
+                        <c:if test="${image.roomID == room.roomID}">
+                        <div class="item 
+                        <c:choose>
+                            <c:when test="${loop.index == 0}">
+                                active
+                            </c:when>
+                        </c:choose>
+                        ">
+                            <img class="img-responsive" src="/getPhoto?ID=${image.imageID}" alt="Hotel Room Image">
+                        </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
+            </div>                        
+        </div>
+    </div>
+            <div class="row container-fluid">
              <div class="room-content-title">
-                 <h4>Super cozy <u><c:out value="${room.getRoomName()}"/></u> just for $<strong><c:out value="${room.getPricePerNight()}"/> per night</strong></h4>
+                 <br/>
+                 <h4>Super cozy <u><c:out value="${room.getRoomName()}"/></u> for just $<strong><c:out value="${room.getPricePerNight()}"/> per night</strong></h4>
              </div>
              
              <div class="room-info">
@@ -113,5 +139,3 @@
              
         </div>
     </div>
-    
-</div>

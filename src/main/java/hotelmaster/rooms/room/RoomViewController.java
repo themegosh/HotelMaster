@@ -38,18 +38,13 @@ public class RoomViewController {
         ModelAndView modelAndView = new ModelAndView("roomView");
                
         List<Room> roomList = roomDAO.list();
-        List<Photo> photoList = photoDAO.getAllPhotos();
-        
-        modelAndView.addObject("photoList", photoList);
         
         roomDAO.setRoomFeatures(roomList);
         
         String URL = roomViewURL;
         
         for(int i = 0; i < roomList.size(); i++){
-            if(roomList.get(i).getRoomViewURL().equalsIgnoreCase(URL)){
-                System.out.println("Found URL: " + roomList.get(i).getRoomViewURL());
-                
+            if(roomList.get(i).getRoomViewURL().equalsIgnoreCase(URL)){                
                 //booking
                 Booking booking = new Booking();
                 modelAndView.addObject("booking", booking);
@@ -62,6 +57,9 @@ public class RoomViewController {
                     numGuests.put("" + k, k);
                 }
                 
+                List<Photo> photoList = photoDAO.getPhotosByRoomID(roomList.get(i).getRoomID());
+                
+                modelAndView.addObject("photoList", photoList);
                 modelAndView.addObject("numGuests", numGuests);
                 modelAndView.addObject("room", roomList.get(i));       
             }
