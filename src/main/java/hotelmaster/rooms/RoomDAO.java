@@ -70,6 +70,10 @@ public class RoomDAO implements RoomDAOInterface {
         params = new Object[]{room.getRoomID()};
         types = new int[]{Types.INTEGER};
         jdbcTemplate.update(deleteQuery, params, types);
+        deleteQuery = "DELETE FROM room_images WHERE room_ID = ?";
+        params = new Object[]{room.getRoomID()};
+        types = new int[]{Types.INTEGER};
+        jdbcTemplate.update(deleteQuery, params, types);
         deleteQuery = "DELETE FROM room WHERE room_ID = ?";    
         params = new Object[]{room.getRoomID()};
         types = new int[]{Types.INTEGER};
