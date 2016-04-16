@@ -228,7 +228,23 @@ body {
     -webkit-border-radius: 10px; 
     -moz-border-radius: 10px; 
 }
-  
+
+.photoRow{
+    margin-bottom: 10px;
+}
+
+.photoButtonGroup{
+    vertical-align: middle;
+}
+
+.photoButtonGroup button{
+    width: 100%;
+    display:block;
+}
+
+#btnPrimaryImage{
+    margin-bottom: 10px;
+}
 
 /* ============== RESPONSIVE ============== */
 

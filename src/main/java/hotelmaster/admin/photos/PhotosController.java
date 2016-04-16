@@ -97,12 +97,11 @@ public class PhotosController {
         
         if(deleted == 0){
             notificationService.add("Error!", "You do not have the required permissions to access the page", NotificationType.ERROR);
+            return new ModelAndView("redirect:/admin/photos");
         } else {
             notificationService.add("Great!", "Photo has been deleted", NotificationType.SUCCESS);
+            return new ModelAndView("redirect:/admin/photos");
         }
-        model.setViewName("redirect:/admin/photos");
-        
-        return model;
     }
     
     @RequestMapping(value = "/admin/photos/update", method = RequestMethod.POST)

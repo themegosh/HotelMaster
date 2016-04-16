@@ -66,30 +66,51 @@
                                         document.getElementById("room${room.roomID}").form.submit();
                                     };
                                 </script>
-                                <h2 class="container-fluid">Photos:</h2>
-                                <c:forEach var="photo" items="${photoList}" varStatus="counter">
-                                    <c:if test="${room.roomID eq photo.roomID}" >
-                                        <div class="col-sm-6">
-                                            <img style="width: 100%;" src="/getPhoto?ID=${photo.imageID}" alt="placeholder">
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <h3 class="text-center"><c:out value="${photo.title}"/></h3>
-                                        </div>
-                                        <form:form action="/admin/photos/update" modelAttribute="photoBucket" method="POST" enctype="multipart/form-data">
-                                            <input type="number" value="${photo.imageID}" name="imageID" class="hidden"/>
-                                            <input type="number" value="${room.roomID}" name="roomID" class="hidden"/>
-                                            <button id="btnPrimaryImage" type="submit" class="btn btn-success" name="action" value="setPrimary">Set Primary</button>  
-                                        </form:form>
-                                        <form:form action="/admin/photos/delete" modelAttribute="photoBucket" method="POST" enctype="multipart/form-data">
-                                            <input type="number" value="${photo.imageID}" name="imageID" class="hidden"/>
-                                            <button id="btnDeleteImage" type="submit" class="btn btn-success" name="action" value="delete">Delete</button>  
-                                        </form:form>
-                                        <c:set var="checkCounter" value="${checkCounter + 1}"/>
+                                <h2 class="container-fluid text-center muted" id="title${room.roomID}">List of Photos</h2>
+                                <div class="container-fluid">
+                                    <c:forEach var="photo" items="${photoList}" varStatus="counter">
+                                        <c:if test="${room.roomID eq photo.roomID}" >
+                                            <div class="row photoRow">
+                                                <div class="col-sm-6">
+                                                    <img style="width: 100%;" src="/getPhoto?ID=${photo.imageID}" alt="placeholder">
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <h3 class="text-center"><c:out value="${photo.title}"/></h3>
+                                                    <div class="button-group photoButtonGroup">
+                                                        <form:form action="/admin/photos/update" modelAttribute="photoBucket" method="POST" enctype="multipart/form-data">
+                                                            <input type="number" value="${photo.imageID}" name="imageID" class="hidden"/>
+                                                            <input type="number" value="${room.roomID}" name="roomID" class="hidden"/>
+                                                            <c:choose>
+                                                                <c:when test="${photo.getPrimary() == 1}">
+                                                                    <button id="btnPrimaryImage" type="submit" class="btn btn-primary" name="action" value="setPrimary" disabled>Primary</button>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <button id="btnPrimaryImage" type="submit" class="btn btn-success" name="action" value="setPrimary">Set Primary</button>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </form:form>
+                                                        <form:form action="/admin/photos/delete" modelAttribute="photoBucket" method="POST" enctype="multipart/form-data">
+                                                            <input type="number" value="${photo.imageID}" name="imageID" class="hidden"/>
+                                                            <button id="delete${room.roomID}" type="submit" class="btn btn-danger" name="action" value="delete">Delete</button>  
+                                                        </form:form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <c:set var="checkCounter" value="${checkCounter + 1}"/>
+                                        </c:if>
+                                    </c:forEach>
+                                    <c:if test="${checkCounter == 1}">
+                                        <script type="text/javascript">                                   
+                                            $('#delete${room.roomID}').prop("disabled", true);
+                                        </script>
                                     </c:if>
-                                </c:forEach>
-                                <c:if test="${checkCounter < 1}">
-                                    <h1>No Images</h1>
-                                </c:if>
+                                    <c:if test="${checkCounter < 1}">
+                                        <h1 class="text-center">Please Add Photos</h1>
+                                        <script type="text/javascript">                                   
+                                            $('#title${room.roomID}').addClass('hidden');
+                                        </script>
+                                    </c:if>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -102,4 +123,3 @@
     </div>
     
 </div>
-
