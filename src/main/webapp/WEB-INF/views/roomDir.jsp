@@ -138,13 +138,13 @@
 
 <script>
     $( document ).ready(function() {
-        $(document.getElementById('checkOutDate')).attr("min", document.getElementById('checkInDate').value);
-        $(document.getElementById('checkOutDate')).attr("value", document.getElementById('checkInDate').value); 
+        $(document.getElementById('txtEDate')).attr("min", document.getElementById('txtSDate').value);
+        $(document.getElementById('txtEDate')).attr("value", document.getElementById('txtSDate').value); 
     });
     
-    document.getElementById('checkInDate').onchange = function (e) {
-        $(document.getElementById('checkOutDate')).attr("min", document.getElementById('checkInDate').value);
-        $(document.getElementById('checkOutDate')).attr("value", document.getElementById('checkInDate').value);
+    document.getElementById('txtSDate').onchange = function (e) {
+        $(document.getElementById('txtEDate')).attr("min", document.getElementById('txtSDate').value);
+        $(document.getElementById('txtEDate')).attr("value", document.getElementById('txtSDate').value);
 
     };
 </script>
