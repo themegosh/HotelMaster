@@ -114,7 +114,7 @@
             
             <div class="page-header text-center">
                 <h2>Featured Rooms</h2>
-                <a href="${pageContext.request.contextPath}/rooms}" class="info">View All</a>
+                <a href="${pageContext.request.contextPath}/rooms" class="info">View All</a>
             </div>
         </div>
     </div>
