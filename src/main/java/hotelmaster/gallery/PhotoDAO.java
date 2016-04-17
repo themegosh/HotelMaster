@@ -6,17 +6,10 @@
 package hotelmaster.gallery;
 
 import hotelmaster.Photo;
-import hotelmaster.Room;
-import hotelmaster.account.Account;
-import hotelmaster.account.AccountRowMapper;
-import hotelmaster.admin.photos.PhotoBucket;
-import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -45,7 +38,7 @@ public class PhotoDAO implements PhotoDAOInterface {
             
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-            String query = "SELECT * FROM room_images";
+            String query = "SELECT * FROM room_images WHERE thumbnail = 1";
 
             List<Photo> photoList = jdbcTemplate.query(query, new RowMapper<Photo>() {
 

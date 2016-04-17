@@ -91,10 +91,10 @@
                             </li>
                         </c:when>    
                         <c:otherwise>
-                            <li><spring:url value="/login" var="loginUrl" htmlEscape="true" />
+                            <li class="loginAnchor"><spring:url value="/login" var="loginUrl" htmlEscape="true" />
                                 <a href="${loginUrl}">Login</a>
                             </li>
-                            <li><spring:url value="/register" var="registerUrl" htmlEscape="true" />
+                            <li class="registerAnchor"><spring:url value="/register" var="registerUrl" htmlEscape="true" />
                                 <a href="${registerUrl}">Register</a>
                             </li>
                         </c:otherwise>

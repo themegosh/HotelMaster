@@ -13,6 +13,24 @@
 <script>
     $(document).ready(function() {
         $('.roomAnchor').addClass('active');
+        
+        var numOfGuests = "${searchParams.getNumOfGuests()}";
+        var range = "${searchParams.getRange()}";
+        var checkInDate = "${searchParams.getCheckInDate()}";
+        var checkOutDate = "${searchParams.getCheckOutDate()}";
+        
+        if (numOfGuests !== 0) {
+            $('#ddlGuests').val(numOfGuests);
+            $('#ddlRange').val(range);
+            
+            var sDateArray = checkInDate.split('-');
+            var sDateNew = sDateArray[1] + '/' + sDateArray[2] + '/' + sDateArray[0];
+            $('#txtSDate').val(checkInDate);
+            
+            var eDateArray = checkOutDate.split('-');
+            var eDateNew = eDateArray[1] + '/' + eDateArray[2] + '/' + eDateArray[0];
+            $('#txtEDate').val(checkOutDate);
+        }
     });
 </script>
 
@@ -24,7 +42,7 @@
                 <div class="row">
                     <div class="col-lg-6 searchBarComp">
                         <label>Number of Guests</label>
-                        <form:select class="form-control searchBarComp" path="numOfGuests">
+                        <form:select id="ddlGuests" class="form-control searchBarComp" path="numOfGuests">
                             <form:option value="1" label="1"/>
                             <form:option value="2" label="2"/>
                             <form:option value="3" label="3"/>
@@ -39,12 +57,12 @@
                     </div>
                     <div class="col-lg-6 searchBarComp">
                         <label>Check In</label>
-                        <form:input path="checkInDate" placeholder="Check In Date" min="${currDate}" value="${currDate}" type="date" class="form-control searchBarComp" />
+                        <form:input id="txtSDate" path="checkInDate" placeholder="Check In Date" min="${currDate}" value="${currDate}" type="date" class="form-control searchBarComp" />
                         <form:errors class="formError" path="checkInDate" element="strong"/>
                     </div>
                     <div class="col-lg-6 searchBarComp">
                         <label>Price Range</label>
-                        <form:select class="form-control searchBarComp" path="range">
+                        <form:select id="ddlRange" class="form-control searchBarComp" path="range">
                             <form:option value="0-39" label="$0-$39.99"/>
                             <form:option value="40-79" label="$40-$79.99"/>
                             <form:option value="80-119" label="$80-$119.99"/>
@@ -54,10 +72,10 @@
                     </div>
                     <div class="col-lg-6">
                         <label>Check Out</label>
-                        <form:input path="checkOutDate" placeholder="Check Out Date" min="${tmrwDate}" value="${tmrwDate}" type="date" class="form-control searchBarComp" />
+                        <form:input id="txtEDate" path="checkOutDate" placeholder="Check Out Date" min="${tmrwDate}" value="${tmrwDate}" type="date" class="form-control searchBarComp" />
                         <form:errors class="formError" path="checkOutDate" element="strong"/>
                     </div>
-                    <div class="col-xs-offset-4 col-lg-4 col-md-12"><br/>
+                    <div class="col-lg-offset-4 col-lg-4 col-md-12"><br/>
                         <p><button class="btn btn-primary btn-block" type="submit">Search</button></p>
                     </div>
                 </div>

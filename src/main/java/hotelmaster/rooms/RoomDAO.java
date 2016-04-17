@@ -259,8 +259,7 @@ public class RoomDAO implements RoomDAOInterface {
             upper = BigDecimal.valueOf(Double.parseDouble(split[1]));
         }
         
-        String query = "SELECT * FROM room WHERE "
-                + "max_guests >= ? "
+        String query = "SELECT * FROM room WHERE max_guests >= ? "
                 + "AND price_per_night >= ? AND price_per_night <= ? "
                 + "AND room_id NOT IN (SELECT room_id FROM booking WHERE check_in_date >= ? AND check_out_date <= ?)";
         Object[] params = new Object[] { numOfGuests, lower, upper, sdate, edate };

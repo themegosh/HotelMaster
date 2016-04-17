@@ -78,9 +78,8 @@ public class DirectoryController {
         
         //search bar stuff
         searchParams = new SearchParams();
-        modelAndView.addObject("searchParams", searchParams);
-        
+        modelAndView.addObject("numOfGuests", searchParams);
+  
         return modelAndView;
-        
     }
 }

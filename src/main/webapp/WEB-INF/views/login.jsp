@@ -4,6 +4,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+<script>
+    $(document).ready(function() {
+        $('.loginAnchor').addClass('active');
+    });
+</script>
+
 <div class="container loginRegister">
     <div class="col-md-4 col-md-offset-4 col-sm-12 ">
         <h3 class="title">Login</h3>

@@ -77,21 +77,6 @@
 <!-- Image Gallery -->
 <div class="container">  
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <c:forEach var="photo" items="${photoList}" varStatus="loop">
-                <c:if test="${photo.primary eq 1}">
-                    <li data-target="#myCarousel" data-slide-to="${loop.index}"
-                    <c:choose>
-                        <c:when test="${loop.index == 0}">
-                            class="active"
-                        </c:when>   
-                    </c:choose>
-                    ></li>
-                </c:if>
-            </c:forEach>
-        </ol>
-
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <c:forEach var="photo" items="${photoList}" varStatus="loop">
@@ -103,9 +88,7 @@
                         </c:when>
                     </c:choose>
                     ">
-
                         <img class="img-responsive" src="/getPhoto?ID=${photo.imageID}" alt="Hotel Room Image">
-
                     </div>
                 </c:if>
             </c:forEach>
