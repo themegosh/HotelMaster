@@ -59,11 +59,11 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-6">
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+            <div class="col-xs-6" style="padding-left: 0;">
+                <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
             </div>
-            <div class="col-xs-6">
-                <a href="${pageContext.request.contextPath}/rooms/${room.getRoomViewURL()}/book" class="btn btn-lg btn-default btn-block" type="submit">Cancel</a>
+            <div class="col-xs-6" style="padding-right: 0;" >
+                <a href="${pageContext.request.contextPath}/rooms/${room.getRoomViewURL()}/book" class="btn btn-lg btn-danger btn-block" type="submit">Cancel</a>
             </div>
         </div>
     </form:form>

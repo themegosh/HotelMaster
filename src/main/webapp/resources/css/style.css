@@ -26,8 +26,8 @@ body {
   background: none !important;
 }
 
-.container, .container-fluid{
-    background-color: white;    
+.containerCustom{
+    background-color: white; 
 }
 
 .adminContainer{
@@ -35,6 +35,7 @@ body {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+    background-color: white; 
 }
 
 .roomsContainer{
@@ -206,9 +207,21 @@ div.loginRegister{
 }
 
 /* Booking */
-.booking td{
-    padding-right: 20px;
+
+#bookingEdit, #booking{
+    padding-left: 15px;
+    padding-right: 15px;
 }
+ 
+  .booking{
+      background: none;
+  }
+  
+  .booking tr input{
+      margin-bottom: 10px;
+  }
+
+
 
 /* Search Bar Styling */
 #searchContainer {

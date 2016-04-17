@@ -84,7 +84,7 @@
     </div>
 </div>
 
-<div class="container sections-group">
+<div class="container sections-group containerCustom">
     
     <div class="row">
         <div class="col-md-12 column ui-sortable">

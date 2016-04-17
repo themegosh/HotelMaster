@@ -75,7 +75,7 @@
 </div>
 
 <!-- Image Gallery -->
-<div class="container homePage">  
+<div class="container homePage containerCustom">  
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
@@ -107,7 +107,7 @@
 </div>
 
 <!-- Featured rooms -->
-<div class="container sections-group">
+<div class="container sections-group containerCustom">
     
     <div class="row">
         <div class="col-md-12 column ui-sortable">
