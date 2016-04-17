@@ -37,12 +37,12 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <td>ID</td> 
-                        <td>Name</td>
-                        <td>Floor</td>
-                        <td>Price per night</td>
-                        <td>Max no. of guests</td>
-                        <td>Features</td>
+                        <th>ID</th> 
+                        <th>Name</th>
+                        <th>Floor</th>
+                        <th>Price per night</th>
+                        <th>Max no. of guests</th>
+                        <th>Features</th>
                     </tr>
                 </thead>
                 <tr>

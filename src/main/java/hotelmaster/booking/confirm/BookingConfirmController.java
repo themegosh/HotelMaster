@@ -88,6 +88,12 @@ public class BookingConfirmController {
         booking.setAccount_id(accountSession.getAccount().getId());
         bookingDAO.insertBooking(booking);
         
+        //add notification handling to this page
+        modelAndView.addObject("notificationService", notificationService);
+        
+        notificationService.add("Great!", "Your booking has been made!", NotificationType.SUCCESS);
+        
+        
         bookingSession.cancelBooking();
         modelAndView.setViewName("bookingConfirm");
         return modelAndView;
