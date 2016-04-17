@@ -72,7 +72,7 @@
                     </div>
                     <div class="col-lg-6">
                         <label>Check Out</label>
-                        <form:input id="txtEDate" path="checkOutDate" placeholder="Check Out Date" min="${tmrwDate}" value="${tmrwDate}" type="date" class="form-control searchBarComp" />
+                        <form:input id="txtEDate" path="checkOutDate" placeholder="Check Out Date" type="date" class="form-control searchBarComp" />
                         <form:errors class="formError" path="checkOutDate" element="strong"/>
                     </div>
                     <div class="col-lg-offset-4 col-lg-4 col-md-12"><br/>
@@ -135,3 +135,16 @@
         
     </div>    
 </div>
+
+<script>
+    $( document ).ready(function() {
+        $(document.getElementById('checkOutDate')).attr("min", document.getElementById('checkInDate').value);
+        $(document.getElementById('checkOutDate')).attr("value", document.getElementById('checkInDate').value); 
+    });
+    
+    document.getElementById('checkInDate').onchange = function (e) {
+        $(document.getElementById('checkOutDate')).attr("min", document.getElementById('checkInDate').value);
+        $(document.getElementById('checkOutDate')).attr("value", document.getElementById('checkInDate').value);
+
+    };
+</script>
