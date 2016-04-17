@@ -45,6 +45,9 @@ public class RoomController {
             return new ModelAndView("redirect:/home");
         }
         
+        //add notification handling to this page
+        model.addObject("notificationService", notificationService);
+        
         List<Room> roomList = roomDAO.list();
         RoomForm rf = new RoomForm();
         List<String> features = roomDAO.listFeatures();
@@ -83,10 +86,12 @@ public class RoomController {
             roomDAO.insertRoom(r);
             r.setRoomID(roomDAO.getMaxRoomID());   
             roomDAO.addRoomFeatures(r);
+            notificationService.add("Great!", "Successfully added room!", NotificationType.SUCCESS);
         }
         else if (action.equalsIgnoreCase("delete")){
             r.setRoomID(room.getRoomID());
             roomDAO.deleteRoom(room);   
+            notificationService.add("Great!", "Successfully deleted room!", NotificationType.SUCCESS);
         }
         else if (action.equalsIgnoreCase("edit")){
             r.setRoomID(room.getRoomID());
@@ -102,8 +107,11 @@ public class RoomController {
             r.setFeatures(r.getFeatures());
             
             roomDAO.addRoomFeatures(r);
+            notificationService.add("Great!", "Successfully edited room!", NotificationType.SUCCESS);
         }
 
+        //add notification handling to this page
+        model.addObject("notificationService", notificationService);
             
         List<Room> roomList = roomDAO.list();
         RoomForm rf = new RoomForm();

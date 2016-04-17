@@ -61,6 +61,9 @@ public class PhotosController {
             return new ModelAndView("redirect:/home");
         }
         
+        //add notification handling to this page
+        model.addObject("notificationService", notificationService);
+        
         List<Room> roomList = roomDAO.list();
         List<Photo> photoList = photoDAO.getAllPhotos();
         
@@ -85,6 +88,8 @@ public class PhotosController {
         
         photoDAO.insertPhoto(p);
         
+        notificationService.add("Great!", "Photo has been added.", NotificationType.SUCCESS);
+        
         model.setViewName("redirect:/admin/photos");
         
         return model;
@@ -92,14 +97,14 @@ public class PhotosController {
     
     @RequestMapping(value = "/admin/photos/delete", method = RequestMethod.POST)
     public ModelAndView deletePhoto(@RequestParam("imageID") int imageID, ModelAndView model) throws IOException{       
-            
+        
         int deleted = photoDAO.deletePhoto(imageID);
         
         if(deleted == 0){
-            notificationService.add("Error!", "You do not have the required permissions to access the page", NotificationType.ERROR);
+            notificationService.add("Error!", "Could not delete photo.", NotificationType.ERROR);
             return new ModelAndView("redirect:/admin/photos");
         } else {
-            notificationService.add("Great!", "Photo has been deleted", NotificationType.SUCCESS);
+            notificationService.add("Great!", "Photo has been deleted.", NotificationType.SUCCESS);
             return new ModelAndView("redirect:/admin/photos");
         }
     }
@@ -110,6 +115,9 @@ public class PhotosController {
         int currPrimary = photoDAO.getCurrPrimaryPhoto(roomID);
         photoDAO.unsetCurrPrimaryPhoto(currPrimary);
         photoDAO.setPrimaryPhoto(imageID);
+        
+        notificationService.add("Great!", "Photo has been updated.", NotificationType.SUCCESS);
+        
         model.setViewName("redirect:/admin/photos");
         
         return model;
