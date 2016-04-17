@@ -122,6 +122,7 @@ public class RoomDAO implements RoomDAOInterface {
                 room.setFloor(rs.getString("floor"));
                 room.setPricePerNight(rs.getDouble("price_per_night"));
                 room.setMaxGuests(rs.getInt("max_guests"));
+                room.setDesc(rs.getString("desc"));
                 
                 return room;
             }

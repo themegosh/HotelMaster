@@ -75,7 +75,7 @@
 </div>
 
 <!-- Image Gallery -->
-<div class="container">  
+<div class="container homePage">  
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -129,45 +129,38 @@
     <div class="row">
         <div class="col-md-12 column ui-sortable">
             
-            <div class="page-header">
-                <h1>Rooms</h1>
+            <div class="page-header text-center">
+                <h2>Featured Rooms</h2>
+                <a href="${pageContext.request.contextPath}/rooms}" class="info">View All</a>
             </div>
         </div>
     </div>
     <div class="row directory"> 
         <!-- /getPhoto?ID={image.imageID} -->
-        <c:forEach var="room" items="${roomList}" begin="0" end="3" step="2">
-        <div class="col-md-4 column ui-sortable roomBlock">
-            <div class="wrappers">
-            <h3><c:out value="${room.getRoomName()}"/></h3>
-            <div class="roomPreview">
-                <c:forEach var="image" items="${photoList}">
-                    <c:if test="${room.roomID eq image.roomID}" >
-                        <form:form>
-                            <c:if test="${image.primary eq 1}">
-                                <img src="/getPhoto?ID=${image.imageID}" alt="placeholder">
-                            </c:if>
-                        </form:form>                        
-                    </c:if>
-                </c:forEach>
+        <c:forEach var="room" items="${roomList}" begin="0" end="6" step="2">
+        <div class="col-xs-4 column ui-sortable roomBlock">
+                <h3><c:out value="${room.getRoomName()}"/></h3>
+                <div class="roomPreview">
+                    <c:forEach var="image" items="${photoList}">
+                        <c:if test="${room.roomID eq image.roomID}" >
+                            <form:form>
+                                <c:if test="${image.primary eq 1}">
+                                    <img src="/getPhoto?ID=${image.imageID}" alt="placeholder">
+                                </c:if>
+                            </form:form>                        
+                        </c:if>
+                    </c:forEach>
 
-            </div>
+                </div>
                 <a style="float: right;" href="${pageContext.request.contextPath}/rooms/${room.getRoomViewURL()}" class="btn btn-primary">Details</a>
                 <p class="priceLabel">Just $<strong><c:out value="${room.getPricePerNight()}"/></strong> per night</p>
                 <hr>
                 <h4><i class="fa fa-users"></i> Max <strong><c:out value="${room.getMaxGuests()}"/></strong> guests</h4>
                 <hr>
-                <ul class="feature-list list-unstyled">
-                    <c:forEach var="feature" items="${room.features}">
-                        <c:choose>
-                            <c:when test="${feature.value}">
-                                <li><i class="fa fa-check"></i>${feature.key}</li>
-                            </c:when>
-                        </c:choose>
-                    </c:forEach>    
-                </ul>
-            </div>
-            
+                <p>
+                    <c:out value="${room.getDesc()}"/>
+                </p>
+                <hr>
         </div>
             
         

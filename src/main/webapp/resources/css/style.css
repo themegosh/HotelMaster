@@ -3,7 +3,14 @@
 html {
     position: relative;
     min-height: 100%;
+    background: url(/resources/img/mainBg2.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
+
+
 footer {
     position: absolute;
     left: 0;
@@ -16,6 +23,22 @@ footer {
 body {
   padding-top: 50px;
   margin: 0 0 100px;
+  background: none !important;
+}
+
+.container, .container-fluid{
+    background-color: white;    
+}
+
+.adminContainer{
+    margin-top: 50px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.roomsContainer{
+    background-color: #e2e2e2;
 }
 
 #btnViewBookings{
@@ -50,6 +73,14 @@ body {
     padding-top: 0px;
 }
 
+.navbar-default{
+    background-color: white !important;
+}
+
+.navbar-nav>.active>a{
+    background-color: #e2e2e2 !important;
+}
+
 /* Alert boxes */
 .alert {
     margin-bottom: 0px;
@@ -70,6 +101,15 @@ body {
     float: none;
     margin: 0 auto;
 }
+
+div.loginRegister{
+    background: none !important;
+}
+
+.spanOr{
+    display: none !important;
+}
+
 .loginRegister .title {
     text-align: center;
     line-height: 300%;
@@ -172,7 +212,7 @@ body {
 
 /* Search Bar Styling */
 #searchContainer {
-    background-color: #e6e6e6;
+    background: none;
     padding: 15px;
 }
 
@@ -208,6 +248,15 @@ body {
     float: none !important;
   }
   
+  
+  /* HOME PAGE */
+  .homePage{
+      padding: 0 !important;
+  }
+  #myCarousel{
+      margin-bottom: 20px;
+      padding: 0 !important;
+  }
   
   /* THE KING OF STICKY FOOTER */
   .featuresDropdown .col-lg-12{

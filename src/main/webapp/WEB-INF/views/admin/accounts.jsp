@@ -10,7 +10,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 
-<div class="container">
+<div class="container adminContainer">
     <style>
         .borderlessInput {
             border: none;
@@ -30,7 +30,7 @@
         });
     </script>
 
-    <h1>Account Manager</h1>
+    <h1 class="text-center">Account Manager</h1>
 
     <div>
         <table class="table table-striped">

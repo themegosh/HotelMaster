@@ -30,9 +30,9 @@
     <body>
         
         
-        <div>
+        <div class="adminContainer roomsContainer">
         
-            <h1>Room Manager</h1>
+            <h1 class="text-center">Room Manager</h1>
             
             <table class="table table-striped">
                 <thead>

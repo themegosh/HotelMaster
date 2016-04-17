@@ -23,10 +23,10 @@
         <title>Reports</title>
     </head>
     <body>
-    <div class="container">
-        <h2>Report Generator</h2>
+    <div class="container adminContainer">
+        <h2 class="text-center">Report Generator</h2>
         <form:form modelAttribute="reportForm" method="POST" encoding="utf8">
-        <table class="table test">
+        <table class="table test table-striped">
             <tr>
                 <td>Check in date</td>
                 <td><form:input class="form-control selectWidth" path="checkInDate" placeholder="Check In Date" value="${currDate}" type="date" /> </td>

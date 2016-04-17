@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 
-<div class="container">
+<div class="container adminContainer">
     <style>
         .borderlessInput {
             border: none;
@@ -24,7 +24,7 @@
         });
     </script>
 
-    <h1>Photo Manager</h1>
+    <h1 class="text-center">Photo Manager</h1>
 
     <div>
         <table class="table table-striped">

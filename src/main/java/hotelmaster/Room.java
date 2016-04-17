@@ -23,6 +23,7 @@ public class Room {
     private double pricePerNight;
     private int maxGuests;
     private String roomViewURL;
+    private String desc;
     
     private HashMap<String, Boolean> features;
     private Set<String> featuresTest;
@@ -89,6 +90,14 @@ public class Room {
         this.pricePerNight = pricePerNight;
     }
 
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+    
     public int getMaxGuests() {
         return maxGuests;
     }
