@@ -6,9 +6,11 @@
 package hotelmaster.home;
 
 import hotelmaster.Photo;
+import hotelmaster.Room;
 import hotelmaster.account.AccountSession;
 import hotelmaster.gallery.PhotoDAO;
 import hotelmaster.notification.NotificationService;
+import hotelmaster.rooms.RoomDAO;
 import hotelmaster.search.SearchParams;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class HomeController {
+    
+    
+    
+    @Autowired
+    private RoomDAO roomDAO;
     
     @Autowired
     private PhotoDAO photoDAO;
@@ -42,10 +49,18 @@ public class HomeController {
         
         //add notification handling to this page
         modelAndView.addObject("notificationService", notificationService);
-                
+               
         //gallery stuff
         List<Photo> photoList = photoDAO.getAllPhotos();
         modelAndView.addObject("photoList", photoList);
+        
+        //Featured rooms stuff
+        List<Room> roomList = roomDAO.list();
+        modelAndView.addObject("roomList", roomList);
+        Room room = new Room();
+        roomDAO.setRoomFeatures(roomList);
+                modelAndView.addObject("roomList", roomList);
+        modelAndView.addObject("room", room);
         
         //search stuff
         SearchParams searchParams = new SearchParams();

@@ -18,6 +18,13 @@ body {
   margin: 0 0 100px;
 }
 
+#btnViewBookings{
+    color: #337ab7;
+}
+#btnViewBookings:hover{
+    color: #2e6da4;
+}
+
 .nav-login-dropdown {
     padding-top: 5px !important;
     padding-bottom: 5px !important;
@@ -251,6 +258,9 @@ body {
 @media (max-width: 768px) {
   .float-right {
     float: none;
+  }
+  #booking button{
+    margin-bottom: 10px;
   }
 }
 

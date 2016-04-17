@@ -16,7 +16,7 @@
     });
 </script>
 
-<div class="container sections-group">
+<div id="roomView" class="container sections-group">
     
     <div class="row">
         <div class="col-md-12 column ui-sortable">
