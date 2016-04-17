@@ -38,7 +38,7 @@ public class PhotoDAO implements PhotoDAOInterface {
             
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-            String query = "SELECT * FROM room_images WHERE thumbnail = 1";
+            String query = "SELECT * FROM room_images";
 
             List<Photo> photoList = jdbcTemplate.query(query, new RowMapper<Photo>() {
 
