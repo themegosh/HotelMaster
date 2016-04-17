@@ -55,6 +55,11 @@ public class ReportController {
     @RequestMapping(value = "/admin/reports", method = RequestMethod.POST)
     public ModelAndView listResults(@ModelAttribute("reportForm") ReportForm reportForm, ModelAndView model) throws IOException {
         
+        if (accountSession.getAccount() == null || accountSession.getAccount().getAccountLevel() == AccountLevel.USER) {
+            notificationService.add("Error!", "You do not have the required permissions to access the page", NotificationType.ERROR);
+            return new ModelAndView("redirect:/home");
+        }
+        
         List<Report> report = reportDAO.listBookings(reportForm.getCheckInDate(), reportForm.getCheckOutDate(), reportForm.getLowerPricePerNight(), reportForm.getUpperPricePerNight(), reportForm.getFloor());
         TreeMap<String, String> floors = roomDAO.getFloors();
         
