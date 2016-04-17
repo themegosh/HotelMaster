@@ -61,11 +61,12 @@ public class ReportController {
         double total = 0;
         
         for (Report r : report){
+            
             total += Double.parseDouble(r.getTotalPrice());
         }
         
         model.addObject("floors", floors);
-        model.addObject("total", total);
+        model.addObject("total", String.format("%.2f", total));
         model.addObject("report", report);
         model.addObject("reportForm", reportForm);
         model.setViewName("admin/reports");
