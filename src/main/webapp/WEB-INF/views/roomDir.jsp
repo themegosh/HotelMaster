@@ -19,7 +19,7 @@
         var checkInDate = "${searchParams.getCheckInDate()}";
         var checkOutDate = "${searchParams.getCheckOutDate()}";
         
-        if (numOfGuests !== 0) {
+        if (numOfGuests > 0) {
             $('#ddlGuests').val(numOfGuests);
             $('#ddlRange').val(range);
             
