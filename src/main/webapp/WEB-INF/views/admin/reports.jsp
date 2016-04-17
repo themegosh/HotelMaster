@@ -37,11 +37,11 @@
             </tr>
             <tr>
                 <td>Lower price range</td>
-                <td><form:input class="form-control selectWidth" path="lowerPricePerNight" placeholder="0.00" type="number" step="0.01" min="0" max="99.99" /></td>
+                <td><form:input class="form-control selectWidth" path="lowerPricePerNight" placeholder="0.00" type="number" step="0.01" min="0" max="9999.99" /></td>
             </tr>
             <tr>
                 <td>Upper price range</td>
-                <td><form:input class="form-control selectWidth" path="upperPricePerNight" placeholder="0.00" type="number" step="0.01" min="0" max="99.99" /></td>
+                <td><form:input class="form-control selectWidth" path="upperPricePerNight" placeholder="0.00" type="number" step="0.01" min="0" max="9999.99" /></td>
             </tr>
             <tr>
                 <td>Floor</td>
