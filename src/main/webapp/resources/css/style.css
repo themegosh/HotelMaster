@@ -165,12 +165,12 @@ body {
 
 /* Search Bar Styling */
 #searchContainer {
-    background-color: #d9d9d9;
+    background-color: #e6e6e6;
     padding: 15px;
 }
 
-#searchBtnDiv {
-    margin-left: 20px;
+#searchBarComp {
+    width: 50%;
 }
 
 /* Misc form properties */
