@@ -226,9 +226,18 @@ div.loginRegister{
     height:350px;
 }
 
+.contactForm{
+    background: none !important;
+}
+
 .contactForm .input-group{
     padding-bottom: 10px;
 }
+
+.contactSubmit{
+    width: 100%;
+}
+
 
 .inputErrorCls{
     border: 1px solid red !important;
