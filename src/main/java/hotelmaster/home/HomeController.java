@@ -51,7 +51,7 @@ public class HomeController {
         modelAndView.addObject("notificationService", notificationService);
                
         //gallery stuff
-        List<Photo> photoList = photoDAO.getAllPhotos();
+        List<Photo> photoList = photoDAO.getAllPrimaryPhotos();
         modelAndView.addObject("photoList", photoList);
         
         //Featured rooms stuff

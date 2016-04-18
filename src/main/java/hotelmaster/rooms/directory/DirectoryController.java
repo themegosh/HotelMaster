@@ -42,7 +42,7 @@ public class DirectoryController {
         //ContactForm cf = new ContactForm();
         // modelAndView.addObject("contactForm", cf);
         List<Room> roomList = roomDAO.list();
-        List<Photo> photoList = photoDAO.getAllPhotos();
+        List<Photo> photoList = photoDAO.getAllPrimaryPhotos();
         
         modelAndView.addObject("photoList", photoList);
         modelAndView.addObject("roomList", roomList);

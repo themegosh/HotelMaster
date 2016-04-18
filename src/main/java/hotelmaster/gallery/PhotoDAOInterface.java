@@ -20,5 +20,6 @@ public interface PhotoDAOInterface {
     int deletePhoto(int imageID);
     int setPrimaryPhoto(int imageID);
     int getCurrPrimaryPhoto(int currRoomID);
-    public int unsetCurrPrimaryPhoto(int imageID);
+    int unsetCurrPrimaryPhoto(int imageID);
+    List<Photo> getAllPrimaryPhotos();
 }

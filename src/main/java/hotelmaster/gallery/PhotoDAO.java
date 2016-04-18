@@ -60,6 +60,32 @@ public class PhotoDAO implements PhotoDAOInterface {
     }
 
     @Override
+    public List<Photo> getAllPrimaryPhotos() {        
+            
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+            String query = "SELECT * FROM room_images WHERE thumbnail = 1";
+
+            List<Photo> photoList = jdbcTemplate.query(query, new RowMapper<Photo>() {
+
+                @Override
+                public Photo mapRow(ResultSet rs, int i) throws SQLException {
+                    Photo photo = new Photo();
+
+                    photo.setImageID(rs.getInt("image_id"));
+                    photo.setRoomID(rs.getInt("room_id"));
+                    photo.setImage(rs.getBytes("image"));
+                    photo.setTitle(rs.getNString("title"));
+                    photo.setPrimary(rs.getInt("thumbnail"));
+                    return photo;
+                }
+            });
+
+        //return list to be used by controller
+        return photoList;
+    }
+    
+    @Override
     public Photo getPhotoByID(int id) {
         Photo photo = new Photo();
         

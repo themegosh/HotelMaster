@@ -127,9 +127,7 @@
                     <c:forEach var="image" items="${photoList}">
                         <c:if test="${room.roomID eq image.roomID}" >
                             <form:form>
-                                <c:if test="${image.primary eq 1}">
-                                    <img src="/getPhoto?ID=${image.imageID}" alt="placeholder">
-                                </c:if>
+                                <img src="/getPhoto?ID=${image.imageID}" alt="placeholder">
                             </form:form>                        
                         </c:if>
                     </c:forEach>
